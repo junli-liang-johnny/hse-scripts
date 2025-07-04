@@ -1,3 +1,58 @@
+# HSE Data Pipeline Scripts
+
+## Overview
+
+This repository contains a comprehensive data pipeline for converting raw CSV files into RDF (Resource Description Framework) data in TTL (Turtle) format. The pipeline is specifically designed for processing Health Service Executive (HSE) data, including indicators and datasets, with the goal of creating semantic web-ready data that follows established ontologies and vocabularies.
+
+## Pipeline Purpose
+
+The main objective of this pipeline is to:
+
+- **Transform raw CSV data** into semantically structured RDF data
+- **Clean and standardize** input data through various preprocessing steps
+- **Populate missing data** where appropriate using inference and mapping rules
+- **Generate compliant RDF** that adheres to DCAT (Data Catalog Vocabulary), Dublin Core, and other relevant ontologies
+- **Produce high-quality linked data** suitable for semantic web applications and SPARQL querying
+
+## Pipeline Architecture
+
+The pipeline follows a multi-stage approach:
+
+1. **Data Ingestion**: Raw CSV files are processed and cleaned
+2. **Data Preparation**: CSV files are converted to RDF-ready format with proper column mappings
+3. **Entity Creation**: Separate CSV files are created for different RDF entities (datasets, publishers, provenance, etc.)
+4. **Subject Identification**: Unique identifiers are added to create proper RDF subjects
+5. **RDF Mapping**: CSV data is mapped to RDF using RML (RDF Mapping Language)
+6. **Data Refinement**: Unnecessary triples are removed and data transformations are applied
+7. **Output Generation**: Final TTL files are produced for consumption
+
+## Data Processing Features
+
+- **Data Cleaning**: Standardization of column names, data types, and formats
+- **Missing Data Handling**: Intelligent population of missing values based on context and rules
+- **Entity Resolution**: Creation of unique identifiers for entities across different data sources
+- **Namespace Management**: Consistent use of namespaces for proper RDF structure
+- **Validation**: Built-in validation steps to ensure data quality and compliance
+
+## Output Format
+
+The pipeline generates RDF data in Turtle (TTL) format that includes:
+
+- Properly structured triples following semantic web standards
+- Links between related entities (datasets, publishers, indicators)
+- Metadata enrichment using standard vocabularies
+- SPARQL-queryable data for advanced analytics and reporting
+
+## Dependencies
+
+The pipeline requires several Python packages (see `requirements.txt`) and follows modular design principles for maintainability and extensibility.
+
+## Data Sources
+
+**Note**: The raw CSV datasets used in this pipeline contain sensitive health data and are stored in a separate private repository for security and privacy compliance. The pipeline scripts in this repository are designed to work with these datasets once they are made available in the appropriate data directories.
+
+---
+
 ## Pipeline steps for Indicators
 
 ### 1. convert original csv to rdf-ready csv (data cleaning)
