@@ -1,0 +1,41 @@
+PREFIX dpv: <http://www.w3.org/ns/dpv#>
+PREFIX dcterm: <http://purl.org/dc/terms/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX dct: <http://purl.org/dc/terms/>
+PREFIX dcat: <http://www.w3.org/ns/dcat#>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX prov: <http://www.w3.org/ns/prov#>
+PREFIX adms: <http://www.w3.org/ns/adms#>
+PREFIX dcterms: <http://purl.org/dc/terms/>
+PREFIX hwbp: <https://hse-oahwb-profile.adaptcentre.ie#>
+prefix dc: <http://purl.org/dc/elements/1.1/>
+PREFIX healthdcatap: <http://example.org/healthdcatap#>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+PREFIX : <https://hse-oahwb-profile.adaptcentre.ie#>
+PREFIX healthdcat-ap: <http://healthdata.dublinked.ie/def/healthdcatap#>
+
+SELECT 
+?dataset 
+?title
+?spatial
+?spatialResolutionInMeters
+WHERE {
+  ?dataset a dcat:Dataset .
+  OPTIONAL { ?dataset dcterms:title ?title . }
+  OPTIONAL { ?dataset dcterms:accrualPeriodicity ?accrualPeriodicity . }
+  OPTIONAL { ?dataset dcat:temporalResolution ?temporalResolution . }
+  OPTIONAL { ?dataset dcterms:accessRights ?accessRights . }
+  OPTIONAL { ?dataset dc:spatial ?spatial . }
+  OPTIONAL { ?dataset dcat:spatialResolutionInMeters ?spatialResolutionInMeters . }
+  OPTIONAL { ?dataset dpv:hasLegalBasis ?hasLegalBasis . }
+  OPTIONAL { ?dataset dpv:hasPersonalData ?hasPersonalData . }
+  OPTIONAL { ?dataset dpv:hasDataController ?hasDataController . }
+  OPTIONAL { ?dataset healthdcatap:healthTheme ?healthTheme . }
+  OPTIONAL { ?dataset healthdcatap:minTypicalAge ?minTypicalAge . }
+  OPTIONAL { ?dataset healthdcatap:maxTypicalAge ?maxTypicalAge . }
+  FILTER (
+    ?spatial &&
+    ?spatialResolutionInMeters
+  )
+}

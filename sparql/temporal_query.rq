@@ -1,0 +1,20 @@
+PREFIX : <https://hse-oahwb-profile.adaptcentre.ie#>
+PREFIX dcat: <http://www.w2.org/ns/dcat#>
+PREFIX dcterms: <http://purl.org/dc/terms/>
+
+DELETE {
+  ?dataset dcterms:temporal ?start .
+  ?dataset dcterms:temporal ?end .
+}
+INSERT {
+  ?dataset dcterms:temporal ?period .
+  ?period a dcterms:PeriodOfTime ;
+          dcat:startDate ?start ;
+          dcat:endDate ?end .
+}
+WHERE {
+  ?dataset a dcat:Dataset ;
+           dcterms:temporal ?start, ?end .
+  FILTER(?start < ?end)
+  BIND(IRI(CONCAT("https://hse-oahwb-profile.adaptcentre.ie/period/", STRUUID())) AS ?period)
+}

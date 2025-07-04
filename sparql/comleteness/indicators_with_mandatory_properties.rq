@@ -1,0 +1,34 @@
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX dcat: <http://www.w3.org/ns/dcat#>
+PREFIX dcterms: <http://purl.org/dc/terms/>
+PREFIX hwbp: <https://hse-oahwb-profile.adaptcentre.ie#>
+PREFIX healthdcatap: <http://example.org/healthdcatap#>
+
+SELECT 
+  ?indicator
+  ?title
+  ?accrualPeriodicity
+  ?identifier
+  ?numeratorSource
+  ?disaggregation
+  ?numeratorDataElement
+  ?healthThemeDomain
+  ?healthThemeSubdomain
+WHERE {
+  ?indicator a dcat:Dataset ;
+             dcterms:title ?title .
+  OPTIONAL { ?indicator dcterms:accrualPeriodicity ?accrualPeriodicity . }
+  OPTIONAL { ?indicator dcterms:identifier ?identifier . }
+  OPTIONAL { ?indicator hwbp:disaggregation ?disaggregation . }
+  OPTIONAL { ?indicator hwbp:numeratorDataElement ?numeratorDataElement . }
+  OPTIONAL { ?indicator hwbp:numeratorSource ?numeratorSource . }
+  OPTIONAL { ?indicator healthdcatap:healthTheme ?healthThemeDomain . 
+             ?healthThemeDomain a healthdcatap:Domain . }
+  OPTIONAL { ?indicator healthdcatap:healthTheme ?healthThemeSubdomain . 
+             ?healthThemeSubdomain a healthdcatap:Subdomain . }
+  FILTER(
+    BOUND(?accrualPeriodicity) &&
+    BOUND(?identifier) &&
+    BOUND(?numeratorSource)
+  )
+}

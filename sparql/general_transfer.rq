@@ -1,0 +1,74 @@
+PREFIX : <https://hse-oahwb-profile.adaptcentre.ie#>
+PREFIX dcterms: <http://purl.org/dc/terms/>
+PREFIX dcat: <http://www.w3.org/ns/dcat#>
+
+DELETE {
+	?dataset :numeratorSource ?sourceValue .
+} INSERT {
+	?dataset :numeratorSource ?dataset2 .
+	?dataset2 a dcat:Dataset ;
+		dcterms:publisher ?publisher .
+} WHERE {
+	?dataset a dcat:Dataset ;
+		:numeratorSource ?sourceValue .
+
+	?publisher a dcterms:Publisher ;
+		dcterms:source ?sourceValue .
+	BIND(REPLACE(?sourceValue, "^.*/", "") AS ?lastSegment)
+	BIND(IRI(CONCAT("https://hse-oahwb-profile.adaptcentre.ie/dataset/", ?lastSegment)) AS ?dataset2)
+	# BIND(IRI(CONCAT("https://hse-oahwb-profile.adaptcentre.ie/dataset/", STRUUID())) AS ?dataset2)
+};
+
+DELETE {
+	?dataset :denominatorSource ?sourceValue .
+} INSERT {
+	?dataset :denominatorSource ?dataset2 .
+	?dataset2 a dcat:Dataset ;
+		dcterms:publisher ?publisher .
+} WHERE {
+	?dataset a dcat:Dataset ;
+		:denominatorSource ?sourceValue .
+
+	?publisher a dcterms:Publisher ;
+		dcterms:source ?sourceValue .
+	BIND(REPLACE(?sourceValue, "^.*/", "") AS ?lastSegment)
+	BIND(IRI(CONCAT("https://hse-oahwb-profile.adaptcentre.ie/dataset/", ?lastSegment)) AS ?dataset2)
+};
+
+DELETE {
+	?dataset dcterms:provenance ?label .
+} INSERT {
+	?dataset dcterms:provenance ?provenanceStatement .
+} WHERE {
+	?dataset a dcat:Dataset ;
+		dcterms:provenance ?label .
+
+	?provenanceStatement a dcterms:ProvenanceStatement ;
+		rdfs:label ?label .
+};
+
+# replace dcterms:publisher uris
+DELETE {
+	?s dcterms:publisher ?publisherStr .
+} INSERT {
+	?s dcterms:publisher ?publisher .
+} WHERE {
+	?s a dcat:Dataset ;
+		dcterms:publisher ?publisherStr .
+	
+	?publisher a dcterms:Publisher ;
+		foaf:name ?publisherStr .
+};
+
+# replace dataset distribution uris
+DELETE {
+	?dataset dcat:distribution ?distributionStr .
+} INSERT {
+	?dataset dcat:distribution ?distribution .
+} WHERE {
+	?dataset a dcat:Dataset ;
+		dcat:distribution ?distributionStr .
+
+	?distribution a dcat:Distribution ;
+		dcterms:format ?distributionStr .
+};

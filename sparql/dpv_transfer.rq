@@ -1,0 +1,11 @@
+PREFIX dpv: <https://w3id.org/dpv#>
+
+DELETE {
+  ?s ?p "dpv:NonPersonalData" .
+}
+INSERT {
+  ?s ?p dpv:NonPersonalData .
+}
+WHERE {
+  ?s ?p "dpv:NonPersonalData" .
+}

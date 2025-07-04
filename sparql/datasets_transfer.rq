@@ -1,0 +1,57 @@
+PREFIX : <https://hse-oahwb-profile.adaptcentre.ie#>
+PREFIX dcat: <http://www.w2.org/ns/dcat#>
+PREFIX dcterms: <http://purl.org/dc/terms/>
+PREFIX dpv: <https://w3id.org/dpv#>
+
+DELETE {
+  ?s ?p "dpv:NonPersonalData" .
+}
+INSERT {
+  ?s ?p dpv:NonPersonalData .
+}
+WHERE {
+  ?s ?p "dpv:NonPersonalData" .
+};
+
+DELETE {
+  ?dataset dcterms:temporal ?start .
+  ?dataset dcterms:temporal ?end .
+}
+INSERT {
+  ?dataset dcterms:temporal ?period .
+  ?period a dcterms:PeriodOfTime ;
+          dcat:startDate ?start ;
+          dcat:endDate ?end .
+}
+WHERE {
+  ?dataset a dcat:Dataset ;
+           dcterms:temporal ?start, ?end .
+  FILTER(?start < ?end)
+  BIND(IRI(CONCAT("https://hse-oahwb-profile.adaptcentre.ie/period/", STRUUID())) AS ?period)
+};
+
+# replace dcterms:publisher uris
+DELETE {
+	?s dcterms:publisher ?publisherStr .
+} INSERT {
+	?s dcterms:publisher ?publisher .
+} WHERE {
+	?s a dcat:Dataset ;
+		dcterms:publisher ?publisherStr .
+	
+	?publisher a dcterms:Publisher ;
+		foaf:name ?publisherStr .
+};
+
+# replace dataset distribution uris
+DELETE {
+	?dataset dcat:distribution ?distributionStr .
+} INSERT {
+	?dataset dcat:distribution ?distribution .
+} WHERE {
+	?dataset a dcat:Dataset ;
+		dcat:distribution ?distributionStr .
+
+	?distribution a dcat:Distribution ;
+		dcterms:format ?distributionStr .
+};

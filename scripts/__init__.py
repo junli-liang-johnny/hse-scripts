@@ -1,0 +1,1 @@
+from .namespace import base_namespace

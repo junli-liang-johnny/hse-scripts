@@ -1,0 +1,33 @@
+PREFIX dpv: <https://w3id.org/dpv#>
+PREFIX dcterm: <http://purl.org/dc/terms/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX dct: <http://purl.org/dc/terms/>
+PREFIX dcat: <http://www.w3.org/ns/dcat#>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX prov: <http://www.w3.org/ns/prov#>
+PREFIX adms: <http://www.w3.org/ns/adms#>
+PREFIX dcterms: <http://purl.org/dc/terms/>
+PREFIX hwbp: <https://hse-oahwb-profile.adaptcentre.ie#>
+prefix dc: <http://purl.org/dc/elements/1.1/>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+PREFIX : <https://hse-oahwb-profile.adaptcentre.ie#>
+PREFIX healthdcatap: <http://healthdata.dublinked.ie/def/healthdcatap#>
+
+select 
+?indicator
+?dataset 
+?datasetTitle
+?spatial 
+?spatialResolutionInMeters
+where {
+  ?indicator a dcat:Dataset ;
+  :numeratorSource ?dataset .
+  
+  SERVICE<http://localhost:3030/datasets> {
+    ?dataset dc:spatial "Ireland" ;
+             dcterms:title ?datasetTitle ;
+             dc:spatial ?spatial ;
+             dcat:spatialResolutionInMeters ?spatialResolutionInMeters .
+  }
+}

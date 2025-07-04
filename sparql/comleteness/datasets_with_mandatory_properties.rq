@@ -1,0 +1,48 @@
+PREFIX dcat: <http://www.w3.org/ns/dcat#>
+PREFIX dcterms: <http://purl.org/dc/terms/>
+PREFIX dc: <http://purl.org/dc/elements/1.1/>
+PREFIX healthdcatap: <http://healthdata.dublinked.ie/def/healthdcatap#>
+PREFIX dpv: <https://w3id.org/dpv#>
+
+SELECT 
+?dataset 
+?title
+?accrualPeriodicity
+?temporalResolution
+?accessRights
+?spatial
+?spatialResolutionInMeters
+?hasLegalBasis
+?hasPersonalData
+?hasDataController
+?healthTheme
+?minTypicalAge
+?maxTypicalAge
+WHERE {
+  ?dataset a dcat:Dataset ;
+           dcterms:title ?title .
+  OPTIONAL { ?dataset dcterms:accrualPeriodicity ?accrualPeriodicity . }
+  OPTIONAL { ?dataset dcat:temporalResolution ?temporalResolution . }
+  OPTIONAL { ?dataset dcterms:accessRights ?accessRights . }
+  OPTIONAL { ?dataset dcterms:spatial ?spatial . }
+  OPTIONAL { ?dataset dcat:spatialResolutionInMeters ?spatialResolutionInMeters . }
+  OPTIONAL { ?dataset dpv:hasLegalBasis ?hasLegalBasis . }
+  OPTIONAL { ?dataset dpv:hasPersonalData ?hasPersonalData . }
+  OPTIONAL { ?dataset dpv:hasDataController ?hasDataController . }
+  OPTIONAL { ?dataset healthdcatap:healthTheme ?healthTheme . }
+  OPTIONAL { ?dataset healthdcatap:minTypicalAge ?minTypicalAge . }
+  OPTIONAL { ?dataset healthdcatap:maxTypicalAge ?maxTypicalAge . }
+  FILTER(
+    BOUND(?accrualPeriodicity) &&
+    BOUND(?temporalResolution) &&
+    BOUND(?accessRights) &&
+		BOUND(?spatial) &&
+		BOUND(?spatialResolutionInMeters) &&
+		BOUND(?hasLegalBasis) &&
+    BOUND(?hasPersonalData) &&
+		BOUND(?hasDataController) &&
+    BOUND(?healthTheme) &&
+    BOUND(?minTypicalAge) &&
+    BOUND(?maxTypicalAge)
+  )
+}
