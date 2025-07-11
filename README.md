@@ -2,7 +2,7 @@
 
 ## Overview
 
-This repository contains a comprehensive data pipeline for converting raw CSV files into RDF (Resource Description Framework) data in TTL (Turtle) format. The pipeline is specifically designed for processing Health Service Executive (HSE) data, including indicators and datasets, with the goal of creating semantic web-ready data that follows established ontologies and vocabularies.
+This repository contains a comprehensive data pipeline for converting raw CSV files into RDF (Resource Description Framework) data in TTL (Turtle) format. The pipeline is specifically designed for processing HSE and CSO data, including indicators and datasets, with the goal of creating semantic web-ready data that follows established ontologies and vocabularies.
 
 ## Pipeline Purpose
 
