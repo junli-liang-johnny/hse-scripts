@@ -293,3 +293,51 @@ python -m sparql.run_query \
 	--query-file ./sparql/datasets_transfer.rq \
 	--output ./datasets_final.ttl
 ```
+
+## Pipeline - combine delphi input with cso indicator master list
+
+### 1. Join - quite specific to the input files recevied from HSE
+
+```
+hse-data-join \
+	--delphi data/final-delphi.csv \
+	--master data/final-delphi-master \
+	--on "SORT CODE" \
+	--output output/joined.csv
+```
+
+### 2. Add columns - combine delphi and cso indicators
+
+```
+hse-add-columns \
+	--primary data/combined_indicators.csv \
+	--secondary output/joined.csv \
+	--output output/joined_combined.csv \
+```
+
+### 3. Re order headers - move indicator's headers to front followed by delphi's ones
+
+```
+hse-re-order \
+	--input output/joined_combined.csv \
+	--output output/reordered.csv \
+	--move-to-front "Status (included or 'maybe included')"
+```
+
+### 4. Add subheaders (rdf headers and MRO)
+
+```
+hse-add-subheaders \
+	--input output/reordered.csv \
+	--output output/sub_headers_added.csv \
+	--subheaders dcterms:title dct:identifier hwbp:Rationale skos:definition hwbp:indicatorType hwbp:status hwbp:disaggregation hwbp:numeratorDataElement "hwbp:numeratorSource [a dct:dataset [a dct:publisher [a dcterms:source]]" hwbp:denominatorDataElement "hwbp:denominatorSource [a dct:dataset [a dct:publisher [a dcterms:source]]" hwbp:methodology dcterms:accrualPeriodicity hwbp:reportStyle healthdcatap:healthTheme healthdcatap:healthTheme hwbp:highLowGuidance hwbp:measurementLimitations hwbp:validityGuidance hwbp:importance "dct:provenance [a dct:ProvenanceStatement; rdfs:label ]" skos:note \
+	--start-column-index 1
+
+hse-add-subheaders \
+	--input output/sub_headers_added.csv \
+	--output output/final.csv \
+	--subheaders M M R R M R O R M O O R M R R R O O O R O R \
+	--start-column-index 1 \
+	--start-row-index 1 \
+	--fill-value not_set
+```

@@ -1,0 +1,48 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "hse-scripts"
+version = "0.1.0"
+description = "HSE Data Pipeline Scripts for converting CSV to RDF"
+authors = [
+    {name = "HSE Data Pipeline Team"},
+]
+readme = "README.md"
+requires-python = ">=3.8"
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+]
+dependencies = [
+    # Add dependencies from requirements.txt here
+]
+
+[project.urls]
+"Homepage" = "https://github.com/your-org/hse-scripts"
+"Bug Reports" = "https://github.com/your-org/hse-scripts/issues"
+"Source" = "https://github.com/your-org/hse-scripts"
+
+[project.scripts]
+hse-data-join = "scripts:data_join"
+hse-add-columns = "scripts:add_columns"
+hse-re-order = "scripts:re_order"
+hse-add-subheaders = "scripts:add_subheaders"
+
+[tool.setuptools.dynamic]
+dependencies = {file = ["requirements.txt"]}
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["scripts*", "sparql*"]
+exclude = ["tests*", "__pycache__*"]
