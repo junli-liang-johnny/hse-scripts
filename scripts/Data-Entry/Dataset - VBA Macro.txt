@@ -1,0 +1,23 @@
+Sub SubmitDatasetData()
+    Dim wsEntry As Worksheet
+    Dim wsMaster As Worksheet
+    Dim lastRow As Long
+    Dim i As Integer
+
+    Set wsMaster = ThisWorkbook.Sheets("OAHP_DataCatalogueSchemaProposa")
+    Set wsEntry = ThisWorkbook.Sheets("Data_Entry")
+
+    ' Find next available row in master sheet
+    lastRow = wsMaster.Cells(wsMaster.Rows.Count, 1).End(xlUp).Row + 1
+
+    ' Copy all 40 fields from B1:B40 into the master sheet
+    For i = 1 To 40
+        wsMaster.Cells(lastRow, i).Value = wsEntry.Cells(i, 2).Value
+    Next i
+
+    ' Clear the form after submission
+    wsEntry.Range("B1:B40").ClearContents
+
+    MsgBox "Dataset data successfully submitted!", vbInformation
+End Sub
+
