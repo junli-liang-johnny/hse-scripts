@@ -4,3 +4,4 @@ output/
 **.pyc
 __pycache__/
 run/
+.env/
