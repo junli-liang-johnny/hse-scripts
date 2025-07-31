@@ -103,7 +103,7 @@ def _minimise_rows(csv_reader: list[list], column_name: str) -> list[list]:
 
 		return filtered_rows[1:]
 
-if __name__ == "__main__":
+def main():
 		parser = argparse.ArgumentParser(description="Generalized CSV creation script.")
 		parser.add_argument(
 				"--input",
@@ -184,3 +184,6 @@ if __name__ == "__main__":
 		}
 
 		create_csv(config)
+
+if __name__ == "__main__":
+	main()
