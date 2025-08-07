@@ -1,4 +1,4 @@
-#!/home/johnny/workspace/hse/hse-scripts/.env/bin/python3
+#!/home/johnny/workspace/hse-scripts/.env/bin/python3
 # -*- coding: utf-8 -*-
 import re
 import sys
