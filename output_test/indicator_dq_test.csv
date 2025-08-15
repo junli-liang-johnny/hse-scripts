@@ -1,0 +1,139 @@
+Indicator ID,Title,DQ Pass,Failed Tests,Failure Reasons
+hse0000001,Number and proportion of population aged 65 years and over,Fail,Q4.a; Q1.d,Personal data/access rights classification missing; Spatial metadata missing or no Ireland/IHA coverage
+hse0000002,Number of homeless persons aged 65+,Fail,Q1.b,Missing mandatory or recommended fields
+hse0000003,Number of Travellers aged 65+,Fail,Q4.b; Q1.c,Personal data type not specified; Missing numerator/denominator dataset link
+hse0000004,Percentage of older adults (65+) who are in receipt of home care package,Fail,Q4.c; Q4.a,Data controller not HSE or unspecified; Personal data/access rights classification missing
+hse0000005,Deprivation distribution by 8-point Pobal HP index for those aged 65 and over,Fail,Q2.a; Q4.c,Temporal resolution metadata missing; Data controller not HSE or unspecified
+hse0000006,Ethnicity of those aged 65+,Fail,Q3.a,Publication frequency below required
+hse0000007,Persons who smoke: Proportion of population aged 65+ who smoked tobacco. (Displayed as: Yes - daily;  Yes - occasionally; No - have given up smoking; Never),Fail,Q1.c,Missing numerator/denominator dataset link
+hse0000008,Percentage of older adults (65+)who reported a fall in the previous two years,Fail,Q3.a; Q4.b,Publication frequency below required; Personal data type not specified
+hse0000009,Number of inpatient stays in older adults (65+) in the last year,Pass,,
+hse0000010,Length of inpatient stays  in older adults (65+) in the last year,Pass,,
+hse0000011,Number of persons aged 65 years and over usually resident in a nursing home home/residential facility or hospital by sex and census year,Pass,,
+hse0000012,Percentage of older adults (65+) who have a cardiovascular disease,Fail,Q1.b; Q3.b,Missing mandatory or recommended fields; Reporting style metadata missing; cannot assess
+hse0000013,Percentage of older adults  (65+)who report severe or moderate pain most of the time,Fail,Q3.a,Publication frequency below required
+hse0000014,Percentage of older adults (65+) with depression (CESD-8),Fail,Q3.a; Q1.c,Publication frequency below required; Missing numerator/denominator dataset link
+hse0000015,Number of outpatient visits in older adults (65+) in the last year,Fail,Q2.b; Q3.b,Spatial resolution below required level; Reporting style metadata missing; cannot assess
+hse0000016,Number of Persons aged 65 years and over living alone in private households,Fail,Q2.b; Q4.c,Spatial resolution below required level; Data controller not HSE or unspecified
+hse0000017,Percentage of persons 65 and above living alone in private households,Fail,Q1.d; Q3.a,Spatial metadata missing or no Ireland/IHA coverage; Publication frequency below required
+hse0000018,Number of Emergency Department visits in older adults (65+) in the last year,Pass,,
+hse0000019,Percent of Persons over 65 with a Disability,Pass,,
+hse0000020,Healthy Life Years (HLY) at 65,Fail,Q4.c,Data controller not HSE or unspecified
+hse0000021,Percentage of older adults  (65+)who have a chronic disease,Fail,Q1.a; Q2.a,Missing required metadata fields; Temporal resolution metadata missing
+hse0000022,Percentage of older adults (65+) who are in receipt of home help,Fail,Q2.b,Spatial resolution below required level
+hse0000023,Percentage of older adults (65+) who are in receipt of Meals-on-Wheels,Pass,,
+hse0000024,Projected population aged 65 years and over by age group and year using the M2 projection scenario ('000),Fail,Q3.a; Q3.b,Publication frequency below required; Reporting style metadata missing; cannot assess
+hse0000025,Number of people aged 65+  who are blind or have a visual impairment,Fail,Q1.c,Missing numerator/denominator dataset link
+hse0000026,Number of GP visits in older adults (65+) in the last year,Fail,Q1.b,Missing mandatory or recommended fields
+hse0000027,Percent of people 65 and above who have been admitted to hospital as an inpatient by sex and year,Pass,,
+hse0000028,Number of people 65+ in receipt of home support - OP54,Pass,,
+hse0000029,Number of people with an intellectual disability over 65,Fail,Q2.a; Q1.b,Temporal resolution metadata missing; Missing mandatory or recommended fields
+hse0000030,Percentage of older adults (65+) who report problematic alcohol use (CAGE measure),Fail,Q1.e,No age 65+ coverage specified
+hse0000031,Percent of people 65 and above with a GP Visit card or Medical Card,Fail,Q1.e; Q1.d,No age 65+ coverage specified; Spatial metadata missing or no Ireland/IHA coverage
+hse0000032,Percentage of older adults (65+) who are taking five or more medications,Pass,,
+hse0000033,Population by general health.  Self-reported general health of 65+ (Displayed  as: Very good; Good; Fair; Bad; Very bad; Not stated),Fail,Q1.a; Q1.b,Missing required metadata fields; Missing mandatory or recommended fields
+hse0000034,"Ischaemic stroke discharge rate for per 1,000 population (65+)",Fail,Q1.e; Q2.b,No age 65+ coverage specified; Spatial resolution below required level
+hse0000035,Housing tenure status by age group of reference person and census year,Pass,,
+hse0000036,"Carers by sex: Proportion of the population age 65+  providing regular unpaid care or support to a family member, neighbour or friend with a long-term illness, old age or a disability. Displayed as: Female; Male.",Fail,Q4.a; Q1.b,Personal data/access rights classification missing; Missing mandatory or recommended fields
+hse0000037,Proportion of Population aged 65+ by social class and sex.,Pass,,
+hse0000038,Percentage of older adults (65+) who have had a flu vaccine in the previous two years,Pass,,
+hse0000039,Smoking prevalence among Travellers aged 65+,Fail,Q1.a; Q1.c,Missing required metadata fields; Missing numerator/denominator dataset link
+hse0000040,"Congestive Heart Failure discharge rate per 1,000 population (ACS Condition)",Pass,,
+hse0000041,"Percent of people 65 and above who are At Risk of Poverty Rate (The at-risk-of-poverty rate measures the percentage of people whose income falls below a set threshold, typically 60% of the national median income)",Fail,Q3.a; Q4.b,Publication frequency below required; Personal data type not specified
+hse0000042,Number of ED attendances,Fail,Q2.a; Q4.c,Temporal resolution metadata missing; Data controller not HSE or unspecified
+hse0000043,"Haemorrhagic stroke discharge rate for  per 1,000 population (65+)",Fail,Q1.d,Spatial metadata missing or no Ireland/IHA coverage
+hse0000044,Percentage of older adults (65+)who report unmet need for a community care service,Fail,Q4.a,Personal data/access rights classification missing
+hse0000045,"Ischaemic heart disease discharge rate per 1,000 population (65+)",Pass,,
+hse0000046,Population aged 65+ years by principal economic status: At work; Looking for first regular job; Unemployed short term; Unemployed long term; Student; Looking after home/family; Retired; Unable to work due to permanent sickness or disability; Other.,Pass,,
+hse0000047,Percent of those 65 and above who do provide care are providing it to a family member,Fail,Q1.a; Q4.a,Missing required metadata fields; Personal data/access rights classification missing
+hse0000048,Number of persons funded under Nursing Home Support Scheme (NHSS) in long term residential care,Fail,Q1.b; Q3.a,Missing mandatory or recommended fields; Publication frequency below required
+hse0000049,Percent of people 65 and above who rate their quality of life as good or very good,Fail,Q3.b; Q4.b,Reporting style metadata missing; cannot assess; Personal data type not specified
+hse0000050,Percent of people 65 and above who rate their quality of life as poor or very poor,Fail,Q3.b,Reporting style metadata missing; cannot assess
+hse0000051,Number of Persons aged 65+ in Private Households,Fail,Q1.a; Q1.d,Missing required metadata fields; Spatial metadata missing or no Ireland/IHA coverage
+hse0000052,"Propotion of the population aged 65+ who have a difficulty with basic physical activities such as walking, climbing stairs, reaching, lifting or carrying (Yes, to a great extent, Yes to some extent, No)",Fail,Q1.c; Q1.b,Missing numerator/denominator dataset link; Missing mandatory or recommended fields
+hse0000053,"Proportion of the population aged 65+, as a result of a long-lasting condition, have difficulty doing any of the following: Dressing, bathing or getting around inside the home; Going outside the home to shop or visit a doctors surgery; Working at a job or business or attending school or college; Participating in other activities, for example leisure or using transport.",Fail,Q3.b; Q1.d,Reporting style metadata missing; cannot assess; Spatial metadata missing or no Ireland/IHA coverage
+hse0000054,Percentage of older adults (65+) who attend Day Centre Servcies,Fail,Q3.a; Q1.b,Publication frequency below required; Missing mandatory or recommended fields
+hse0000055,Self-reported health of people with an intellectual disability (%),Fail,Q4.b,Personal data type not specified
+hse0000056,Percent of those 60 years and over who used the internet in the last 3 months,Pass,,
+hse0000057,Preventative Measures in the last 12 months of persons aged 65 years and over - Had blood pressure measured,Pass,,
+hse0000058,Percentage women 65+ who have had a Mammogram/X-ray,Fail,Q2.a; Q3.a,Temporal resolution metadata missing; Publication frequency below required
+hse0000059,Preventative Measures in the last 12 months of persons aged 65 years and over - Had blood sugar measured,Fail,Q4.b,Personal data type not specified
+hse0000060,"Percent of people 65 and above who drink more than once per week, only once per week, 1-3 times per month, ho have not drank in a month or longer, who have never drank",Fail,Q1.e; Q3.a,No age 65+ coverage specified; Publication frequency below required
+hse0000061,Percentage of older adults  (65+)who show evidence of mild cognitive impairment,Fail,Q4.a,Personal data/access rights classification missing
+hse0000062,Percent of people 65 and over who use e-cigarettes,Fail,Q1.a,Missing required metadata fields
+hse0000063,Number of people aged 65+ who are deaf or have a hearing impairment by sex,Pass,,
+hse0000064,Population by general health - female. Self-reported general health of 65+ (Displayed  as: Very good; Good; Fair; Bad; Very bad; Not stated),Fail,Q3.b; Q1.c,Reporting style metadata missing; cannot assess; Missing numerator/denominator dataset link
+hse0000065,Population by general health - Male. Self-reported general health of 65+ (Displayed  as: Very good; Good; Fair; Bad; Very bad; Not stated),Fail,Q4.b,Personal data type not specified
+hse0000066,Number of Nursing Home Support Scheme (NHSS) beds in public long stay units (WORDING),Fail,Q3.a,Publication frequency below required
+hse0000067,Percentage men 65+ who have had a prostate exam,Pass,,
+hse0000068,Number of people aged 65+  who are blind or have a visual impairment by sex,Fail,Q4.a; Q2.b,Personal data/access rights classification missing; Spatial resolution below required level
+hse0000069,Percentage of older adults (65+) who report limitations in Activites in Daily Living (ADLs),Fail,Q2.a,Temporal resolution metadata missing
+hse0000070,"Lower respiratory infection discharge rate per 1,000 population (65+)",Fail,Q1.c; Q3.a,Missing numerator/denominator dataset link; Publication frequency below required
+hse0000071,"Falls discharge rate per 1,000 population (65+)",Fail,Q4.a; Q1.e,Personal data/access rights classification missing; No age 65+ coverage specified
+hse0000072,"Alzheimer's disease discharges per 1,000 population (65+)",Fail,Q1.b,Missing mandatory or recommended fields
+hse0000073,Percent of people 65 and above who have been admitted as a day care by sex and year,Fail,Q1.c,Missing numerator/denominator dataset link
+hse0000074,"Pneumonia discharge rate per 1,000 population (ACS Condition)",Fail,Q2.a,Temporal resolution metadata missing
+hse0000075,Projected Dependency Ratios from 2022,Fail,Q1.c; Q1.d,Missing numerator/denominator dataset link; Spatial metadata missing or no Ireland/IHA coverage
+hse0000076,"Hypertensive heart disease discharge rate for per 1,000 population (65+)",Fail,Q4.c; Q1.c,Data controller not HSE or unspecified; Missing numerator/denominator dataset link
+hse0000077,"Tracheal, bronchial and lung cancer discharge rate for per 1,000 population (65+)",Pass,,
+hse0000078,"Breast cancer discharge rate per 1,000 population (65+)",Fail,Q2.b,Spatial resolution below required level
+hse0000079,"Colorectal cancer discharge rate per 1,000 population (65+)",Fail,Q3.a,Publication frequency below required
+hse0000080,"Diabetes discharges per 1,000 population (65+)",Fail,Q3.a,Publication frequency below required
+hse0000081,"Chronic kidney disease discharges per 1,000 population (65+)",Fail,Q4.a,Personal data/access rights classification missing
+hse0000082,Travellers' aged 65+ self-reported general health (very bad to very good),Fail,Q1.a,Missing required metadata fields
+hse0000083,"Proportion of the population aged 65+ who have a difficulty with learning, remembering or concentrating.",Fail,Q2.a,Temporal resolution metadata missing
+hse0000084,Persons aged 65 and older - With personal care difficulties (%),Pass,,
+hse0000085,Persons aged 65 and older - Who would usually receive help for at least one activity (%),Fail,Q2.b,Spatial resolution below required level
+hse0000086,Percent of those 65 and above who are providing less than 10 hours of care per week,Pass,,
+hse0000087,Percent of those 65 and above who are providing at least 10 but less than 20 hours of care per week,Fail,Q1.d; Q1.e,Spatial metadata missing or no Ireland/IHA coverage; No age 65+ coverage specified
+hse0000088,Percent of those 65 and above who are providing care  20 hours per week or more,Pass,,
+hse0000089,Conversion of ED attendances into admissions,Fail,Q3.a,Publication frequency below required
+hse0000090,Preventative Measures in the last 12 months of persons aged 65 years and over - Had blood cholesterol measured,Fail,Q1.a,Missing required metadata fields
+hse0000091,Travellers aged 65+ experiencing at least one long-lasting condition or difficulty to any extent,Pass,,
+hse0000092,Deprivation level of people aged 65+ with an intellectual disability (%),Pass,,
+hse0000093,Percentage of older adults  (65+) who have had a COVID vaccine,Fail,Q3.b,Reporting style metadata missing; cannot assess
+hse0000094,"Influenza discharge rate per 1,000 population (ACS Condition)",Fail,Q1.c; Q1.a,Missing numerator/denominator dataset link; Missing required metadata fields
+hse0000095,"Asthma discharges per 1,000 population (65+)",Fail,Q4.a,Personal data/access rights classification missing
+hse0000096,Gender breakdown of people  with an intellectual disability over 65 (%),Pass,,
+hse0000097,Percentage of individuals 65 and above who are feeling lonely by frequency and year,Fail,Q1.c,Missing numerator/denominator dataset link
+hse0000098,Consistent Poverty Rate for those over 65+ (%) (Consistent poverty is a broader measure that considers both income poverty and the experience of deprivation (inability to afford basic necessities),Fail,Q4.a,Personal data/access rights classification missing
+hse0000099,"Percentage of older adults (65+) with low, medium and high physical activity levels (Short IPAQ questionnaire)",Fail,Q1.d; Q1.a,Spatial metadata missing or no Ireland/IHA coverage; Missing required metadata fields
+hse0000100,"Dehydration discharge rate per 1,000 population (ACS Condition)",Fail,Q4.b; Q1.d,Personal data type not specified; Spatial metadata missing or no Ireland/IHA coverage
+hse0000101,Percent of people 65 and above achieving National Physical Activity Guidelines by sex and year,Pass,,
+hse0000102,"Depression and bipolar disorders discharge rate per 1,000 population (65+)",Fail,Q1.e,No age 65+ coverage specified
+hse0000103,"Anxiety discharges per 1,000 population (65+)",Fail,Q2.a,Temporal resolution metadata missing
+hse0000104,"Schizophrenia discharges per 1,000 population (65+)",Pass,,
+hse0000105,"Percent of 65+ who provide care or assistance to one or more persons suffering from some age related problem, chronic health condition or infirmity, at least once a week",Pass,,
+hse0000106,"COPD discharges per 1,000 population (65+)",Pass,,
+hse0000107,"Percent of people 65 and above with Low, Medium, High, Not Stated overall life satisfaction",Pass,,
+hse0000108,Number of persons 65+ in receipt of Intensive Home Care Packages (IHCP),Fail,Q2.b,Spatial resolution below required level
+hse0000109,Proportion of Population aged 65+ by marital status.,Pass,,
+hse0000110,Population aged 65 years and over by highest level of education completed (%),Fail,Q1.e; Q1.d,No age 65+ coverage specified; Spatial metadata missing or no Ireland/IHA coverage
+hse0000111,Percentage of older adults(65+)who engage in one or more social leisure activity at least once a week,Fail,Q4.b,Personal data type not specified
+hse0000112,Number of home support hours provided to those aged 65 and over (exclusing provision of hours from Intensive Home Care Packages IHCPs),Pass,,
+hse0000113,"Dementia due to causes other than Alzheimer's disease discharge rate per 1,000 population (65+)",Fail,Q1.a; Q2.a,Missing required metadata fields; Temporal resolution metadata missing
+hse0000114,Accommodation status of people aged 65+ with an intellectual disability (%),Fail,Q1.a; Q1.c,Missing required metadata fields; Missing numerator/denominator dataset link
+hse0000115,Percentage of older adults  (65+)who report limitations in Instrumental Activities in Daily Living (IADLS),Pass,,
+hse0000116,"Pyelonephritis discharge rate per 1,000 population (ACS Condition)",Pass,,
+hse0000117,"UTI discharge rate per 1,000 population (ACS Condition)",Fail,Q4.a,Personal data/access rights classification missing
+hse0000118,"Angina discharge rate per 1,000 population (ACS Condition)",Fail,Q3.b,Reporting style metadata missing; cannot assess
+hse0000119,"Iron deficiency anaemia discharge rate per 1,000 population (ACS Condition)",Pass,,
+hse0000120,Frequency of loneliness in a week as reported by older adults aged 65+,Fail,Q1.e,No age 65+ coverage specified
+hse0000121,"Percentage of older adults (65+) who are members of organisations, clubs, societies",Fail,Q1.d,Spatial metadata missing or no Ireland/IHA coverage
+hse0000122,Percent of people 65 and over who rate the quality of their sleep at night as fairly good or very good,Fail,Q3.b; Q2.b,Reporting style metadata missing; cannot assess; Spatial resolution below required level
+hse0000123,Proportion of the population 65+ who regularly engage in helping or voluntary work in any of the following activities without pay: A social or charitable organisation; A religious group or church; A sporting organisation; A political organisation; In your community; No.,Fail,Q1.c; Q1.d,Missing numerator/denominator dataset link; Spatial metadata missing or no Ireland/IHA coverage
+hse0000124,"Percentage of older adults (65+) who are underweight, overweight and obese",Pass,,
+hse0000125,% medicines by ATC codes prescribed to those aged 65+,Fail,Q3.b; Q3.a,Reporting style metadata missing; cannot assess; Publication frequency below required
+hse0000126,Percentage of older adults who provide care to children and/or grandchildren (Who and how often),Fail,Q4.a; Q1.e,Personal data/access rights classification missing; No age 65+ coverage specified
+hse0000127,Percent of people aged 65 and above who have taken an antibiotic in the last 12 months by sex and year,Fail,Q3.a; Q1.b,Publication frequency below required; Missing mandatory or recommended fields
+hse0000128,Percentage of older adults (65+) who volunteer,Fail,Q3.b,Reporting style metadata missing; cannot assess
+hse0000129,Number of older people newly supported with ALONE services (year),Fail,Q1.e; Q4.c,No age 65+ coverage specified; Data controller not HSE or unspecified
+hse0000130,Number of older people in receipt of ongoing support of ALONE Services (year),Fail,Q4.b; Q1.a,Personal data type not specified; Missing required metadata fields
+hse0000131,Total number of new referrals to ICPOP (accepted) by month,Fail,Q1.e,No age 65+ coverage specified
+hse0000132,Total number of new ICPOP referrals by referral source by month,Fail,Q1.b; Q3.a,Missing mandatory or recommended fields; Publication frequency below required
+hse0000133,Total number of new ICPOP referrals with a clinical frailty score of 3 or less (not frail),Fail,Q1.b,Missing mandatory or recommended fields
+hse0000134,Total number of new ICPOP referrals with a clinical frailty score of 4-6 (mild frailty),Pass,,
+hse0000135,Total number of new ICPOP referrals with a clinical frailty score of 7-8 (moderate frailty),Pass,,
+hse0000136,Total number of new ICPOP referrals with a clinical frailty score of 9 (advanced frailty),Fail,Q2.b,Spatial resolution below required level
+hse0000137,Total number of new patients seen by ICPOP on 10 or more medications by month,Fail,Q1.d,Spatial metadata missing or no Ireland/IHA coverage
+hse0000138,Percent of population aged 65+  experiencing enforced deprivation,Fail,Q2.b; Q4.c,Spatial resolution below required level; Data controller not HSE or unspecified

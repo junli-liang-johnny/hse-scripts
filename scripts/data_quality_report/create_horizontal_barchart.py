@@ -5,6 +5,7 @@ Script to create horizontal bar charts for metadata fields count data.
 
 import pandas as pd
 import matplotlib.pyplot as plt
+import matplotlib as mpl
 import numpy as np
 import seaborn as sns
 from pathlib import Path
@@ -21,6 +22,7 @@ def create_horizontal_barchart(csv_file_path, output_path=None, chart_type='perc
         color_scheme (str): Color scheme for bars - 'Set3', 'tab20', 'viridis', 'plasma', 'rainbow', etc.
     """
     x_axis_label = kwargs.get('x_label', 'Completeness Percent (%)')
+    show_avg = kwargs.get('show_avg', True)
     
     # Read the CSV file
     df = pd.read_csv(csv_file_path)
@@ -30,16 +32,20 @@ def create_horizontal_barchart(csv_file_path, output_path=None, chart_type='perc
     
     # Sort by percentage for better visualization
     df_sorted = df.sort_values(x_axis_label, ascending=True)
+
+    # Compute average percentage (coerce to numeric in case of stray strings)
+    try:
+        avg_pct = pd.to_numeric(df_sorted[x_axis_label], errors='coerce').mean()
+    except Exception:
+        avg_pct = None
     
     # Set up the plot style
     plt.style.use('default')
     
     # Create a color palette with different colors for each bar
     n_bars = len(df_sorted)
-    if color_scheme in ['viridis', 'plasma', 'inferno', 'magma', 'cividis']:
-        colors = plt.cm.get_cmap(color_scheme)(np.linspace(0, 1, n_bars))
-    else:
-        colors = plt.cm.get_cmap(color_scheme)(range(n_bars))
+    cmap = mpl.colormaps.get_cmap(color_scheme)
+    colors = cmap(np.linspace(0, 1, n_bars))
     
     if chart_type == 'percentage':
         # Create horizontal bar chart for percentages
@@ -52,7 +58,7 @@ def create_horizontal_barchart(csv_file_path, output_path=None, chart_type='perc
         ax.set_title('Metadata Fields Coverage - Percentage Distribution', 
                     fontsize=14, fontweight='bold', pad=20)
         
-        # Add percentage labels on bars
+    # Add percentage labels on bars
         for i, bar in enumerate(bars):
             width = bar.get_width()
             ax.text(width + 1, bar.get_y() + bar.get_height()/2, 
@@ -60,6 +66,12 @@ def create_horizontal_barchart(csv_file_path, output_path=None, chart_type='perc
         
         # Set x-axis limit to accommodate labels
         ax.set_xlim(0, 110)
+
+    # Add average percentage annotation at top-left
+    if show_avg and avg_pct is not None:
+        ax.text(0.01, 0.98, f'Avg: {avg_pct:.1f}%', transform=ax.transAxes,
+            ha='left', va='top', fontweight='bold',
+            bbox=dict(facecolor='white', alpha=0.7, edgecolor='none', pad=3))
         
     elif chart_type == 'count':
         # Create horizontal bar chart for counts
@@ -96,6 +108,12 @@ def create_horizontal_barchart(csv_file_path, output_path=None, chart_type='perc
             ax1.text(width + 1, bar.get_y() + bar.get_height()/2, 
                     f'{width:.1f}%', ha='left', va='center', fontweight='bold')
         ax1.set_xlim(0, 110)
+
+        # Add average percentage annotation on percentage subplot
+        if show_avg and avg_pct is not None:
+            ax1.text(0.01, 0.98, f'Avg: {avg_pct:.1f}%', transform=ax1.transAxes,
+                     ha='left', va='top', fontweight='bold',
+                     bbox=dict(facecolor='white', alpha=0.7, edgecolor='none', pad=3))
         
         # Count chart
         bars2 = ax2.barh(df_sorted['Metadata Field'], df_sorted['Present Count'], color=colors)
@@ -134,22 +152,24 @@ def create_horizontal_barchart(csv_file_path, output_path=None, chart_type='perc
 
 def main():
     parser = argparse.ArgumentParser(description='Create horizontal bar chart from metadata CSV')
-    parser.add_argument('csv_file', help='Path to the CSV file')
+    parser.add_argument('-i', '--input', help='Path to the CSV file')
     parser.add_argument('-o', '--output', help='Output file path for saving the chart')
     parser.add_argument('-t', '--type', choices=['percentage', 'count', 'both'], 
                        default='percentage', help='Type of chart to create')
     parser.add_argument('-c', '--colors', default='Set3',
                        help='Color scheme for bars (Set3, tab20, viridis, plasma, rainbow, etc.)')
+    parser.add_argument('--no-avg', action='store_true', help='Disable average percentage annotation')
     
     args = parser.parse_args()
     
     # Create the chart
-    create_horizontal_barchart(args.csv_file, args.output, args.type, args.colors)
+    create_horizontal_barchart(
+        args.input,
+        args.output,
+        args.type,
+        args.colors,
+        show_avg=not args.no_avg
+    )
 
 if __name__ == "__main__":
-    # If run directly, use the default file path
-    csv_file = "/home/johnny/workspace/hse/hse-data/output/metadata_fields_indicators_count.csv"
-    output_file = "/home/johnny/workspace/hse/hse-data/output/metadata_fields_indicators_barchart.png"
-    
-    print("Creating horizontal bar chart for metadata fields indicators...")
-    create_horizontal_barchart(csv_file, output_file, 'percentage')
+    main()
