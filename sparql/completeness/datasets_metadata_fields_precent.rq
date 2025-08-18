@@ -1,0 +1,52 @@
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX dcat: <http://www.w3.org/ns/dcat#>
+PREFIX dcterms: <http://purl.org/dc/terms/>
+PREFIX hwbp: <https://hse-oahwb-profile.adaptcentre.ie#>
+PREFIX healthdcatap: <http://example.org/healthdcatap#>
+PREFIX dpv: <https://w3id.org/dpv#>
+
+SELECT 
+?dataset 
+?title
+?accrualPeriodicity
+?temporalResolution
+?accessRights
+?spatial
+?spatialResolutionInMeters
+?hasLegalBasis
+?hasPersonalData
+?hasDataController
+?healthTheme
+?minTypicalAge
+?maxTypicalAge
+(
+  (
+    IF(BOUND(?accrualPeriodicity), 1,0) + 
+    IF(BOUND(?temporalResolution), 1,0) +
+    IF(BOUND(?accessRights), 1,0) +
+    IF(BOUND(?spatial), 1,0) +
+    IF(BOUND(?spatialResolutionInMeters), 1,0) +
+    IF(BOUND(?hasLegalBasis), 1,0) +
+    IF(BOUND(?hasPersonalData), 1,0) +
+    IF(BOUND(?hasDataController), 1,0) +
+    IF(BOUND(?healthTheme), 1,0) +
+    IF(BOUND(?minTypicalAge), 1,0) +
+    IF(BOUND(?maxTypicalAge), 1,0)
+  ) / 11.0 AS ?percent
+)
+WHERE {
+  ?dataset a dcat:Dataset ;
+           dcterms:title ?title .
+  OPTIONAL { ?dataset dcterms:accrualPeriodicity ?accrualPeriodicity . }
+  OPTIONAL { ?dataset dcat:temporalResolution ?temporalResolution . }
+  OPTIONAL { ?dataset dcterms:accessRights ?accessRights . }
+  OPTIONAL { ?dataset dcterms:spatial ?spatial . }
+  OPTIONAL { ?dataset dcat:spatialResolutionInMeters ?spatialResolutionInMeters . }
+  OPTIONAL { ?dataset dpv:hasLegalBasis ?hasLegalBasis . }
+  OPTIONAL { ?dataset dpv:hasPersonalData ?hasPersonalData . }
+  OPTIONAL { ?dataset dpv:hasDataController ?hasDataController . }
+  OPTIONAL { ?dataset healthdcatap:healthTheme ?healthTheme . }
+  OPTIONAL { ?dataset healthdcatap:minTypicalAge ?minTypicalAge . }
+  OPTIONAL { ?dataset healthdcatap:maxTypicalAge ?maxTypicalAge . }
+}

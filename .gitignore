@@ -3,3 +3,5 @@ output/
 **.egg-info/
 **.pyc
 __pycache__/
+run/
+.env/

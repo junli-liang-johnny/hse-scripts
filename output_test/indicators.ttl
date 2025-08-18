@@ -1,0 +1,1824 @@
+@prefix : <https://hse-oahwb-profile.adaptcentre.ie#> .
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix healthdcatap: <http://healthdata.dublinked.ie/def/healthdcatap#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+
+<https://hse-oahwb-profile.adaptcentre.ie/indicator/hse0000001> a dcat:Dataset,
+        :Indicator ;
+    healthdcatap:healthTheme "DEMOGRAPHICS" ;
+    dcterms:identifier "hse0000001" ;
+    dcterms:provenance "CSO - Census 2022" ;
+    dcterms:title "Number and proportion of population aged 65 years and over" ;
+    skos:definition "The total number and percentage of people in the population who are aged 65 years or older." ;
+    skos:note "Replaces F1002 as data available by sex, age and small area" ;
+    :numeratorSource "https://data.cso.ie/table/SAP2022T1T1ASA" ;
+    :status "Include in Delphi" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/indicator/hse0000002> a dcat:Dataset,
+        :Indicator ;
+    healthdcatap:healthTheme "VULNERABLE GROUPS" ;
+    dcterms:identifier "hse0000002" ;
+    dcterms:provenance "Department of Government and Housing" ;
+    dcterms:title "Number of homeless persons aged 65+" ;
+    skos:definition "The number of people aged 65 years and over who are in accomodation designated for the homeless or sleeping rough." ;
+    skos:note "Publicly available by region for all adults (vs 65+)" ;
+    :numeratorSource "https://www.gov.ie/en/department-of-housing-local-government-and-heritage/collections/homelessness-data/" ;
+    :status "Include in Delphi" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/indicator/hse0000003> a dcat:Dataset,
+        :Indicator ;
+    healthdcatap:healthTheme "VULNERABLE GROUPS" ;
+    dcterms:identifier "hse0000003" ;
+    dcterms:provenance "CSO - Census 2022" ;
+    dcterms:title "Number of Travellers aged 65+" ;
+    skos:definition "The number of people from the Traveller community who are aged 65 years or older." ;
+    :numeratorSource "https://data.cso.ie/table/F9026" ;
+    :status "Include in Delphi" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/indicator/hse0000004> a dcat:Dataset,
+        :Indicator ;
+    healthdcatap:healthTheme "HEALTHCARE USE" ;
+    dcterms:identifier "hse0000004" ;
+    dcterms:provenance "TILDA" ;
+    dcterms:title "Percentage of older adults (65+) who are in receipt of home care package" ;
+    skos:definition "The percentage of adults aged 65 years or over receiving organised care services in their own home, such as personal care or nursing." ;
+    :denominatorDataElement "All respondents aged 65+ who answered question" ;
+    :denominatorSource "TILDA Wave 6" ;
+    :numeratorSource "TILDA Wave 6" ;
+    :status "Include in Delphi" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/indicator/hse0000005> a dcat:Dataset,
+        :Indicator ;
+    healthdcatap:healthTheme "DEMOGRAPHICS" ;
+    dcterms:identifier "hse0000005" ;
+    dcterms:provenance "Pobal" ;
+    dcterms:title "Deprivation distribution by 8-point Pobal HP index for those aged 65 and over" ;
+    skos:definition "How adults aged 65 years and over are spread across different levels of social and economic disadvantage in an area, based on the Pobal HP Deprivation Index.  The Pobal HP Deprivation Index is Ireland's primary social gradient tool.  Based on the latest Census information (in this case Census 2022) it reveals the profile of communities across Ireland. The Pobal HP Deprivation Index uses data from Census 2022, analysing ten measures of an areas levels of disadvantage. These include educational attainment, employment status and the numbers living in individual households." ;
+    skos:note "Available at county, ED and small area level" ;
+    :numeratorSource "https://www.pobal.ie/pobal-hp-deprivation-index/" ;
+    :status "Include in Delphi" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/indicator/hse0000006> a dcat:Dataset,
+        :Indicator ;
+    healthdcatap:healthTheme "DEMOGRAPHICS" ;
+    dcterms:identifier "hse0000006" ;
+    dcterms:provenance "CSO - Census 2022" ;
+    dcterms:title "Ethnicity of those aged 65+" ;
+    skos:definition "The ethnic background or identity of people aged 65 years and over." ;
+    :numeratorSource "https://data.cso.ie/table/F9026" ;
+    :status "Include in Delphi" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/indicator/hse0000007> a dcat:Dataset,
+        :Indicator ;
+    healthdcatap:healthTheme "HEALTH BEHAVIOURS" ;
+    dcterms:identifier "hse0000007" ;
+    dcterms:provenance "CSO - Census 2022" ;
+    dcterms:title "Persons who smoke: Proportion of population aged 65+ who smoked tobacco. (Displayed as: Yes - daily;  Yes - occasionally; No - have given up smoking; Never)" ;
+    skos:definition "The percentage of  people  aged 65 years and over who currently smoke, used to smoke, or have never smoked." ;
+    :numeratorSource "https://data.cso.ie/table/F4043" ;
+    :status "Include in Delphi" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/indicator/hse0000008> a dcat:Dataset,
+        :Indicator ;
+    healthdcatap:healthTheme "HEALTH STATUS" ;
+    dcterms:identifier "hse0000008" ;
+    dcterms:provenance "TILDA" ;
+    dcterms:title "Percentage of older adults (65+)who reported a fall in the previous two years" ;
+    skos:definition "The proportion of adults aged 65 years and over who said they had a fall or trip in the last two years." ;
+    :denominatorDataElement "All respondents aged 65+ who answered question" ;
+    :denominatorSource "TILDA Wave 6" ;
+    :numeratorSource "TILDA Wave 6" ;
+    :status "Include in Delphi" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/indicator/hse0000009> a dcat:Dataset,
+        :Indicator ;
+    healthdcatap:healthTheme "HEALTHCARE USE" ;
+    dcterms:identifier "hse0000009" ;
+    dcterms:provenance "TILDA" ;
+    dcterms:title "Number of inpatient stays in older adults (65+) in the last year" ;
+    skos:definition "The number of times people aged 65 years and over were admitted to hospital and stayed overnight in the past year." ;
+    :numeratorSource "TILDA Wave 6" ;
+    :status "Include in Delphi" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/indicator/hse0000010> a dcat:Dataset,
+        :Indicator ;
+    healthdcatap:healthTheme "HEALTHCARE USE" ;
+    dcterms:identifier "hse0000010" ;
+    dcterms:provenance "TILDA" ;
+    dcterms:title "Length of inpatient stays  in older adults (65+) in the last year" ;
+    skos:definition "The average number of days that adults aged 65 years and over spent in hospital during inpatient admissions during the last year" ;
+    :denominatorDataElement "All respondents aged 65+ who answered question" ;
+    :denominatorSource "TILDA Wave 6" ;
+    :numeratorSource "TILDA Wave 6" ;
+    :status "Include in Delphi" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/indicator/hse0000011> a dcat:Dataset,
+        :Indicator ;
+    healthdcatap:healthTheme "VULNERABLE GROUPS" ;
+    dcterms:identifier "hse0000011" ;
+    dcterms:provenance "CSO - Census 2022" ;
+    dcterms:title "Number of persons aged 65 years and over usually resident in a nursing home home/residential facility or hospital by sex and census year" ;
+    skos:definition "The number of people aged 65 years and older who live long-term in care facilities or hospitals." ;
+    skos:note "No age variable in CSO data table" ;
+    :numeratorSource "https://data.cso.ie/table/FY009" ;
+    :status "Include in Delphi" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/indicator/hse0000012> a dcat:Dataset,
+        :Indicator ;
+    healthdcatap:healthTheme "CHRONIC DISEASES" ;
+    dcterms:identifier "hse0000012" ;
+    dcterms:provenance "TILDA" ;
+    dcterms:title "Percentage of older adults (65+) who have a cardiovascular disease" ;
+    skos:definition "The proportion of adults aged 65 years and over who have a heart-related illness such as heart attack, angina, or stroke." ;
+    :denominatorDataElement "All respondents aged 65+ who answered question" ;
+    :denominatorSource "TILDA Wave 6" ;
+    :numeratorDataElement "Total number of respondents aged 65+ reporting heart disease for first time or ongoing since previous interview (High blood pressure, Angina, Heart attack, Congestive heart failure, Diabetes, Stroke, TIA, High cholesterol, Heart murmur, Atrial Fibrillation, Abnormal heart rhythm)" ;
+    :numeratorSource "TILDA Wave 6" ;
+    :status "Include in Delphi" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/indicator/hse0000013> a dcat:Dataset,
+        :Indicator ;
+    healthdcatap:healthTheme "CHRONIC DISEASES" ;
+    dcterms:identifier "hse0000013" ;
+    dcterms:provenance "TILDA" ;
+    dcterms:title "Percentage of older adults  (65+)who report severe or moderate pain most of the time" ;
+    skos:definition "The percentage of people aged 65 years and over who regularly experience moderate or severe pain." ;
+    skos:note "Original ID: PH501, PH502." ;
+    :denominatorDataElement "All respondents aged 65+ who answered question" ;
+    :denominatorSource "TILDA Wave 6" ;
+    :numeratorDataElement "Total number of respondents aged 65+ reporting moderate or severe pain most of the time" ;
+    :numeratorSource "TILDA Wave 6" ;
+    :status "Include in Delphi" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/indicator/hse0000014> a dcat:Dataset,
+        :Indicator ;
+    healthdcatap:healthTheme "CHRONIC DISEASES" ;
+    dcterms:identifier "hse0000014" ;
+    dcterms:provenance "TILDA" ;
+    dcterms:title "Percentage of older adults (65+) with depression (CESD-8)" ;
+    skos:definition "The percentage of adults aged 65 years and over who report symptoms of depression, measured using a standard survey tool." ;
+    :denominatorDataElement "All respondents aged 65+ who answered question" ;
+    :denominatorSource "TILDA Wave 6" ;
+    :numeratorDataElement "Total number of respondents aged 65+ with a score on MHcesd_capi_sf above the established clinical cut-off for depressive symptoms" ;
+    :numeratorSource "TILDA Wave 6" ;
+    :status "Include in Delphi" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/indicator/hse0000015> a dcat:Dataset,
+        :Indicator ;
+    healthdcatap:healthTheme "HEALTHCARE USE" ;
+    dcterms:identifier "hse0000015" ;
+    dcterms:provenance "TILDA" ;
+    dcterms:title "Number of outpatient visits in older adults (65+) in the last year" ;
+    skos:definition "The number of times adults aged 65 years and over attended hospital appointments, but without being admitted overnight, in the past year." ;
+    :numeratorDataElement "The total number of outpatient visits reported by all respondents aged 65+" ;
+    :numeratorSource "TILDA Wave 6" ;
+    :status "Include in Delphi" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/indicator/hse0000016> a dcat:Dataset,
+        :Indicator ;
+    healthdcatap:healthTheme "HOUSING AND ENVIRONMENT" ;
+    dcterms:identifier "hse0000016" ;
+    dcterms:provenance "CSO - Census 2022" ;
+    dcterms:title "Number of Persons aged 65 years and over living alone in private households" ;
+    skos:definition "The number of adults aged 65 years and over who live by themselves in their own home or apartment." ;
+    :numeratorSource "https://data.cso.ie/table/F3084" ;
+    :status "Include in Delphi" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/indicator/hse0000017> a dcat:Dataset,
+        :Indicator ;
+    healthdcatap:healthTheme "HOUSING AND ENVIRONMENT" ;
+    dcterms:identifier "hse0000017" ;
+    dcterms:provenance "CSO - Census 2022" ;
+    dcterms:title "Percentage of persons 65 and above living alone in private households" ;
+    skos:definition "The percentage of adults aged 65 years and overwho live alone in private homes." ;
+    :numeratorSource "https://data.cso.ie/table/F3084" ;
+    :status "Include in Delphi" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/indicator/hse0000018> a dcat:Dataset,
+        :Indicator ;
+    healthdcatap:healthTheme "HEALTHCARE USE" ;
+    dcterms:identifier "hse0000018" ;
+    dcterms:provenance "TILDA" ;
+    dcterms:title "Number of Emergency Department visits in older adults (65+) in the last year" ;
+    skos:definition "The number of times people aged 65 years and over went to the hospital Emergency Department in the past year." ;
+    :numeratorDataElement "The total number of Emergency Department visits reported by all respondents aged 65+" ;
+    :numeratorSource "TILDA Wave 6" ;
+    :status "Include in Delphi" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/indicator/hse0000019> a dcat:Dataset,
+        :Indicator ;
+    healthdcatap:healthTheme "HEALTH STATUS" ;
+    dcterms:identifier "hse0000019" ;
+    dcterms:provenance "CSO - Census 2022" ;
+    dcterms:title "Percent of Persons over 65 with a Disability" ;
+    skos:definition "The percentage of adults aged 65 years and over who report having a disability that affects their daily life." ;
+    :numeratorSource "https://data.cso.ie/table/F4001" ;
+    :status "Include in Delphi" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/indicator/hse0000020> a dcat:Dataset,
+        :Indicator ;
+    healthdcatap:healthTheme "HEALTH STATUS" ;
+    dcterms:identifier "hse0000020" ;
+    dcterms:provenance "CSO - Eurostat (SILC)" ;
+    dcterms:title "Healthy Life Years (HLY) at 65" ;
+    skos:definition "The number of years a person aged 65 years can expect to live in good health without a serious illness or disability." ;
+    :numeratorSource "https://data.cso.ie/table/WBD08" ;
+    :status "Include in Delphi" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/indicator/hse0000021> a dcat:Dataset,
+        :Indicator ;
+    healthdcatap:healthTheme "CHRONIC DISEASES" ;
+    dcterms:identifier "hse0000021" ;
+    dcterms:provenance "TILDA" ;
+    dcterms:title "Percentage of older adults  (65+)who have a chronic disease" ;
+    skos:definition "The proportion of  people aged 65 years and over living with one or more long-term health conditions such as diabetes, arthritis, or heart disease." ;
+    :denominatorDataElement "All respondents aged 65+ who answered question" ;
+    :denominatorSource "TILDA Wave 6" ;
+    :numeratorDataElement "Respondents with DISlongterm = 2 (Long term illness) or 3 (Limiting long term illness)." ;
+    :numeratorSource "TILDA Wave 6" ;
+    :status "Include in Delphi" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/indicator/hse0000022> a dcat:Dataset,
+        :Indicator ;
+    healthdcatap:healthTheme "HEALTHCARE USE" ;
+    dcterms:identifier "hse0000022" ;
+    dcterms:provenance "TILDA" ;
+    dcterms:title "Percentage of older adults (65+) who are in receipt of home help" ;
+    skos:definition "The percentage of people aged 65 years and over receiving basic support services at home like cleaning, shopping, or help with daily tasks." ;
+    :denominatorDataElement "All respondents aged 65+ who answered question" ;
+    :denominatorSource "TILDA Wave 6" ;
+    :numeratorDataElement "The total number of respondents aged 65+ who received home help" ;
+    :numeratorSource "TILDA Wave 6" ;
+    :status "Include in Delphi" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/indicator/hse0000023> a dcat:Dataset,
+        :Indicator ;
+    healthdcatap:healthTheme "HEALTHCARE USE" ;
+    dcterms:identifier "hse0000023" ;
+    dcterms:provenance "TILDA" ;
+    dcterms:title "Percentage of older adults (65+) who are in receipt of Meals-on-Wheels" ;
+    skos:definition "The percentage of adults aged 65 years and over who receive ready-to-eat meals delivered to their homes." ;
+    :denominatorDataElement "All respondents aged 65+ who answered question" ;
+    :denominatorSource "TILDA Wave 6" ;
+    :numeratorDataElement "The total number of respondents aged 65+ who received Meals-on-Wheels" ;
+    :numeratorSource "TILDA Wave 6" ;
+    :status "Include in Delphi" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/indicator/hse0000024> a dcat:Dataset,
+        :Indicator ;
+    healthdcatap:healthTheme "DEMOGRAPHICS" ;
+    dcterms:identifier "hse0000024" ;
+    dcterms:provenance "CSO - Population and Labour Force Projections" ;
+    dcterms:title "Projected population aged 65 years and over by age group and year using the M2 projection scenario ('000)" ;
+    skos:definition "Estimated future numbers of people aged 65 years and over based on national population projections (M2 scenario). M2 assumption for population projection: this is an assumption for the purposes of predicting population growth, in which the presumed migration is at a moderate level." ;
+    :numeratorSource "https://data.cso.ie/table/PEC23" ;
+    :status "Include in Delphi" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/indicator/hse0000025> a dcat:Dataset,
+        :Indicator ;
+    healthdcatap:healthTheme "HEALTH STATUS" ;
+    dcterms:identifier "hse0000025" ;
+    dcterms:provenance "CSO - Census 2022" ;
+    dcterms:title "Number of people aged 65+  who are blind or have a visual impairment" ;
+    skos:definition "The number of people aged 65 years and over who report being blind or having difficulty seeing even with glasses." ;
+    skos:note "Persons with a Disability (presented as all people aged over 15)" ;
+    :numeratorSource "https://data.cso.ie/table/F4055" ;
+    :status "Include in Delphi" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/indicator/hse0000026> a dcat:Dataset,
+        :Indicator ;
+    healthdcatap:healthTheme "HEALTHCARE USE" ;
+    dcterms:identifier "hse0000026" ;
+    dcterms:provenance "TILDA" ;
+    dcterms:title "Number of GP visits in older adults (65+) in the last year" ;
+    skos:definition "The number of times people aged 65 years and over visited a general practitioner (GP) in the past year." ;
+    :numeratorDataElement "The total number of GP visits reported by all respondents aged 65+" ;
+    :numeratorSource "TILDA Wave 6" ;
+    :status "Include in Delphi" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/indicator/hse0000027> a dcat:Dataset,
+        :Indicator ;
+    healthdcatap:healthTheme "HEALTHCARE USE" ;
+    dcterms:identifier "hse0000027" ;
+    dcterms:provenance "CSO - Healthy Ireland (from DoH)" ;
+    dcterms:title "Percent of people 65 and above who have been admitted to hospital as an inpatient by sex and year" ;
+    skos:definition "The percentage of adults aged 65 years and over who were admitted to hospital overnight or longer, shown by sex and year." ;
+    skos:note "Would this be better from HIPE?" ;
+    :numeratorSource "https://data.cso.ie/table/HIS23" ;
+    :status "Include in Delphi" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/indicator/hse0000028> a dcat:Dataset,
+        :Indicator ;
+    healthdcatap:healthTheme "HEALTHCARE USE" ;
+    dcterms:identifier "hse0000028" ;
+    dcterms:provenance "NBIU -  Corporate Information Facility" ;
+    dcterms:title "Number of people 65+ in receipt of home support - OP54" ;
+    skos:definition "The number of adults aged 65 years and over who receive formal home support services under the OP54 national reporting measure." ;
+    skos:note "https://www.hse.ie/eng/services/publications/kpis/2024-older-persons-nsp-metadata.pdf" ;
+    :numeratorSource "Home Support records held at LHO level." ;
+    :status "Include in Delphi" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/indicator/hse0000029> a dcat:Dataset,
+        :Indicator ;
+    healthdcatap:healthTheme "VULNERABLE GROUPS" ;
+    dcterms:identifier "hse0000029" ;
+    dcterms:provenance "CSO - Census 2022" ;
+    dcterms:title "Number of people with an intellectual disability over 65" ;
+    skos:definition "The number of adults aged 65 years and over who have a diagnosed intellectual disability." ;
+    skos:note "Persons with a Disability (presented as all people aged over 15)" ;
+    :numeratorSource "https://data.cso.ie/table/F4055" ;
+    :status "Include in Delphi" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/indicator/hse0000030> a dcat:Dataset,
+        :Indicator ;
+    healthdcatap:healthTheme "CHRONIC DISEASES" ;
+    dcterms:identifier "hse0000030" ;
+    dcterms:provenance "TILDA" ;
+    dcterms:title "Percentage of older adults (65+) who report problematic alcohol use (CAGE measure)" ;
+    skos:definition "The percentage of adults aged 65 years and over who may have alcohol-related problems based on the CAGE screening questionnaire." ;
+    :denominatorDataElement "All respondents aged 65+ who completed the Self-Completion Questionnaire" ;
+    :denominatorSource "TILDA Wave 6" ;
+    :numeratorDataElement "Respondents aged 65+ with BEHcage2 = 1" ;
+    :numeratorSource "TILDA Wave 6" ;
+    :status "Include in Delphi" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/indicator/hse0000031> a dcat:Dataset,
+        :Indicator ;
+    healthdcatap:healthTheme "HEALTHCARE USE" ;
+    dcterms:identifier "hse0000031" ;
+    dcterms:provenance "CSO - HSPA (from DoH)" ;
+    dcterms:title "Percent of people 65 and above with a GP Visit card or Medical Card" ;
+    skos:definition "The proportion of  adults aged 65 years and over who are eligible for free or subsidised healthcare under state schemes." ;
+    :numeratorSource "https://data.cso.ie/table/HSPAO18" ;
+    :status "Include in Delphi" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/indicator/hse0000032> a dcat:Dataset,
+        :Indicator ;
+    healthdcatap:healthTheme "HEALTHCARE USE" ;
+    dcterms:identifier "hse0000032" ;
+    dcterms:provenance "TILDA" ;
+    dcterms:title "Percentage of older adults (65+) who are taking five or more medications" ;
+    skos:definition "The proportion of adults aged 65 years and over who are on five or more prescribed medications (known as polypharmacy)." ;
+    :denominatorDataElement "All respondents aged 65+ who answered question" ;
+    :denominatorSource "TILDA Wave 6" ;
+    :numeratorDataElement "Respondents aged 65+ with MDpolypharmacy = 1 (Yes, takes five or more medications including supplements)" ;
+    :numeratorSource "TILDA Wave 6" ;
+    :status "Include in Delphi" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/indicator/hse0000033> a dcat:Dataset,
+        :Indicator ;
+    healthdcatap:healthTheme "HEALTH STATUS" ;
+    dcterms:identifier "hse0000033" ;
+    dcterms:provenance "CSO - Census 2022" ;
+    dcterms:title "Population by general health.  Self-reported general health of 65+ (Displayed  as: Very good; Good; Fair; Bad; Very bad; Not stated)" ;
+    skos:definition "The proportion of adults aged 65 years and over who rate their own general health, from very good to very bad." ;
+    :numeratorSource "https://data.cso.ie/table/F4014" ;
+    :status "Include in Delphi" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/indicator/hse0000034> a dcat:Dataset,
+        :Indicator ;
+    healthdcatap:healthTheme "HEALTHCARE USE" ;
+    dcterms:identifier "hse0000034" ;
+    dcterms:provenance "HIPE" ;
+    dcterms:title "Ischaemic stroke discharge rate for per 1,000 population (65+)" ;
+    skos:definition "The number of adults aged 65 years and over who have been discharged from hospital after a stroke caused by a blocked artery, per 1,000 population aged 65 years and over." ;
+    skos:note "ICD I63" ;
+    :disaggregation """Age group (1 or 5 year)
+Sex
+County""" ;
+    :numeratorDataElement "Number of discharges in people aged 65+" ;
+    :numeratorSource "HPO HIPE" ;
+    :status "Include in Delphi" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/indicator/hse0000035> a dcat:Dataset,
+        :Indicator ;
+    healthdcatap:healthTheme "HOUSING AND ENVIRONMENT" ;
+    dcterms:identifier "hse0000035" ;
+    dcterms:provenance "CSO - Census 2022" ;
+    dcterms:title "Housing tenure status by age group of reference person and census year" ;
+    skos:definition "The proportion of adults aged 65 years and over who own or rent their home, or have another housing arrangement, by age group." ;
+    :numeratorSource "https://data.cso.ie/table/F2017B" ;
+    :status "Include in Delphi" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/indicator/hse0000036> a dcat:Dataset,
+        :Indicator ;
+    healthdcatap:healthTheme "DEMOGRAPHICS" ;
+    dcterms:identifier "hse0000036" ;
+    dcterms:provenance "CSO - Census 2022" ;
+    dcterms:title "Carers by sex: Proportion of the population age 65+  providing regular unpaid care or support to a family member, neighbour or friend with a long-term illness, old age or a disability. Displayed as: Female; Male." ;
+    skos:definition "The proportion of people aged 65 years and over who regularly provide unpaid care or help, shown separately for men and women." ;
+    skos:note "Multiple similar options" ;
+    :numeratorSource "https://data.cso.ie/table/F4068" ;
+    :status "Include in Delphi" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/indicator/hse0000037> a dcat:Dataset,
+        :Indicator ;
+    healthdcatap:healthTheme "DEMOGRAPHICS" ;
+    dcterms:identifier "hse0000037" ;
+    dcterms:provenance "CSO - Census 2022" ;
+    dcterms:title "Proportion of Population aged 65+ by social class and sex." ;
+    skos:definition "The proportion of people aged 65 years and over, by occupational social class and sex." ;
+    :numeratorSource "https://data.cso.ie/table/F7058" ;
+    :status "Include in Delphi" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/indicator/hse0000038> a dcat:Dataset,
+        :Indicator ;
+    healthdcatap:healthTheme "HEALTH BEHAVIOURS" ;
+    dcterms:identifier "hse0000038" ;
+    dcterms:provenance "TILDA" ;
+    dcterms:title "Percentage of older adults (65+) who have had a flu vaccine in the previous two years" ;
+    skos:definition "The proportion of people aged 65 years and over who received a flu vaccine in the last two years." ;
+    skos:note "Original ID: PH701A, PH731." ;
+    :denominatorDataElement "All respondents aged 65+ asked about the flu vaccine" ;
+    :numeratorSource "TILDA Wave 6" ;
+    :status "Include in Delphi" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/indicator/hse0000039> a dcat:Dataset,
+        :Indicator ;
+    healthdcatap:healthTheme "VULNERABLE GROUPS" ;
+    dcterms:identifier "hse0000039" ;
+    dcterms:provenance "CSO - Census 2022" ;
+    dcterms:title "Smoking prevalence among Travellers aged 65+" ;
+    skos:definition "The proportion of adults aged 65 years and over in the Traveller community who currently smoke." ;
+    :denominatorDataElement "Population usually resident and present in state" ;
+    :numeratorSource "https://data.cso.ie/table/F5069" ;
+    :status "Include in Delphi" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/indicator/hse0000040> a dcat:Dataset,
+        :Indicator ;
+    healthdcatap:healthTheme "HEALTHCARE USE" ;
+    dcterms:identifier "hse0000040" ;
+    dcterms:provenance "HIPE" ;
+    dcterms:title "Congestive Heart Failure discharge rate per 1,000 population (ACS Condition)" ;
+    skos:definition "The number of hospital discharges of people with heart failure aged 65 years and over, per 1,000 population." ;
+    skos:note "ICD I50, U82.2" ;
+    :disaggregation """Age group (1 or 5 year)
+Sex
+County""" ;
+    :numeratorDataElement "Number of discharges in people aged 65+" ;
+    :numeratorSource "HPO HIPE" ;
+    :status "Include in Delphi" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/indicator/hse0000041> a dcat:Dataset,
+        :Indicator ;
+    healthdcatap:healthTheme "FINANCES" ;
+    dcterms:identifier "hse0000041" ;
+    dcterms:provenance "CSO - SILC" ;
+    dcterms:title "Percent of people 65 and above who are At Risk of Poverty Rate (The at-risk-of-poverty rate measures the percentage of people whose income falls below a set threshold, typically 60% of the national median income)" ;
+    skos:definition "The proportion of adults aged 65 years and over whose income is below the poverty threshold, typically 60% of the median income." ;
+    :numeratorSource "https://data.cso.ie/table/SIA61" ;
+    :status "Include in Delphi" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/indicator/hse0000042> a dcat:Dataset,
+        :Indicator ;
+    healthdcatap:healthTheme "HEALTHCARE USE" ;
+    dcterms:identifier "hse0000042" ;
+    dcterms:provenance "Patient experience time" ;
+    dcterms:title "Number of ED attendances" ;
+    skos:definition "Number of times people aged 65 years and over went to an Emergency Department." ;
+    skos:note "https://www.gov.ie/en/collection/f2e25-health-in-ireland-key-trends-2024/#chapter-3-hospital-care" ;
+    :numeratorSource "Patient Experience Time" ;
+    :status "Include in Delphi" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/indicator/hse0000043> a dcat:Dataset,
+        :Indicator ;
+    healthdcatap:healthTheme "HEALTHCARE USE" ;
+    dcterms:identifier "hse0000043" ;
+    dcterms:provenance "HIPE" ;
+    dcterms:title "Haemorrhagic stroke discharge rate for  per 1,000 population (65+)" ;
+    skos:definition "The number of hospital discharges of people aged 65 years and over with stroke caused by bleeding in the brain, per 1,000 population" ;
+    skos:note "ICD I61" ;
+    :disaggregation """Age group (1 or 5 year)
+Sex
+County""" ;
+    :numeratorDataElement "Number of discharges in people aged 65+" ;
+    :numeratorSource "HPO HIPE" ;
+    :status "Include in Delphi" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/indicator/hse0000044> a dcat:Dataset,
+        :Indicator ;
+    healthdcatap:healthTheme "HEALTHCARE AVAILABILITY AND INTEGRATION" ;
+    dcterms:identifier "hse0000044" ;
+    dcterms:provenance "TILDA" ;
+    dcterms:title "Percentage of older adults (65+)who report unmet need for a community care service" ;
+    skos:definition "The proportion of people aged 65 years and over who needed, but didn't get, services like home help or community nursing." ;
+    :denominatorDataElement "All respondents aged 65+ asked about unmet needs for services" ;
+    :denominatorSource "TILDA Wave 6" ;
+    :numeratorDataElement "The number of respondents aged 65+ who selected one or more services." ;
+    :numeratorSource "TILDA Wave 6" ;
+    :status "Include in Delphi" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/indicator/hse0000045> a dcat:Dataset,
+        :Indicator ;
+    healthdcatap:healthTheme "HEALTHCARE USE" ;
+    dcterms:identifier "hse0000045" ;
+    dcterms:provenance "HIPE" ;
+    dcterms:title "Ischaemic heart disease discharge rate per 1,000 population (65+)" ;
+    skos:definition "The number of hospital discharges of people aged 65 years and over with ischaemic heart disease per 1,000 population" ;
+    skos:note "ICD I20-I25, U82.1, Z95.1 Original ID: CCS codes 100, 101." ;
+    :disaggregation """Age group (1 or 5 year)
+Sex
+County""" ;
+    :numeratorDataElement "Number of discharges in people aged 65+" ;
+    :numeratorSource "HPO HIPE" ;
+    :status "Include in Delphi" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/indicator/hse0000046> a dcat:Dataset,
+        :Indicator ;
+    healthdcatap:healthTheme "DEMOGRAPHICS" ;
+    dcterms:identifier "hse0000046" ;
+    dcterms:provenance "CSO - Census 2022" ;
+    dcterms:title "Population aged 65+ years by principal economic status: At work; Looking for first regular job; Unemployed short term; Unemployed long term; Student; Looking after home/family; Retired; Unable to work due to permanent sickness or disability; Other." ;
+    skos:definition "The proportion of adults aged 65 years and over who are retired, still working, unemployed, unable to work due to illness, or in other categories." ;
+    skos:note "Changed from F7024 due to better disaggregation" ;
+    :denominatorDataElement "Population aged 15 years and over" ;
+    :numeratorSource "https://data.cso.ie/table/F7026" ;
+    :status "Include in Delphi" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/indicator/hse0000047> a dcat:Dataset,
+        :Indicator ;
+    healthdcatap:healthTheme "PROVIDING CARE" ;
+    dcterms:identifier "hse0000047" ;
+    dcterms:provenance "CSO - Census 2022" ;
+    dcterms:title "Percent of those 65 and above who do provide care are providing it to a family member" ;
+    skos:definition "Among carers aged 65 years and over, the percentage who provide care to a family member." ;
+    :numeratorSource "https://data.cso.ie/table/IH184" ;
+    :status "Include in Delphi" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/indicator/hse0000048> a dcat:Dataset,
+        :Indicator ;
+    healthdcatap:healthTheme "VULNERABLE GROUPS" ;
+    dcterms:identifier "hse0000048" ;
+    dcterms:provenance "NBIU -  Corporate Information Facility" ;
+    dcterms:title "Number of persons funded under Nursing Home Support Scheme (NHSS) in long term residential care" ;
+    skos:definition "The number of people aged 65 years and over who are in long-term care funded by the Nursing Home Support Scheme." ;
+    skos:note "https://www.hse.ie/eng/services/publications/kpis/2024-older-persons-nsp-metadata.pdf" ;
+    :numeratorSource "Nursing Homes Support Scheme Database" ;
+    :status "Include in Delphi" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/indicator/hse0000049> a dcat:Dataset,
+        :Indicator ;
+    healthdcatap:healthTheme "HEALTH STATUS" ;
+    dcterms:identifier "hse0000049" ;
+    dcterms:provenance "CSO - Healthy Ireland (from DoH)" ;
+    dcterms:title "Percent of people 65 and above who rate their quality of life as good or very good" ;
+    skos:definition "The percentage of adults aged 65 years and over  who feel they have a good or very good quality of life." ;
+    :numeratorSource "https://data.cso.ie/table/HIS57" ;
+    :status "Include in Delphi" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/indicator/hse0000050> a dcat:Dataset,
+        :Indicator ;
+    healthdcatap:healthTheme "HEALTH STATUS" ;
+    dcterms:identifier "hse0000050" ;
+    dcterms:provenance "CSO - Healthy Ireland (from DoH)" ;
+    dcterms:title "Percent of people 65 and above who rate their quality of life as poor or very poor" ;
+    skos:definition "The percentage of adults aged 65 years and over who feel they have a poor or very poor quality of life." ;
+    :numeratorSource "https://data.cso.ie/table/HIS57" ;
+    :status "Include in Delphi" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/indicator/hse0000051> a dcat:Dataset,
+        :Indicator ;
+    healthdcatap:healthTheme "HOUSING AND ENVIRONMENT" ;
+    dcterms:identifier "hse0000051" ;
+    dcterms:provenance "CSO - Census 2022" ;
+    dcterms:title "Number of Persons aged 65+ in Private Households" ;
+    skos:definition "The number of adults aged 65 years and over living private homes, as opposed to institutional settings such as nursing homes." ;
+    :numeratorSource "https://data.cso.ie/table/F3084" ;
+    :status "Include in Delphi" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/indicator/hse0000052> a dcat:Dataset,
+        :Indicator ;
+    healthdcatap:healthTheme "HEALTH STATUS" ;
+    dcterms:identifier "hse0000052" ;
+    dcterms:provenance "CSO - Census 2022" ;
+    dcterms:title "Propotion of the population aged 65+ who have a difficulty with basic physical activities such as walking, climbing stairs, reaching, lifting or carrying (Yes, to a great extent, Yes to some extent, No)" ;
+    skos:definition "The proportion of adults aged 65 years and over who report difficulty with activities like walking, lifting or climbing stairs." ;
+    :numeratorSource "https://data.cso.ie/table/F4055" ;
+    :status "Include in Delphi" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/indicator/hse0000053> a dcat:Dataset,
+        :Indicator ;
+    healthdcatap:healthTheme "HEALTH STATUS" ;
+    dcterms:identifier "hse0000053" ;
+    dcterms:provenance "CSO - Census 2022" ;
+    dcterms:title "Proportion of the population aged 65+, as a result of a long-lasting condition, have difficulty doing any of the following: Dressing, bathing or getting around inside the home; Going outside the home to shop or visit a doctors surgery; Working at a job or business or attending school or college; Participating in other activities, for example leisure or using transport." ;
+    skos:definition "The proportion of adults aged 65 years and over who have trouble doing everyday tasks (like dressing or going out) due to a long-term health issue." ;
+    skos:note "Original ID: F4040C01, F4040C02, F4040C03,  F4040C04." ;
+    :denominatorDataElement "People with a disability with long lasting difficulties" ;
+    :numeratorSource "https://data.cso.ie/table/F4040" ;
+    :status "Include in Delphi" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/indicator/hse0000054> a dcat:Dataset,
+        :Indicator ;
+    healthdcatap:healthTheme "HEALTHCARE USE" ;
+    dcterms:identifier "hse0000054" ;
+    dcterms:provenance "TILDA" ;
+    dcterms:title "Percentage of older adults (65+) who attend Day Centre Servcies" ;
+    skos:definition "The proportion of people aged 65 years and over who use community day centres for social, health, or support services." ;
+    :denominatorDataElement "All respondents aged 65+ asked about receipt of State services" ;
+    :denominatorSource "TILDA Wave 6" ;
+    :numeratorDataElement "The number of respondents aged 65+ who recevived day care services." ;
+    :numeratorSource "TILDA Wave 6" ;
+    :status "Include in Delphi" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/indicator/hse0000055> a dcat:Dataset,
+        :Indicator ;
+    healthdcatap:healthTheme "VULNERABLE GROUPS" ;
+    dcterms:identifier "hse0000055" ;
+    dcterms:provenance "CSO - Census 2022" ;
+    dcterms:title "Self-reported health of people with an intellectual disability (%)" ;
+    skos:definition "The degree to which people with an intellectual disability who are aged 65 years and over rate their own health as good or bad." ;
+    skos:note "Not publicly available from CSO" ;
+    :status "Include in Delphi" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/indicator/hse0000056> a dcat:Dataset,
+        :Indicator ;
+    healthdcatap:healthTheme "CONNECTIONS AND PARTICIPATION" ;
+    dcterms:identifier "hse0000056" ;
+    dcterms:provenance "CSO - Information Society Statistics Households - Digital Consumer Behaviour" ;
+    dcterms:title "Percent of those 60 years and over who used the internet in the last 3 months" ;
+    skos:definition "The percentage of people aged 60 years and over who have used the internet in the past three months." ;
+    :numeratorSource "https://data.cso.ie/table/ICA96" ;
+    :status "Include in Delphi" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/indicator/hse0000057> a dcat:Dataset,
+        :Indicator ;
+    healthdcatap:healthTheme "HEALTH BEHAVIOURS" ;
+    dcterms:identifier "hse0000057" ;
+    dcterms:provenance "CSO - Irish Health Survey" ;
+    dcterms:title "Preventative Measures in the last 12 months of persons aged 65 years and over - Had blood pressure measured" ;
+    skos:definition "The proportion of adults aged 65 years and over who had their blood pressure checked in the past year." ;
+    :numeratorSource "https://data.cso.ie/table/IH279" ;
+    :status "Include in Delphi" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/indicator/hse0000058> a dcat:Dataset,
+        :Indicator ;
+    healthdcatap:healthTheme "HEALTH BEHAVIOURS" ;
+    dcterms:identifier "hse0000058" ;
+    dcterms:provenance "TILDA" ;
+    dcterms:title "Percentage women 65+ who have had a Mammogram/X-ray" ;
+    skos:definition "The proportion of women aged 65 years and over who have had a breast cancer screening test." ;
+    skos:note "Original ID: PH709, PH709A." ;
+    :denominatorDataElement "All female respondents aged 65+ asked about a mammogram or x-ray of the breast, to search for cancer" ;
+    :denominatorSource "TILDA Wave 6" ;
+    :numeratorDataElement "The number of female respondents aged 65+ who reported having a mammogram or x-ray of the breast, to search for cancer" ;
+    :numeratorSource "TILDA Wave 6" ;
+    :status "Include in Delphi" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/indicator/hse0000059> a dcat:Dataset,
+        :Indicator ;
+    healthdcatap:healthTheme "HEALTH BEHAVIOURS" ;
+    dcterms:identifier "hse0000059" ;
+    dcterms:provenance "CSO - Irish Health Survey" ;
+    dcterms:title "Preventative Measures in the last 12 months of persons aged 65 years and over - Had blood sugar measured" ;
+    skos:definition "The proportion of adults aged 65 years and over who had their blood sugar checked in the past year." ;
+    :numeratorSource "https://data.cso.ie/table/IH279" ;
+    :status "Include in Delphi" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/indicator/hse0000060> a dcat:Dataset,
+        :Indicator ;
+    healthdcatap:healthTheme "HEALTH BEHAVIOURS" ;
+    dcterms:identifier "hse0000060" ;
+    dcterms:provenance "CSO - Healthy Ireland (from DoH)" ;
+    dcterms:title "Percent of people 65 and above who drink more than once per week, only once per week, 1-3 times per month, ho have not drank in a month or longer, who have never drank" ;
+    skos:definition "The proportion of adults aged 65 years and over who drink alcohol, in categories ranging from never to more than once a week." ;
+    :numeratorSource "https://data.cso.ie/table/HIS15" ;
+    :status "Include in Delphi" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/indicator/hse0000061> a dcat:Dataset,
+        :Indicator ;
+    healthdcatap:healthTheme "CHRONIC DISEASES" ;
+    dcterms:identifier "hse0000061" ;
+    dcterms:provenance "TILDA" ;
+    dcterms:title "Percentage of older adults  (65+)who show evidence of mild cognitive impairment" ;
+    skos:definition "The proportion of people aged 65 years and over with early signs of memory or thinking difficulties." ;
+    :denominatorDataElement "All respondents aged 65+ who completed the MMSE" ;
+    :denominatorSource "TILDA Wave 6" ;
+    :numeratorDataElement "The number of respondents aged 65+ with a COGmmse score within the range defined for mild cognitive impairment" ;
+    :numeratorSource "TILDA Wave 6" ;
+    :status "Include in Delphi" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/indicator/hse0000062> a dcat:Dataset,
+        :Indicator ;
+    healthdcatap:healthTheme "HEALTH BEHAVIOURS" ;
+    dcterms:identifier "hse0000062" ;
+    dcterms:provenance "CSO - Healthy Ireland (from DoH)" ;
+    dcterms:title "Percent of people 65 and over who use e-cigarettes" ;
+    skos:definition "The proportion of adults aged 65 years and over who currently use electronic cigarettes or vaping devices." ;
+    :numeratorSource "https://data.cso.ie/table/HIS41" ;
+    :status "Include in Delphi" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/indicator/hse0000063> a dcat:Dataset,
+        :Indicator ;
+    healthdcatap:healthTheme "HEALTH STATUS" ;
+    dcterms:identifier "hse0000063" ;
+    dcterms:provenance "CSO - Census 2022" ;
+    dcterms:title "Number of people aged 65+ who are deaf or have a hearing impairment by sex" ;
+    skos:definition "The number of people aged 65 years and over with hearing difficulties, broken down by sex." ;
+    skos:note "Persons with a Disability (presented as all people aged over 15)" ;
+    :numeratorSource "https://data.cso.ie/table/F4055" ;
+    :status "Include in Delphi" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/indicator/hse0000064> a dcat:Dataset,
+        :Indicator ;
+    healthdcatap:healthTheme "HEALTH STATUS" ;
+    dcterms:identifier "hse0000064" ;
+    dcterms:provenance "CSO - Census 2022" ;
+    dcterms:title "Population by general health - female. Self-reported general health of 65+ (Displayed  as: Very good; Good; Fair; Bad; Very bad; Not stated)" ;
+    skos:definition "The proportion of women aged 65 years and over who rate their general health in categories, from very good to very bad." ;
+    :numeratorSource "https://data.cso.ie/table/F4014" ;
+    :status "Include in Delphi" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/indicator/hse0000065> a dcat:Dataset,
+        :Indicator ;
+    healthdcatap:healthTheme "HEALTH STATUS" ;
+    dcterms:identifier "hse0000065" ;
+    dcterms:provenance "CSO - Census 2022" ;
+    dcterms:title "Population by general health - Male. Self-reported general health of 65+ (Displayed  as: Very good; Good; Fair; Bad; Very bad; Not stated)" ;
+    skos:definition "The proportion of men aged 65 years and over who rate their general health in categories, from very good to very bad." ;
+    :numeratorSource "https://data.cso.ie/table/F4014" ;
+    :status "Include in Delphi" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/indicator/hse0000066> a dcat:Dataset,
+        :Indicator ;
+    healthdcatap:healthTheme "VULNERABLE GROUPS" ;
+    dcterms:identifier "hse0000066" ;
+    dcterms:provenance "NBIU -  Corporate Information Facility" ;
+    dcterms:title "Number of Nursing Home Support Scheme (NHSS) beds in public long stay units (WORDING)" ;
+    skos:definition "The number of publicly funded beds available under the NHSS for long-term residential care." ;
+    skos:note "https://www.hse.ie/eng/services/publications/kpis/2024-older-persons-nsp-metadata.pdf" ;
+    :numeratorSource "Nursing Homes Support Scheme Database" ;
+    :status "Include in Delphi" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/indicator/hse0000067> a dcat:Dataset,
+        :Indicator ;
+    healthdcatap:healthTheme "HEALTH BEHAVIOURS" ;
+    dcterms:identifier "hse0000067" ;
+    dcterms:provenance "TILDA" ;
+    dcterms:title "Percentage men 65+ who have had a prostate exam" ;
+    skos:definition "The proportion of men aged 65 years and over who have been screened for prostate health by means of a prostate examination" ;
+    skos:note "Original ID: PH710, PH710A." ;
+    :denominatorDataElement "All male respondents aged 65+ asked about a prostate examination to screen for cancer" ;
+    :denominatorSource "TILDA Wave 6" ;
+    :numeratorDataElement "The number of male respondents aged 65+ who reported having a prostate examination to screen for cancer" ;
+    :numeratorSource "TILDA Wave 6" ;
+    :status "Include in Delphi" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/indicator/hse0000068> a dcat:Dataset,
+        :Indicator ;
+    healthdcatap:healthTheme "HEALTH STATUS" ;
+    dcterms:identifier "hse0000068" ;
+    dcterms:provenance "CSO - Census 2022" ;
+    dcterms:title "Number of people aged 65+  who are blind or have a visual impairment by sex" ;
+    skos:definition "The number of adults aged 65 years and over with serious sight loss, shown by sex." ;
+    :numeratorSource "https://data.cso.ie/table/F4055" ;
+    :status "Include in Delphi" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/indicator/hse0000069> a dcat:Dataset,
+        :Indicator ;
+    healthdcatap:healthTheme "HEALTH STATUS" ;
+    dcterms:identifier "hse0000069" ;
+    dcterms:provenance "TILDA" ;
+    dcterms:title "Percentage of older adults (65+) who report limitations in Activites in Daily Living (ADLs)" ;
+    skos:definition "The proportion of people aged 65 years and over who need help with everyday personal care tasks like bathing, dressing, or eating." ;
+    :denominatorDataElement "All respondents aged 65+ who were asked about ADL limitations" ;
+    :denominatorSource "TILDA Wave 6" ;
+    :numeratorDataElement "The number of respondents aged 65+ with ADL_reported = 1 (Yes, has at least one ADL limitation)" ;
+    :numeratorSource "TILDA Wave 6" ;
+    :status "Include in Delphi" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/indicator/hse0000070> a dcat:Dataset,
+        :Indicator ;
+    healthdcatap:healthTheme "HEALTHCARE USE" ;
+    dcterms:identifier "hse0000070" ;
+    dcterms:provenance "HIPE" ;
+    dcterms:title "Lower respiratory infection discharge rate per 1,000 population (65+)" ;
+    skos:definition "The number of hospital discharges for lung infections (like bronchitis or pneumonia) per 1,000 adults aged 65 years and over." ;
+    skos:note "ICD J12-J18, J20-J22 Original ID: CCS codes 122, 125." ;
+    :disaggregation """Age group (1 or 5 year)
+Sex
+County""" ;
+    :numeratorDataElement "Number of discharges in people aged 65+" ;
+    :numeratorSource "HPO HIPE" ;
+    :status "Include in Delphi" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/indicator/hse0000071> a dcat:Dataset,
+        :Indicator ;
+    healthdcatap:healthTheme "HEALTHCARE USE" ;
+    dcterms:identifier "hse0000071" ;
+    dcterms:provenance "HIPE" ;
+    dcterms:title "Falls discharge rate per 1,000 population (65+)" ;
+    skos:definition "The number of hospital discharges due to falls per 1,000 adults aged 65 years and over" ;
+    :disaggregation """Age group (1 or 5 year)
+Sex
+County""" ;
+    :numeratorDataElement "Number of discharges in people aged 65+" ;
+    :numeratorSource "HPO HIPE" ;
+    :status "Include in Delphi" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/indicator/hse0000072> a dcat:Dataset,
+        :Indicator ;
+    healthdcatap:healthTheme "HEALTHCARE USE" ;
+    dcterms:identifier "hse0000072" ;
+    dcterms:provenance "HIPE" ;
+    dcterms:title "Alzheimer's disease discharges per 1,000 population (65+)" ;
+    skos:definition "The number of hospital discharges for Alzheimer's disease per 1,000 adults aged 65 years and over" ;
+    :disaggregation """Age group (1 or 5 year)
+Sex
+County""" ;
+    :numeratorDataElement "Number of discharges in people aged 65+" ;
+    :numeratorSource "HPO HIPE" ;
+    :status "Include in Delphi" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/indicator/hse0000073> a dcat:Dataset,
+        :Indicator ;
+    healthdcatap:healthTheme "HEALTHCARE USE" ;
+    dcterms:identifier "hse0000073" ;
+    dcterms:provenance "CSO - Healthy Ireland (from DoH)" ;
+    dcterms:title "Percent of people 65 and above who have been admitted as a day care by sex and year" ;
+    skos:definition "The proportion of adults aged 65 years and over who were admitted to hospital for day-only care, by sex and year." ;
+    :numeratorSource "https://data.cso.ie/table/HIS25" ;
+    :status "Include in Delphi" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/indicator/hse0000074> a dcat:Dataset,
+        :Indicator ;
+    healthdcatap:healthTheme "HEALTHCARE USE" ;
+    dcterms:identifier "hse0000074" ;
+    dcterms:provenance "HIPE" ;
+    dcterms:title "Pneumonia discharge rate per 1,000 population (ACS Condition)" ;
+    skos:definition "The number of hospital discharges due to pneumonia per 1,000 people aged 65 years and over." ;
+    skos:note "ICD J85, BICD J12-J18, A20.2, A21.2, A22.2, A31.0, A42.0, A43.0, A48.1, B01.2, B05.2, B25.0, B27.1, B28.0-38.2, B29.0-29.2, B58.3, J85, B59" ;
+    :disaggregation """Age group (1 or 5 year)
+Sex
+County""" ;
+    :numeratorDataElement "Number of discharges in people aged 65+" ;
+    :numeratorSource "HPO HIPE" ;
+    :status "Include in Delphi" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/indicator/hse0000075> a dcat:Dataset,
+        :Indicator ;
+    healthdcatap:healthTheme "DEMOGRAPHICS" ;
+    dcterms:identifier "hse0000075" ;
+    dcterms:provenance "CSO - Population and Labour Force Projections" ;
+    dcterms:title "Projected Dependency Ratios from 2022" ;
+    skos:definition "Estimates showing the possible future number of people aged 65 years and over, compared to those of working age, used to plan future services. Dependency ratio: The dependency ratio is a demographic indicator that compares the number of people considered to be dependents (too young or too old to be in the workforce) to the number of people considered to be in the working-age population. It essentially measures the burden on the working population to support the non-working age groups ( can be calculated by adding people aged 0-15 to those aged 65+ and dividing the whole lot by people aged 16-64 years)" ;
+    :numeratorSource "https://data.cso.ie/table/PEC22" ;
+    :status "Include in Delphi" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/indicator/hse0000076> a dcat:Dataset,
+        :Indicator ;
+    healthdcatap:healthTheme "HEALTHCARE USE" ;
+    dcterms:identifier "hse0000076" ;
+    dcterms:provenance "HIPE" ;
+    dcterms:title "Hypertensive heart disease discharge rate for per 1,000 population (65+)" ;
+    skos:definition "The number of hospital discharges for hypertensive heart disease per 1,000 adults aged 65 years and over" ;
+    :disaggregation """Age group (1 or 5 year)
+Sex
+County""" ;
+    :numeratorDataElement "Number of discharges in people aged 65+" ;
+    :numeratorSource "HPO HIPE" ;
+    :status "Include in Delphi" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/indicator/hse0000077> a dcat:Dataset,
+        :Indicator ;
+    healthdcatap:healthTheme "HEALTHCARE USE" ;
+    dcterms:identifier "hse0000077" ;
+    dcterms:provenance "HIPE" ;
+    dcterms:title "Tracheal, bronchial and lung cancer discharge rate for per 1,000 population (65+)" ;
+    skos:definition "The number of hospital discharges due to cancers of the lung and airways per 1,000 adults aged 65 years and over" ;
+    skos:note "ICD C33, C34, C39, D02 Original ID: CCS codes 019, 020." ;
+    :disaggregation """Age group (1 or 5 year)
+Sex
+County""" ;
+    :numeratorDataElement "Number of discharges in people aged 65+" ;
+    :numeratorSource "HPO HIPE" ;
+    :status "Include in Delphi" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/indicator/hse0000078> a dcat:Dataset,
+        :Indicator ;
+    healthdcatap:healthTheme "HEALTHCARE USE" ;
+    dcterms:identifier "hse0000078" ;
+    dcterms:provenance "HIPE" ;
+    dcterms:title "Breast cancer discharge rate per 1,000 population (65+)" ;
+    skos:definition "The number of hospital discharges for breast cancer per 1,000 adults aged 65 years and over" ;
+    skos:note "ICD C50, D05, Z853" ;
+    :disaggregation """Age group (1 or 5 year)
+Sex
+County""" ;
+    :numeratorDataElement "Number of discharges in people aged 65+" ;
+    :numeratorSource "HPO HIPE" ;
+    :status "Include in Delphi" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/indicator/hse0000079> a dcat:Dataset,
+        :Indicator ;
+    healthdcatap:healthTheme "HEALTHCARE USE" ;
+    dcterms:identifier "hse0000079" ;
+    dcterms:provenance "HIPE" ;
+    dcterms:title "Colorectal cancer discharge rate per 1,000 population (65+)" ;
+    skos:definition "The number of hospital discharges for colon or rectal cancer per 1,000 adults aged 65 years and over" ;
+    skos:note "ICD C18, C19, C20, C21, C26.0, D01.0-01.3 Original ID: CCS codes 014, 015." ;
+    :disaggregation """Age group (1 or 5 year)
+Sex
+County""" ;
+    :numeratorDataElement "Number of discharges in people aged 65+" ;
+    :numeratorSource "HPO HIPE" ;
+    :status "Include in Delphi" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/indicator/hse0000080> a dcat:Dataset,
+        :Indicator ;
+    healthdcatap:healthTheme "HEALTHCARE USE" ;
+    dcterms:identifier "hse0000080" ;
+    dcterms:provenance "HIPE" ;
+    dcterms:title "Diabetes discharges per 1,000 population (65+)" ;
+    skos:definition "The number of hospital discharges related to diabetes per 1,000 adults aged 65 years and over" ;
+    skos:note "ICD E09-14,  R73, R81, R82.4" ;
+    :disaggregation """Age group (1 or 5 year)
+Sex
+County""" ;
+    :numeratorDataElement "Number of discharges in people aged 65+" ;
+    :numeratorSource "HPO HIPE" ;
+    :status "Include in Delphi" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/indicator/hse0000081> a dcat:Dataset,
+        :Indicator ;
+    healthdcatap:healthTheme "HEALTHCARE USE" ;
+    dcterms:identifier "hse0000081" ;
+    dcterms:provenance "HIPE" ;
+    dcterms:title "Chronic kidney disease discharges per 1,000 population (65+)" ;
+    skos:definition "The number of hospital discharges for long-term kidney disease per 1,000 adults aged 65 years and over" ;
+    skos:note "ICD N18, Z49, Z94.0, Z99.2" ;
+    :disaggregation """Age group (1 or 5 year)
+Sex
+County""" ;
+    :numeratorDataElement "Number of discharges in people aged 65+" ;
+    :numeratorSource "HPO HIPE" ;
+    :status "Include in Delphi" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/indicator/hse0000082> a dcat:Dataset,
+        :Indicator ;
+    healthdcatap:healthTheme "VULNERABLE GROUPS" ;
+    dcterms:identifier "hse0000082" ;
+    dcterms:provenance "CSO - Census 2022" ;
+    dcterms:title "Travellers' aged 65+ self-reported general health (very bad to very good)" ;
+    skos:definition "The proportion of adults aged 65 years and over in the Traveller community who rate their general health in categories from very bad to very good" ;
+    :denominatorDataElement "Population usually resident and present in the State" ;
+    :numeratorSource "https://data.cso.ie/table/F5068" ;
+    :status "Include in Delphi" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/indicator/hse0000083> a dcat:Dataset,
+        :Indicator ;
+    healthdcatap:healthTheme "HEALTH STATUS" ;
+    dcterms:identifier "hse0000083" ;
+    dcterms:provenance "CSO - Census 2022" ;
+    dcterms:title "Proportion of the population aged 65+ who have a difficulty with learning, remembering or concentrating." ;
+    skos:definition "The proportion of people aged 65 years and over who report problems with memory or thinking." ;
+    :numeratorSource "https://data.cso.ie/table/F4055" ;
+    :status "Include in Delphi" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/indicator/hse0000084> a dcat:Dataset,
+        :Indicator ;
+    healthdcatap:healthTheme "HEALTH STATUS" ;
+    dcterms:identifier "hse0000084" ;
+    dcterms:provenance "CSO - Irish Health Survey" ;
+    dcterms:title "Persons aged 65 and older - With personal care difficulties (%)" ;
+    skos:definition "The percentage of people aged 65 years and over who have trouble with daily personal tasks like washing, dressing, or using the toilet." ;
+    :numeratorSource "https://data.cso.ie/table/IH199" ;
+    :status "Include in Delphi" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/indicator/hse0000085> a dcat:Dataset,
+        :Indicator ;
+    healthdcatap:healthTheme "HEALTH STATUS" ;
+    dcterms:identifier "hse0000085" ;
+    dcterms:provenance "CSO - Irish Health Survey" ;
+    dcterms:title "Persons aged 65 and older - Who would usually receive help for at least one activity (%)" ;
+    skos:definition "The proportion of adults aged 65 years and over who get help from others for at least one daily activity." ;
+    :numeratorSource "https://data.cso.ie/table/IH199" ;
+    :status "Include in Delphi" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/indicator/hse0000086> a dcat:Dataset,
+        :Indicator ;
+    healthdcatap:healthTheme "PROVIDING CARE" ;
+    dcterms:identifier "hse0000086" ;
+    dcterms:provenance "CSO - Irish Health Survey" ;
+    dcterms:title "Percent of those 65 and above who are providing less than 10 hours of care per week" ;
+    skos:definition "The percentage of adults aged 65 years and over who provide unpaid care for less than 10 hours a week." ;
+    :numeratorSource "https://data.cso.ie/table/IH190" ;
+    :status "Include in Delphi" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/indicator/hse0000087> a dcat:Dataset,
+        :Indicator ;
+    healthdcatap:healthTheme "PROVIDING CARE" ;
+    dcterms:identifier "hse0000087" ;
+    dcterms:provenance "CSO - Irish Health Survey" ;
+    dcterms:title "Percent of those 65 and above who are providing at least 10 but less than 20 hours of care per week" ;
+    skos:definition "The percentage of adults aged 65 years and over providing 10 to 19 hours of unpaid care each week." ;
+    :numeratorSource "https://data.cso.ie/table/IH190" ;
+    :status "Include in Delphi" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/indicator/hse0000088> a dcat:Dataset,
+        :Indicator ;
+    healthdcatap:healthTheme "PROVIDING CARE" ;
+    dcterms:identifier "hse0000088" ;
+    dcterms:provenance "CSO - Irish Health Survey" ;
+    dcterms:title "Percent of those 65 and above who are providing care  20 hours per week or more" ;
+    skos:definition "The percentage of adults aged 65 years and over providing 20 or more hours of unpaid care weekly." ;
+    :numeratorSource "https://data.cso.ie/table/IH190" ;
+    :status "Include in Delphi" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/indicator/hse0000089> a dcat:Dataset,
+        :Indicator ;
+    healthdcatap:healthTheme "HEALTHCARE USE" ;
+    dcterms:identifier "hse0000089" ;
+    dcterms:provenance "Patient experience time" ;
+    dcterms:title "Conversion of ED attendances into admissions" ;
+    skos:definition "The percentage of Emergency Department visits among people aged 65 years and over that result in a hospital admission in a given year." ;
+    skos:note "https://www.gov.ie/en/collection/f2e25-health-in-ireland-key-trends-2024/#chapter-3-hospital-care" ;
+    :numeratorSource "Patient Experience Time" ;
+    :status "Include in Delphi" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/indicator/hse0000090> a dcat:Dataset,
+        :Indicator ;
+    healthdcatap:healthTheme "HEALTH BEHAVIOURS" ;
+    dcterms:identifier "hse0000090" ;
+    dcterms:provenance "CSO - Irish Health Survey" ;
+    dcterms:title "Preventative Measures in the last 12 months of persons aged 65 years and over - Had blood cholesterol measured" ;
+    skos:definition "The proportion of adults aged 65 years and over who had their cholesterol levels checked in the last year." ;
+    :numeratorSource "https://data.cso.ie/table/IH279" ;
+    :status "Include in Delphi" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/indicator/hse0000091> a dcat:Dataset,
+        :Indicator ;
+    healthdcatap:healthTheme "VULNERABLE GROUPS" ;
+    dcterms:identifier "hse0000091" ;
+    dcterms:provenance "CSO - Census 2022" ;
+    dcterms:title "Travellers aged 65+ experiencing at least one long-lasting condition or difficulty to any extent" ;
+    skos:definition "The percentage of Travellers aged 65 years and over who report at least one ongoing illness or disability." ;
+    :numeratorSource "https://data.cso.ie/table/F5067" ;
+    :status "Include in Delphi" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/indicator/hse0000092> a dcat:Dataset,
+        :Indicator ;
+    healthdcatap:healthTheme "VULNERABLE GROUPS" ;
+    dcterms:identifier "hse0000092" ;
+    dcterms:provenance "CSO - Census 2022" ;
+    dcterms:title "Deprivation level of people aged 65+ with an intellectual disability (%)" ;
+    skos:definition "The percentage of people with an intellectual disability aged 65 years and over living in an area who are in different categories of deprivation/disadvantaged" ;
+    skos:note "Not publicly available from CSO. ? Develop indicator from Pobal data and CSO Census data" ;
+    :numeratorSource "Census 2022" ;
+    :status "Include in Delphi" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/indicator/hse0000093> a dcat:Dataset,
+        :Indicator ;
+    healthdcatap:healthTheme "HEALTH BEHAVIOURS" ;
+    dcterms:identifier "hse0000093" ;
+    dcterms:provenance "HPSC" ;
+    dcterms:title "Percentage of older adults  (65+) who have had a COVID vaccine" ;
+    skos:definition "The proportion of adults aged 65 years and over who have received a COVID-19 vaccination." ;
+    skos:note "Not a question in Wave 6 TILDA (Question is: How likely [are/is] [you/he/she] to get vaccinated for coronavirus once a vaccine is available to the public?)- Get from HPSC instead" ;
+    :status "Include in Delphi" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/indicator/hse0000094> a dcat:Dataset,
+        :Indicator ;
+    healthdcatap:healthTheme "HEALTHCARE USE" ;
+    dcterms:identifier "hse0000094" ;
+    dcterms:provenance "HIPE" ;
+    dcterms:title "Influenza discharge rate per 1,000 population (ACS Condition)" ;
+    skos:definition "The number of hospital discharges for flu per 1,000 adults aged 65 years and over" ;
+    skos:note "ICD J09-11" ;
+    :disaggregation """Age group (1 or 5 year)
+Sex
+County""" ;
+    :numeratorDataElement "Number of discharges in people aged 65+" ;
+    :numeratorSource "HPO HIPE" ;
+    :status "Include in Delphi" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/indicator/hse0000095> a dcat:Dataset,
+        :Indicator ;
+    healthdcatap:healthTheme "HEALTHCARE USE" ;
+    dcterms:identifier "hse0000095" ;
+    dcterms:provenance "HIPE" ;
+    dcterms:title "Asthma discharges per 1,000 population (65+)" ;
+    skos:definition "The number of hospital discharges for asthma per 1,000 adults aged 65 years and over" ;
+    skos:note "ICD J45-46, U83.3" ;
+    :disaggregation """Age group (1 or 5 year)
+Sex
+County""" ;
+    :numeratorDataElement "Number of discharges in people aged 65+" ;
+    :numeratorSource "HPO HIPE" ;
+    :status "Include in Delphi" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/indicator/hse0000096> a dcat:Dataset,
+        :Indicator ;
+    healthdcatap:healthTheme "VULNERABLE GROUPS" ;
+    dcterms:identifier "hse0000096" ;
+    dcterms:provenance "CSO - Census 2022" ;
+    dcterms:title "Gender breakdown of people  with an intellectual disability over 65 (%)" ;
+    skos:definition "The percentage of people aged 65 years and over with an intellectual disability, categorised  by sex." ;
+    skos:note "Persons with a Disability (presented as all people aged over 15)" ;
+    :numeratorSource "https://data.cso.ie/table/F4055" ;
+    :status "Include in Delphi" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/indicator/hse0000097> a dcat:Dataset,
+        :Indicator ;
+    healthdcatap:healthTheme "CONNECTIONS AND PARTICIPATION" ;
+    dcterms:identifier "hse0000097" ;
+    dcterms:provenance "CSO - SILC Wellbeing" ;
+    dcterms:title "Percentage of individuals 65 and above who are feeling lonely by frequency and year" ;
+    skos:definition "The percentage of adults aged 65 years and over who report feeling lonely, shown by year." ;
+    :numeratorSource "https://data.cso.ie/table/WBB22" ;
+    :status "Include in Delphi" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/indicator/hse0000098> a dcat:Dataset,
+        :Indicator ;
+    healthdcatap:healthTheme "FINANCES" ;
+    dcterms:identifier "hse0000098" ;
+    dcterms:provenance "CSO - SILC" ;
+    dcterms:title "Consistent Poverty Rate for those over 65+ (%) (Consistent poverty is a broader measure that considers both income poverty and the experience of deprivation (inability to afford basic necessities)" ;
+    skos:definition "The percentage of adults aged 65 years and over who live below the poverty line and  who lack basic necessities." ;
+    :numeratorSource "https://data.cso.ie/table/SIA61" ;
+    :status "Include in Delphi" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/indicator/hse0000099> a dcat:Dataset,
+        :Indicator ;
+    healthdcatap:healthTheme "HEALTH STATUS" ;
+    dcterms:identifier "hse0000099" ;
+    dcterms:provenance "TILDA" ;
+    dcterms:title "Percentage of older adults (65+) with low, medium and high physical activity levels (Short IPAQ questionnaire)" ;
+    skos:definition "The percentage of people aged 65 years and older who report different physical activity levels" ;
+    :denominatorDataElement "All respondents aged 65+ who answered the physical activity questions" ;
+    :denominatorSource "TILDA Wave 6" ;
+    :numeratorDataElement "The number of respondents aged 65+ in each category of  FRexercise3 (0=Low, 1=Moderate, 2=High) based in IPAQ" ;
+    :numeratorSource "TILDA Wave 6" ;
+    :status "Include in Delphi" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/indicator/hse0000100> a dcat:Dataset,
+        :Indicator ;
+    healthdcatap:healthTheme "HEALTHCARE USE" ;
+    dcterms:identifier "hse0000100" ;
+    dcterms:provenance "HIPE" ;
+    dcterms:title "Dehydration discharge rate per 1,000 population (ACS Condition)" ;
+    skos:definition "The number of hospital discharges  for dehydration per 1,000 population aged 65 years and over" ;
+    :disaggregation """Age group (1 or 5 year)
+Sex
+County""" ;
+    :numeratorDataElement "Number of discharges in people aged 65+" ;
+    :numeratorSource "HPO HIPE" ;
+    :status "Include in Delphi" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/indicator/hse0000101> a dcat:Dataset,
+        :Indicator ;
+    healthdcatap:healthTheme "HEALTH BEHAVIOURS" ;
+    dcterms:identifier "hse0000101" ;
+    dcterms:provenance "CSO - Healthy Ireland (from DoH)" ;
+    dcterms:title "Percent of people 65 and above achieving National Physical Activity Guidelines by sex and year" ;
+    skos:definition "The proportion of adults aged 65 years and over meeting official exercise guidelines, categorised by sex and year." ;
+    :numeratorSource "https://data.cso.ie/table/HIS67" ;
+    :status "Include in Delphi" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/indicator/hse0000102> a dcat:Dataset,
+        :Indicator ;
+    healthdcatap:healthTheme "HEALTHCARE USE" ;
+    dcterms:identifier "hse0000102" ;
+    dcterms:provenance "HIPE" ;
+    dcterms:title "Depression and bipolar disorders discharge rate per 1,000 population (65+)" ;
+    skos:definition "The number of discharges for mental health conditions including depression or bipolar disorder per 1,000 adults aged 65 years and over" ;
+    skos:note "ICD F30, F31, F33.4, F34, F38, F41.2, U79.3" ;
+    :disaggregation """Age group (1 or 5 year)
+Sex
+County""" ;
+    :numeratorDataElement "Number of discharges in people aged 65+" ;
+    :numeratorSource "HPO HIPE" ;
+    :status "Include in Delphi" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/indicator/hse0000103> a dcat:Dataset,
+        :Indicator ;
+    healthdcatap:healthTheme "HEALTHCARE USE" ;
+    dcterms:identifier "hse0000103" ;
+    dcterms:provenance "HIPE" ;
+    dcterms:title "Anxiety discharges per 1,000 population (65+)" ;
+    skos:definition "The number of hospital discharges rate for anxiety disorders per 1,000 adults aged 65 years and over" ;
+    skos:note "ICD F06.4, F40.00, F40.01, F40.8, F40.9, F41.0, F41.1, F41.3, F41.8, F41.9, F42, F43.0, F48.8, F48.9, R45.1-45.7, F45.6, F45.7, F46.6" ;
+    :disaggregation """Age group (1 or 5 year)
+Sex
+County""" ;
+    :numeratorDataElement "Number of discharges in people aged 65+" ;
+    :status "Include in Delphi" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/indicator/hse0000104> a dcat:Dataset,
+        :Indicator ;
+    healthdcatap:healthTheme "HEALTHCARE USE" ;
+    dcterms:identifier "hse0000104" ;
+    dcterms:provenance "HIPE" ;
+    dcterms:title "Schizophrenia discharges per 1,000 population (65+)" ;
+    skos:definition "The number of hospital discharges rate for schizophrenia per 1,000 adults aged 65 years and over" ;
+    skos:note "Suggest switch to HIPE - ICD F20-29" ;
+    :numeratorSource "HPO HIPE" ;
+    :status "Include in Delphi" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/indicator/hse0000105> a dcat:Dataset,
+        :Indicator ;
+    healthdcatap:healthTheme "PROVIDING CARE" ;
+    dcterms:identifier "hse0000105" ;
+    dcterms:provenance "CSO - Irish Health Survey" ;
+    dcterms:title "Percent of 65+ who provide care or assistance to one or more persons suffering from some age related problem, chronic health condition or infirmity, at least once a week" ;
+    skos:definition "The proportion of adults aged 65 years and over who regularly help someone with age-related or chronic health issues." ;
+    :numeratorSource "https://data.cso.ie/table/IH184" ;
+    :status "Include in Delphi" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/indicator/hse0000106> a dcat:Dataset,
+        :Indicator ;
+    healthdcatap:healthTheme "HEALTHCARE USE" ;
+    dcterms:identifier "hse0000106" ;
+    dcterms:provenance "HIPE" ;
+    dcterms:title "COPD discharges per 1,000 population (65+)" ;
+    skos:definition "The number of hospital discharges for chronic obstructive pulmonary disease per 1,000 adults aged 65 years and over" ;
+    skos:note "ICD J40-44, J47, U83" ;
+    :disaggregation """Age group (1 or 5 year)
+Sex
+County""" ;
+    :numeratorDataElement "Number of discharges in people aged 65+" ;
+    :numeratorSource "HPO HIPE" ;
+    :status "Include in Delphi" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/indicator/hse0000107> a dcat:Dataset,
+        :Indicator ;
+    healthdcatap:healthTheme "HEALTH STATUS" ;
+    dcterms:identifier "hse0000107" ;
+    dcterms:provenance "CSO - SILC Wellbeing" ;
+    dcterms:title "Percent of people 65 and above with Low, Medium, High, Not Stated overall life satisfaction" ;
+    skos:definition "The percentage of people aged 65 years and over who satisfied are with their life overall, rated from low to high." ;
+    :numeratorSource "https://data.cso.ie/table/WBB64" ;
+    :status "Include in Delphi" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/indicator/hse0000108> a dcat:Dataset,
+        :Indicator ;
+    healthdcatap:healthTheme "HEALTHCARE USE" ;
+    dcterms:identifier "hse0000108" ;
+    dcterms:provenance "NBIU -  Corporate Information Facility" ;
+    dcterms:title "Number of persons 65+ in receipt of Intensive Home Care Packages (IHCP)" ;
+    skos:definition "The number of adults aged 65 years and over receiving higher-level home care through the IHCP scheme." ;
+    skos:note "https://www.hse.ie/eng/services/publications/kpis/2024-older-persons-nsp-metadata.pdf" ;
+    :numeratorSource "Home Support records held at LHO level." ;
+    :status "Include in Delphi" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/indicator/hse0000109> a dcat:Dataset,
+        :Indicator ;
+    healthdcatap:healthTheme "DEMOGRAPHICS" ;
+    dcterms:identifier "hse0000109" ;
+    dcterms:provenance "CSO - Census 2022" ;
+    dcterms:title "Proportion of Population aged 65+ by marital status." ;
+    skos:definition "The percentage of people aged 65 years and over who are single, married, widowed, divorced, etc." ;
+    :numeratorSource "https://data.cso.ie/table/F3027" ;
+    :status "Include in Delphi" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/indicator/hse0000110> a dcat:Dataset,
+        :Indicator ;
+    healthdcatap:healthTheme "EDUCATION AND SKILLS" ;
+    dcterms:identifier "hse0000110" ;
+    dcterms:provenance "CSO - Census 2022" ;
+    dcterms:title "Population aged 65 years and over by highest level of education completed (%)" ;
+    skos:definition "The percentage of adults aged 65 years and over who, during their lifetime, have completed different levels of education." ;
+    :numeratorSource "https://data.cso.ie/table/F8039" ;
+    :status "Include in Delphi" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/indicator/hse0000111> a dcat:Dataset,
+        :Indicator ;
+    healthdcatap:healthTheme "CONNECTIONS AND PARTICIPATION" ;
+    dcterms:identifier "hse0000111" ;
+    dcterms:provenance "TILDA" ;
+    dcterms:title "Percentage of older adults(65+)who engage in one or more social leisure activity at least once a week" ;
+    skos:definition "The percentage of people aged 65 years and over who take part in activities like clubs, hobbies, or social events weekly." ;
+    skos:note "SCQ Question 1" ;
+    :denominatorDataElement "All respondents aged 65+ who answered the question on social leisure activity" ;
+    :denominatorSource "TILDA Wave 6" ;
+    :numeratorDataElement "The number of respondents aged 65+ who participate in at least one of the listed social activities once a week or more" ;
+    :numeratorSource "TILDA Wave 6" ;
+    :status "Include in Delphi" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/indicator/hse0000112> a dcat:Dataset,
+        :Indicator ;
+    healthdcatap:healthTheme "HEALTHCARE USE" ;
+    dcterms:identifier "hse0000112" ;
+    dcterms:provenance "NBIU -  Corporate Information Facility" ;
+    dcterms:title "Number of home support hours provided to those aged 65 and over (exclusing provision of hours from Intensive Home Care Packages IHCPs)" ;
+    skos:definition "Number of  hours of basic support services provided to adults aged 65 years and over, excluding intensive care." ;
+    skos:note "https://www.hse.ie/eng/services/publications/kpis/2024-older-persons-nsp-metadata.pdf" ;
+    :numeratorSource "Home Support records held at LHO level." ;
+    :status "Include in Delphi" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/indicator/hse0000113> a dcat:Dataset,
+        :Indicator ;
+    healthdcatap:healthTheme "HEALTHCARE USE" ;
+    dcterms:identifier "hse0000113" ;
+    dcterms:provenance "HIPE" ;
+    dcterms:title "Dementia due to causes other than Alzheimer's disease discharge rate per 1,000 population (65+)" ;
+    skos:definition "The number of hospital discharges for dementia caused by conditions other than Alzheimer's per 1,000 adults aged 65 years and over" ;
+    skos:note "Original ID: ICD codes F01, F02." ;
+    :disaggregation """Age group (1 or 5 year)
+Sex
+County""" ;
+    :numeratorDataElement "Number of discharges in people aged 65+" ;
+    :numeratorSource "HPO HIPE" ;
+    :status "Include in Delphi" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/indicator/hse0000114> a dcat:Dataset,
+        :Indicator ;
+    healthdcatap:healthTheme "VULNERABLE GROUPS" ;
+    dcterms:identifier "hse0000114" ;
+    dcterms:provenance "CSO - Census 2022" ;
+    dcterms:title "Accommodation status of people aged 65+ with an intellectual disability (%)" ;
+    skos:definition "The percentage of adults aged 65 years and over with an intellectual disability, categorised by their living arrangements" ;
+    skos:note "Not publicly available from CSO" ;
+    :numeratorSource "Census 2022" ;
+    :status "Include in Delphi" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/indicator/hse0000115> a dcat:Dataset,
+        :Indicator ;
+    healthdcatap:healthTheme "HEALTH STATUS" ;
+    dcterms:identifier "hse0000115" ;
+    dcterms:provenance "TILDA" ;
+    dcterms:title "Percentage of older adults  (65+)who report limitations in Instrumental Activities in Daily Living (IADLS)" ;
+    skos:definition "The proportion of  adults aged 65 years and over who have difficulty with tasks like managing money or preparing meals." ;
+    :denominatorDataElement "All respondents aged 65+ who were asked about IADL limitations" ;
+    :denominatorSource "TILDA Wave 6" ;
+    :numeratorDataElement "The number of respondents aged 65+ with IADL_reported = 1 (Yes, has at least one IADL limitation)" ;
+    :numeratorSource "TILDA Wave 6" ;
+    :status "Include in Delphi" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/indicator/hse0000116> a dcat:Dataset,
+        :Indicator ;
+    healthdcatap:healthTheme "HEALTHCARE USE" ;
+    dcterms:identifier "hse0000116" ;
+    dcterms:provenance "HIPE" ;
+    dcterms:title "Pyelonephritis discharge rate per 1,000 population (ACS Condition)" ;
+    skos:definition "The number of hospital discharges for kidney infections per 1,000 adults aged 65 years and over" ;
+    :disaggregation """Age group (1 or 5 year)
+Sex
+County""" ;
+    :numeratorDataElement "Number of discharges in people aged 65+" ;
+    :numeratorSource "HPO HIPE" ;
+    :status "Include in Delphi" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/indicator/hse0000117> a dcat:Dataset,
+        :Indicator ;
+    healthdcatap:healthTheme "HEALTHCARE USE" ;
+    dcterms:identifier "hse0000117" ;
+    dcterms:provenance "HIPE" ;
+    dcterms:title "UTI discharge rate per 1,000 population (ACS Condition)" ;
+    skos:definition "The number of hospital discharges for urinary tract infections per 1,000  adults aged 65 years and over" ;
+    skos:note "ICD N10, N11, N136, N151, N30, N34, N39.0" ;
+    :disaggregation """Age group (1 or 5 year)
+Sex
+County""" ;
+    :numeratorDataElement "Number of discharges in people aged 65+" ;
+    :numeratorSource "HPO HIPE" ;
+    :status "Include in Delphi" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/indicator/hse0000118> a dcat:Dataset,
+        :Indicator ;
+    healthdcatap:healthTheme "HEALTHCARE USE" ;
+    dcterms:identifier "hse0000118" ;
+    dcterms:provenance "HIPE" ;
+    dcterms:title "Angina discharge rate per 1,000 population (ACS Condition)" ;
+    skos:definition "The number of hospital discharges for chest pain caused by heart disease per 1,000 adults aged 65 years and over" ;
+    :disaggregation """Age group (1 or 5 year)
+Sex
+County""" ;
+    :numeratorDataElement "Number of discharges in people aged 65+" ;
+    :numeratorSource "HPO HIPE" ;
+    :status "Include in Delphi" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/indicator/hse0000119> a dcat:Dataset,
+        :Indicator ;
+    healthdcatap:healthTheme "HEALTHCARE USE" ;
+    dcterms:identifier "hse0000119" ;
+    dcterms:provenance "HIPE" ;
+    dcterms:title "Iron deficiency anaemia discharge rate per 1,000 population (ACS Condition)" ;
+    skos:definition "The number of hospital discharges for iron-deficiency anaemia per 1,000 adults aged 65 years and over" ;
+    :disaggregation """Age group (1 or 5 year)
+Sex
+County""" ;
+    :numeratorDataElement "Number of discharges in people aged 65+" ;
+    :numeratorSource "HPO HIPE" ;
+    :status "Include in Delphi" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/indicator/hse0000120> a dcat:Dataset,
+        :Indicator ;
+    healthdcatap:healthTheme "HEALTH STATUS" ;
+    dcterms:identifier "hse0000120" ;
+    dcterms:provenance "TILDA" ;
+    dcterms:title "Frequency of loneliness in a week as reported by older adults aged 65+" ;
+    skos:definition "The number of times adults aged 65 years and over report feeling lonely over a typical week." ;
+    :denominatorDataElement "All respondents aged 65+ who were asked about loneliness" ;
+    :denominatorSource "TILDA Wave 6" ;
+    :numeratorDataElement "The number of respondents aged 65+ reporting loneliness 'Some of the time', 'Moderate amount of time', or 'All of the time'" ;
+    :numeratorSource "TILDA Wave 6" ;
+    :status "Include in Delphi" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/indicator/hse0000121> a dcat:Dataset,
+        :Indicator ;
+    healthdcatap:healthTheme "CONNECTIONS AND PARTICIPATION" ;
+    dcterms:identifier "hse0000121" ;
+    dcterms:provenance "TILDA" ;
+    dcterms:title "Percentage of older adults (65+) who are members of organisations, clubs, societies" ;
+    skos:definition "The percentage of adults aged 65 years and over who belong to formal groups like clubs or associations." ;
+    skos:note "SCQ Question 2" ;
+    :denominatorDataElement "All respondents aged 65+ who answered the question on membership of organisations or clubs" ;
+    :denominatorSource "TILDA Wave 6" ;
+    :numeratorDataElement "The number of respondents aged 65+ with SOCsocParticip = 1 (Yes, is involved in an organisation other than a Church)." ;
+    :numeratorSource "TILDA Wave 6" ;
+    :status "Include in Delphi" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/indicator/hse0000122> a dcat:Dataset,
+        :Indicator ;
+    healthdcatap:healthTheme "HEALTH STATUS" ;
+    dcterms:identifier "hse0000122" ;
+    dcterms:provenance "CSO - Healthy Ireland (from DoH)" ;
+    dcterms:title "Percent of people 65 and over who rate the quality of their sleep at night as fairly good or very good" ;
+    skos:definition "The proportion of people aged 65 years and over who feel they sleep well." ;
+    :numeratorSource "https://data.cso.ie/table/HIS63" ;
+    :status "Include in Delphi" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/indicator/hse0000123> a dcat:Dataset,
+        :Indicator ;
+    healthdcatap:healthTheme "CONNECTIONS AND PARTICIPATION" ;
+    dcterms:identifier "hse0000123" ;
+    dcterms:provenance "CSO - Census 2022" ;
+    dcterms:title "Proportion of the population 65+ who regularly engage in helping or voluntary work in any of the following activities without pay: A social or charitable organisation; A religious group or church; A sporting organisation; A political organisation; In your community; No." ;
+    :numeratorSource "https://data.cso.ie/table/F9014" ;
+    :status "Include in Delphi" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/indicator/hse0000124> a dcat:Dataset,
+        :Indicator ;
+    healthdcatap:healthTheme "HEALTH STATUS" ;
+    dcterms:identifier "hse0000124" ;
+    dcterms:provenance "TILDA" ;
+    dcterms:title "Percentage of older adults (65+) who are underweight, overweight and obese" ;
+    skos:definition "The proportion of adults aged 65 years and over by weight category: underweight, healthy weight, overweight, or obese." ;
+    skos:note "Original ID: PH719, PH720, PH721, PH722, PH723, PH724." ;
+    :denominatorDataElement "All respondents aged 65+ who answered the question on height and weight" ;
+    :denominatorSource "TILDA Wave 6" ;
+    :numeratorDataElement "The number of respondents aged 65+ with a calculated BMI putting them in underweight, overweight and obese range based on their self-reported height and weight" ;
+    :numeratorSource "TILDA Wave 6" ;
+    :status "Include in Delphi" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/indicator/hse0000125> a dcat:Dataset,
+        :Indicator ;
+    healthdcatap:healthTheme "HEALTHCARE USE" ;
+    dcterms:identifier "hse0000125" ;
+    dcterms:provenance "TILDA" ;
+    dcterms:title "% medicines by ATC codes prescribed to those aged 65+" ;
+    skos:definition "The percentage of medications prescribed to adults aged 65 years and over by type of medication (using Anatomical Therapeutic Chemical (ATC) classification)." ;
+    :status "Include in Delphi" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/indicator/hse0000126> a dcat:Dataset,
+        :Indicator ;
+    healthdcatap:healthTheme "PROVIDING CARE" ;
+    dcterms:identifier "hse0000126" ;
+    dcterms:provenance "TILDA" ;
+    dcterms:title "Percentage of older adults who provide care to children and/or grandchildren (Who and how often)" ;
+    skos:definition "The proportion of people aged 65 years and over who are caring for children or grandchildren, and how frequently they do so" ;
+    skos:note "Original ID: TC016, TC017." ;
+    :denominatorDataElement "All respondents aged 65+ who answered the question on caring for children or grandchildren" ;
+    :denominatorSource "TILDA Wave 6" ;
+    :numeratorDataElement "The number of respondents aged 65+ who provide care to children or grandchildren" ;
+    :numeratorSource "TILDA Wave 6" ;
+    :status "Include in Delphi" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/indicator/hse0000127> a dcat:Dataset,
+        :Indicator ;
+    healthdcatap:healthTheme "HEALTH STATUS" ;
+    dcterms:identifier "hse0000127" ;
+    dcterms:provenance "CSO - Healthy Ireland (from DoH)" ;
+    dcterms:title "Percent of people aged 65 and above who have taken an antibiotic in the last 12 months by sex and year" ;
+    :numeratorSource "https://data.cso.ie/table/HIS27" ;
+    :status "Include in Delphi" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/indicator/hse0000128> a dcat:Dataset,
+        :Indicator ;
+    healthdcatap:healthTheme "CONNECTIONS AND PARTICIPATION" ;
+    dcterms:identifier "hse0000128" ;
+    dcterms:provenance "TILDA" ;
+    dcterms:title "Percentage of older adults (65+) who volunteer" ;
+    :denominatorDataElement "All respondents aged 65+ who answered the question on volunteering" ;
+    :denominatorSource "TILDA Wave 6" ;
+    :numeratorDataElement "The number of respondents aged 65+ who volunteer" ;
+    :numeratorSource "TILDA Wave 6" ;
+    :status "Include in Delphi" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/indicator/hse0000129> a dcat:Dataset,
+        :Indicator ;
+    healthdcatap:healthTheme "HEALTHCARE USE" ;
+    dcterms:identifier "hse0000129" ;
+    dcterms:provenance "Alone" ;
+    dcterms:title "Number of older people newly supported with ALONE services (year)" ;
+    :disaggregation """Age group (5 year)
+Sex
+IHA""" ;
+    :numeratorSource "https://alone.ie/alone-ecc-report-2024/" ;
+    :status "Include in Delphi" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/indicator/hse0000130> a dcat:Dataset,
+        :Indicator ;
+    healthdcatap:healthTheme "HEALTHCARE USE" ;
+    dcterms:identifier "hse0000130" ;
+    dcterms:provenance "Alone" ;
+    dcterms:title "Number of older people in receipt of ongoing support of ALONE Services (year)" ;
+    :disaggregation """Age group (5 year)
+Sex
+IHA""" ;
+    :numeratorSource "https://alone.ie/alone-ecc-report-2024/" ;
+    :status "Include in Delphi" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/indicator/hse0000131> a dcat:Dataset,
+        :Indicator ;
+    healthdcatap:healthTheme "HEALTHCARE USE" ;
+    dcterms:identifier "hse0000131" ;
+    dcterms:provenance "ICPOP" ;
+    dcterms:title "Total number of new referrals to ICPOP (accepted) by month" ;
+    skos:definition "Monthly total of new referrals accepted into the ICPOP programme." ;
+    :numeratorDataElement "Total number of new referrals (accepted) by month" ;
+    :numeratorSource "ECC Activity Metrics" ;
+    :status "Include in Delphi" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/indicator/hse0000132> a dcat:Dataset,
+        :Indicator ;
+    healthdcatap:healthTheme "HEALTHCARE USE" ;
+    dcterms:identifier "hse0000132" ;
+    dcterms:provenance "ICPOP" ;
+    dcterms:title "Total number of new ICPOP referrals by referral source by month" ;
+    skos:definition "Monthly total of new ICPOP referrals, broken down by which clinical specialty the referral came from." ;
+    :denominatorDataElement "Total number of new referrals by month" ;
+    :denominatorSource "ECC Activity Metrics" ;
+    :numeratorDataElement "Total number of new referrals by source by month" ;
+    :numeratorSource "ECC Activity Metrics" ;
+    :status "Include in Delphi" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/indicator/hse0000133> a dcat:Dataset,
+        :Indicator ;
+    healthdcatap:healthTheme "HEALTHCARE USE" ;
+    dcterms:identifier "hse0000133" ;
+    dcterms:provenance "ICPOP" ;
+    dcterms:title "Total number of new ICPOP referrals with a clinical frailty score of 3 or less (not frail)" ;
+    skos:definition "Monthly referrals to ICPOP for people aged 65 years and over with low or no frailty." ;
+    :numeratorDataElement "Total number of new patients with a frailty score of 1, 2 or 3" ;
+    :numeratorSource "ECC Activity Metrics" ;
+    :status "Include in Delphi" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/indicator/hse0000134> a dcat:Dataset,
+        :Indicator ;
+    healthdcatap:healthTheme "HEALTHCARE USE" ;
+    dcterms:identifier "hse0000134" ;
+    dcterms:provenance "ICPOP" ;
+    dcterms:title "Total number of new ICPOP referrals with a clinical frailty score of 4-6 (mild frailty)" ;
+    skos:definition "Monthly referrals to ICPOP for people aged 65 years and over with mild levels of frailty." ;
+    :numeratorDataElement "Total number of new patients with a frailty score of 4, 5 or 6" ;
+    :numeratorSource "ECC Activity Metrics" ;
+    :status "Include in Delphi" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/indicator/hse0000135> a dcat:Dataset,
+        :Indicator ;
+    healthdcatap:healthTheme "HEALTHCARE USE" ;
+    dcterms:identifier "hse0000135" ;
+    dcterms:provenance "ICPOP" ;
+    dcterms:title "Total number of new ICPOP referrals with a clinical frailty score of 7-8 (moderate frailty)" ;
+    skos:definition "Monthly referrals to ICPOP for people aged 65 years and over with moderate frailty." ;
+    :numeratorDataElement "Total number of new patients with a frailty score of 7 or 8" ;
+    :numeratorSource "ECC Activity Metrics" ;
+    :status "Include in Delphi" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/indicator/hse0000136> a dcat:Dataset,
+        :Indicator ;
+    healthdcatap:healthTheme "HEALTHCARE USE" ;
+    dcterms:identifier "hse0000136" ;
+    dcterms:provenance "ICPOP" ;
+    dcterms:title "Total number of new ICPOP referrals with a clinical frailty score of 9 (advanced frailty)" ;
+    skos:definition "Monthly referrals to ICPOP for people aged 65 years and over with the highest level of frailty." ;
+    :numeratorDataElement "Total number of new patients with a frailty score of 9" ;
+    :numeratorSource "ECC Activity Metrics" ;
+    :status "Include in Delphi" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/indicator/hse0000137> a dcat:Dataset,
+        :Indicator ;
+    healthdcatap:healthTheme "HEALTHCARE USE" ;
+    dcterms:identifier "hse0000137" ;
+    dcterms:provenance "ICPOP" ;
+    dcterms:title "Total number of new patients seen by ICPOP on 10 or more medications by month" ;
+    skos:definition "Number of adults aged 65 years and over seen by ICPOP each month who take 10 or more medications." ;
+    :numeratorDataElement "Total no. of new patients on 10 or more medications (month)" ;
+    :numeratorSource "ECC Activity Metrics" ;
+    :status "Include in Delphi" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/indicator/hse0000138> a dcat:Dataset,
+        :Indicator ;
+    healthdcatap:healthTheme "FINANCES" ;
+    dcterms:identifier "hse0000138" ;
+    dcterms:provenance "CSO - SILC" ;
+    dcterms:title "Percent of population aged 65+  experiencing enforced deprivation" ;
+    skos:definition "The proportion of adults aged 65 years and over who cannot afford basic needs like heating, clothing, or meals." ;
+    :numeratorSource "https://data.cso.ie/table/SIA61" ;
+    :status "Include in Delphi" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/provenance/0451a16d-9588-4f76-889a-0dfbd45af553> a dcterms:ProvenanceStatement ;
+    rdfs:label "CSO - Irish Health Survey" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/provenance/0677fd71-99b3-4972-8f2d-f6d7ed2c8cb7> a dcterms:ProvenanceStatement ;
+    rdfs:label "CSO - Information Society Statistics Households - Digital Consumer Behaviour" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/provenance/1d0ff874-5e36-42e9-b565-d58d7d3d33e1> a dcterms:ProvenanceStatement ;
+    rdfs:label "CSO - HSPA (from DoH)" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/provenance/2058859a-a616-4a16-8fcf-89447cc66e9e> a dcterms:ProvenanceStatement ;
+    rdfs:label "ICPOP" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/provenance/2db9e4d0-8307-41ba-9677-e69139ad4cc9> a dcterms:ProvenanceStatement ;
+    rdfs:label "CSO - Census 2022" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/provenance/2dd7952a-11a8-4f4e-9699-30976c9c49d7> a dcterms:ProvenanceStatement ;
+    rdfs:label "CSO - SILC Wellbeing" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/provenance/3019e41d-e485-4918-b6b0-c0e3c2f77b7b> a dcterms:ProvenanceStatement ;
+    rdfs:label "CSO - Healthy Ireland (from DoH)" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/provenance/34a5db58-090b-4c5f-95f1-332fe9fde22f> a dcterms:ProvenanceStatement ;
+    rdfs:label "Alone" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/provenance/390be026-4595-43aa-acad-adf4c28e1c17> a dcterms:ProvenanceStatement ;
+    rdfs:label "HIPE" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/provenance/45e05fe6-019d-4944-bd38-6e7f24713eee> a dcterms:ProvenanceStatement ;
+    rdfs:label "CSO - Eurostat (SILC)" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/provenance/4c08b0ad-9a05-42a0-b852-cedc2df7779a> a dcterms:ProvenanceStatement ;
+    rdfs:label "TILDA" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/provenance/5f352492-1c2a-4057-8375-67470de5e45d> a dcterms:ProvenanceStatement ;
+    rdfs:label "HPSC" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/provenance/94e577f1-bee2-4b3e-bc56-5bddb828e488> a dcterms:ProvenanceStatement ;
+    rdfs:label "NBIU -  Corporate Information Facility" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/provenance/98220175-b1c1-44ba-a69a-b71f33cec1ad> a dcterms:ProvenanceStatement ;
+    rdfs:label "Patient experience time" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/provenance/b54d844a-49b3-4e90-95fc-8adaa9533f7d> a dcterms:ProvenanceStatement ;
+    rdfs:label "CSO - SILC" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/provenance/e8025dc7-a21d-4f40-b805-90c14f36eec6> a dcterms:ProvenanceStatement ;
+    rdfs:label "CSO - Population and Labour Force Projections" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/provenance/ee0e8558-d791-4b56-84ce-18a153a0e1f3> a dcterms:ProvenanceStatement ;
+    rdfs:label "Pobal" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/provenance/f4180b1d-32b7-45dc-aa31-1e30bec02d17> a dcterms:ProvenanceStatement ;
+    rdfs:label "Department of Government and Housing" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/publisher/0d7dd769-e2fb-4958-8d06-38a1ea572930> a dcterms:Publisher ;
+    dcterms:source "https://data.cso.ie/table/F7026" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/publisher/0fc45f84-ed2b-4ea1-99fe-eda87fe2bba1> a dcterms:Publisher ;
+    dcterms:source "HPO HIPE" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/publisher/116d3906-e4ec-459e-b8d6-547ce6f2fb31> a dcterms:Publisher ;
+    dcterms:source "https://data.cso.ie/table/F7058" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/publisher/1788a0cc-34b2-4f2e-9ae4-a6e69916666a> a dcterms:Publisher ;
+    dcterms:source "https://data.cso.ie/table/F8039" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/publisher/1c6eb316-0c23-4e90-a9d4-748cd45bc442> a dcterms:Publisher ;
+    dcterms:source "https://data.cso.ie/table/F4014" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/publisher/1df00bf4-379d-4170-b824-453160e1929e> a dcterms:Publisher ;
+    dcterms:source "https://data.cso.ie/table/F4068" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/publisher/1f234e83-8ab2-45d2-8c04-c660274ffb9a> a dcterms:Publisher ;
+    dcterms:source "https://data.cso.ie/table/SIA61" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/publisher/1fb392dd-c37f-4e3b-8a55-790090aa47bb> a dcterms:Publisher ;
+    dcterms:source "https://data.cso.ie/table/HIS25" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/publisher/21335c8b-d8e7-453f-8b57-2c0579397159> a dcterms:Publisher ;
+    dcterms:source "https://data.cso.ie/table/IH279" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/publisher/22b8dd1b-5031-4f15-bdbc-692f701a7eb0> a dcterms:Publisher ;
+    dcterms:source "https://data.cso.ie/table/F4043" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/publisher/29a17fb6-7947-4382-a7f6-d74315b379e7> a dcterms:Publisher ;
+    dcterms:source "https://data.cso.ie/table/F5069" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/publisher/2aebe24f-c805-41a6-9d85-b4f17f003243> a dcterms:Publisher ;
+    dcterms:source "Census 2022" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/publisher/3147b769-febb-4429-9e09-53c8258764dc> a dcterms:Publisher ;
+    dcterms:source "https://data.cso.ie/table/PEC22" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/publisher/3234f977-4c1c-433e-a09b-3d163b91a731> a dcterms:Publisher ;
+    dcterms:source "Nursing Homes Support Scheme Database" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/publisher/3f36cf5a-3249-48f9-a9b5-de80019c0e74> a dcterms:Publisher ;
+    dcterms:source "https://data.cso.ie/table/F3084" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/publisher/4c57d1ce-25fe-4444-b151-94f0bf02b97c> a dcterms:Publisher ;
+    dcterms:source "https://data.cso.ie/table/FY009" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/publisher/4ebabf8c-c5b3-4f4b-abd8-b472011fcd6a> a dcterms:Publisher ;
+    dcterms:source "https://data.cso.ie/table/F9026" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/publisher/585bc10b-a30c-470e-bddd-1af7ab33cd82> a dcterms:Publisher ;
+    dcterms:source "https://data.cso.ie/table/HIS57" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/publisher/656530a7-0dea-4e24-acd0-4486473b0ba3> a dcterms:Publisher ;
+    dcterms:source "https://data.cso.ie/table/ICA96" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/publisher/69096b7a-69fa-4077-9608-1017d89e4a57> a dcterms:Publisher ;
+    dcterms:source "https://data.cso.ie/table/F2017B" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/publisher/75a20dec-67c9-4b4c-b2f0-92feb70bd9da> a dcterms:Publisher ;
+    dcterms:source "https://data.cso.ie/table/F4001" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/publisher/85d9c261-b059-4608-a383-fbcf330f3081> a dcterms:Publisher ;
+    dcterms:source "https://data.cso.ie/table/HIS27" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/publisher/8c950b8e-fe29-466c-a658-53cf0545155e> a dcterms:Publisher ;
+    dcterms:source "https://data.cso.ie/table/SAP2022T1T1ASA" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/publisher/92a298b9-1112-48a3-be8d-2332421bbf30> a dcterms:Publisher ;
+    dcterms:source "https://data.cso.ie/table/HIS23" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/publisher/92f2d23b-3a7a-42fa-a1de-bc4e32f4fe44> a dcterms:Publisher ;
+    dcterms:source "https://data.cso.ie/table/HIS63" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/publisher/a0621042-9115-42a5-acef-7e1dde7c4a63> a dcterms:Publisher ;
+    dcterms:source "https://www.pobal.ie/pobal-hp-deprivation-index/" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/publisher/a127b94c-b686-400f-acc2-228edf13c581> a dcterms:Publisher ;
+    dcterms:source "https://data.cso.ie/table/HSPAO18" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/publisher/a39b79ef-6158-4fc9-9b2d-d7f2091997af> a dcterms:Publisher ;
+    dcterms:source "https://www.gov.ie/en/department-of-housing-local-government-and-heritage/collections/homelessness-data/" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/publisher/a57f83ac-2ff5-447b-87a1-8de2a518b13e> a dcterms:Publisher ;
+    dcterms:source "https://data.cso.ie/table/F9014" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/publisher/a9f83f79-6af5-4e3f-af28-38855faa9cd4> a dcterms:Publisher ;
+    dcterms:source "https://data.cso.ie/table/F4055" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/publisher/af7060cc-1d94-45ad-88ab-7e178fd959b0> a dcterms:Publisher ;
+    dcterms:source "https://alone.ie/alone-ecc-report-2024/" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/publisher/b5f70d72-b7d7-4247-85e2-fd181c0aea8e> a dcterms:Publisher ;
+    dcterms:source "https://data.cso.ie/table/HIS67" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/publisher/b69a7017-4d03-4151-a923-5f8597955cc4> a dcterms:Publisher ;
+    dcterms:source "Patient Experience Time" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/publisher/cab9fbb8-d83c-46d3-b161-3889f8efbf34> a dcterms:Publisher ;
+    dcterms:source "https://data.cso.ie/table/F4040" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/publisher/d012804d-781b-4aff-a110-2eabb3c77eb2> a dcterms:Publisher ;
+    dcterms:source "https://data.cso.ie/table/PEC23" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/publisher/d2ba4fbb-261c-4808-ab45-9fed605e4531> a dcterms:Publisher ;
+    dcterms:source "https://data.cso.ie/table/F5068" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/publisher/d6b16760-17e3-4f89-bee1-80dabb9b4c55> a dcterms:Publisher ;
+    dcterms:source "https://data.cso.ie/table/HIS15" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/publisher/d6f068b3-fb9b-437d-b32c-1d0b22e060e1> a dcterms:Publisher ;
+    dcterms:source "https://data.cso.ie/table/WBB22" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/publisher/d8f25308-c5eb-4ea0-9fa1-70d69ca78e08> a dcterms:Publisher ;
+    dcterms:source "TILDA Wave 6" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/publisher/dd20e2a9-29b0-43f2-b9c3-8010eb163915> a dcterms:Publisher ;
+    dcterms:source "https://data.cso.ie/table/F5067" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/publisher/e183417f-9281-4130-996c-a99aec07a313> a dcterms:Publisher ;
+    dcterms:source "ECC Activity Metrics" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/publisher/e4ad3ce1-ebf9-46e6-95ea-412776a0c511> a dcterms:Publisher ;
+    dcterms:source "https://data.cso.ie/table/IH190" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/publisher/e5988971-f15d-4809-8921-5a0e2e92d16f> a dcterms:Publisher ;
+    dcterms:source "https://data.cso.ie/table/HIS41" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/publisher/ef84aa7c-ce91-4f83-a05e-6377ca95b774> a dcterms:Publisher ;
+    dcterms:source "https://data.cso.ie/table/F3027" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/publisher/f1baa627-2069-4107-8390-508f1b260d9b> a dcterms:Publisher ;
+    dcterms:source "https://data.cso.ie/table/WBD08" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/publisher/f2d389af-c865-4d22-8a4c-b3e1eb19043a> a dcterms:Publisher ;
+    dcterms:source "https://data.cso.ie/table/IH184" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/publisher/fbc87f68-d16c-47f4-ae65-8b87d451fd93> a dcterms:Publisher ;
+    dcterms:source "https://data.cso.ie/table/IH199" .
+
+<https://hse-oahwb-profile.adaptcentre.ie/publisher/fbc92d68-c676-4a87-9d26-59eaae481ef0> a dcterms:Publisher ;
+    dcterms:source "Home Support records held at LHO level." .
+
+<https://hse-oahwb-profile.adaptcentre.ie/publisher/fff25738-1ba9-4d73-9601-1d4f40920f4f> a dcterms:Publisher ;
+    dcterms:source "https://data.cso.ie/table/WBB64" .
+

@@ -43,15 +43,19 @@ column_name_mapping = {
 	key: file name string
 	value: list of row indexes to be removed
 """
+
+schema_file_prefix = "../hse-data"
+
 row_index_remove_mapping = {
-	'data/schema/OAHP_DataCatalogueSchemaProposal -v05.12.xlsx - Indicators.csv': [0, 2],
-	'./data/schema/OAHP_DataCatalogueSchemaProposal -v05.12.xlsx - Indicators.csv': [0, 2],
-	'./data/combined_indicators_copy.csv': [0, 2],
-	'./data/cso/combined_indicators.csv': [0, 2],
-	'data/schema/OAHP_DataCatalogueSchemaProposal -v05.12.xlsx - Data sources.csv': [0, 2, 3],
-	'./data/schema/OAHP_DataCatalogueSchemaProposal -v05.12.xlsx - Data sources.csv': [0, 2, 3],
-	'./data/combined_datasets_copy.csv': [0, 2, 3],
-	'./data/cso/combined_datasets.csv': [0, 2, 3],
+	schema_file_prefix+'/data/schema/OAHP_DataCatalogueSchemaProposal -v05.12.xlsx - Indicators.csv': [0, 2],
+	schema_file_prefix+'/data/schema/OAHP_DataCatalogueSchemaProposal -v05.12.xlsx - Indicators.csv': [0, 2],
+	schema_file_prefix+'/data/combined_indicators_copy.csv': [0, 2],
+	schema_file_prefix+'/data/cso/combined_indicators.csv': [0, 2],
+	schema_file_prefix+'/data/schema/OAHP_DataCatalogueSchemaProposal -v05.12.xlsx - Data sources.csv': [0, 2, 3],
+	schema_file_prefix+'/data/schema/OAHP_DataCatalogueSchemaProposal -v05.12.xlsx - Data sources.csv': [0, 2, 3],
+	schema_file_prefix+'/data/combined_datasets_copy.csv': [0, 2, 3],
+	schema_file_prefix+'/data/cso/combined_datasets.csv': [0, 2, 3],
+	schema_file_prefix+'/data/schema/delphi_indicators_v.05.12.csv': [0, 2],
 }
 
 def filter_csv(csv_reader: list, input_file) -> list:
@@ -60,6 +64,7 @@ def filter_csv(csv_reader: list, input_file) -> list:
 	:param csv_reader: List of rows from the CSV file
 	:return: Filtered list of rows
 	"""
+	print("mapping file dict: ", row_index_remove_mapping)
 	print(f"Input file: {input_file}")
 	rows_to_remove = row_index_remove_mapping.get(input_file, [])
 	print(f"Rows to remove: {rows_to_remove}")
@@ -70,10 +75,8 @@ def filter_csv(csv_reader: list, input_file) -> list:
 	]
 	return filtered_rows
 
-if __name__ == "__main__":
+def main():
 	import argparse
-	import sys
-	import os
 
 	parser = argparse.ArgumentParser(description="Convert CSV file for R2RML mapping.")
 	parser.add_argument(
@@ -91,3 +94,6 @@ if __name__ == "__main__":
 
 	args = parser.parse_args()
 	r2rml_csv_convert(args.input, args.output)
+
+if __name__ == "__main__":
+	main()
