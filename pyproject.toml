@@ -40,6 +40,7 @@ hse-re-order = "scripts:re_order"
 hse-add-subheaders = "scripts:add_subheaders"
 csv-rdf-convert = "scripts.rdf_mapping.csv_rdf_convert:main"
 create-csv = "scripts.rdf_mapping.create_csv:main"
+delphi-populate = "scripts.delphi.populate_metadata:main"
 
 [tool.setuptools.dynamic]
 dependencies = {file = ["requirements.txt"]}

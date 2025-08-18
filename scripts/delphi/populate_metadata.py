@@ -2,11 +2,15 @@ import argparse
 import pandas as pd
 import numpy as np
 
+def populate_rule_1(self: pd.Series, compare: pd.Series, col: str) -> pd.Series:
+    # Populate metadata for rule 1
+    return pd.isna(self[col]) and not pd.isna(compare[col]) and str(self[col]) != str(compare[col])
+
 def main():
     parser = argparse.ArgumentParser(description="Populate metadata")
-    parser.add_argument("--delphi-file", type=str, help="Delphi input file path")
-    parser.add_argument("--metadata-file", type=str, help="Metadata input file path")
-    parser.add_argument("--output", type=str, help="Output file path")
+    parser.add_argument("-d", "--delphi-file", type=str, help="Delphi input file path")
+    parser.add_argument("-m", "--metadata-file", type=str, help="Metadata input file path")
+    parser.add_argument("-o", "--output", type=str, help="Output file path")
     args = parser.parse_args()
 
     # TODO: Implement the metadata population logic
@@ -25,22 +29,23 @@ def main():
         }
     )
     compare_columns = metadata_df.columns
+    print(f'Columns to compare: {compare_columns.tolist()}')
     cso_identifier_list = metadata_df['dct:identifier']
 
     def mask(ori_id: str) -> bool:
         return cso_identifier_list.apply(lambda x: str(x) in str(ori_id)).any()
 
-    def compare_two_rows(row1: pd.Series, row2: pd.Series, index: np.int64) -> pd.Series:
+    def compare_two_rows(self: pd.Series, compare: pd.Series, index: np.int64) -> pd.Series:
         # Compare two rows and return the differences
-        equal = row1.equals(row2)
+        equal = self.equals(compare)
         if equal:
             return True
         else:
-            # print(row1[compare_columns].compare(row2[compare_columns]))
+            # print(self[compare_columns].compare(compare[compare_columns]))
             for col in compare_columns:
-                if not pd.isna(row2[col]) and pd.isna(row1[col]) and row1[col] != row2[col]:
-                    print(f"Difference in column '{col}': {row1[col]} vs {row2[col]}")
-                    delphi_df.at[index, col] = row2[col]
+                if populate_rule_1(self, compare, col):
+                    print(f"Difference in column '{col}': {self[col]} vs {compare[col]}")
+                    delphi_df.at[index, col] = compare[col]
             return False
 
     # Perform metadata population logic
@@ -51,7 +56,7 @@ def main():
         if original_id:
             found = mask(original_id)
             if found:
-                print(f"Found metadata for {delphi_id}, original: {original_id}, metadata: {found}")
+                # print(f"Found metadata for {delphi_id}, original: {original_id}, metadata: {found}")
                 metadata_row = metadata_df[metadata_df['dct:identifier'] == original_id].iloc[0]
                 compare_two_rows(row, metadata_row, index)
                 print("\n")
