@@ -51,6 +51,95 @@ The pipeline requires several Python packages (see `requirements.txt`) and follo
 
 **Note**: The raw CSV datasets used in this pipeline contain sensitive health data and are stored in a separate private repository for security and privacy compliance. The pipeline scripts in this repository are designed to work with these datasets once they are made available in the appropriate data directories.
 
+## Metadata Fields
+### Indicators Metadata Fields
+#### Mandatory Fields
+```
+dcterms:title
+dct:identifier
+hwbp:indicatorType
+hwbp:numeratorSource [a dct:dataset [a dct:publisher [a dcterms:source]]
+dcterms:accrualPeriodicity
+```
+
+#### Recommended Fields
+```
+hwbp:Rationale
+skos:definition
+hwbp:status
+hwbp:numeratorDataElement
+hwbp:methodology
+hwbp:reportStyle
+healthdcatap:healthTheme (domain)
+healthdcatap:healthTheme (subdomain)
+hwbp:importance
+skos:note
+```
+
+#### Optional Fields
+```
+hwbp:disaggregation
+hwbp:denominatorDataElement
+hwbp:denominatorSource [a dct:dataset [a dct:publisher [a dcterms:source]]]
+hwbp:highLowGuidance
+hwbp:measurementLimitations
+hwbp:validityGuidance
+dct:provenance [a dct:ProvenanceStatement; rdfs:label ]
+skos:historyNote
+```
+
+### Datasets Metadata Fields
+#### Mandatory Fields
+```
+dcterms:title
+dct:identifier
+dct:publisher [ a dct:Publisher; foaf:name ]
+dcterms:description
+dct:Provenance [a dct:ProvenanceStatement; rdfs:label ]
+dcat:contactPoint [vcard:individual vard:fn]
+dcterms:type
+dc:spatial
+dcterms:accessRights
+dcat:distribution [ a dcat:Distribution; dct:format]
+adms:sample[ a dcat:Distribution; dcat:accessURL]
+dcat:keyword
+dcat:theme
+dcatsp:applicableLegislation
+dct:type
+healthdcatap:hdab [a foaf:Agent;  foaf:name ]
+healthdcatap:healthCategory
+healthdcatap:healthTheme
+```
+
+### Recommended Fields
+```
+dcterms:accrualPeriodicity
+dcterms:temporal [a dct:PeriodOfTime;  dcat:startDate ""^^xsd:dateTime; dcat:endDate ""^^xsd:dateTime.]
+dcterms:temporal [a dct:PeriodOfTime;  dcat:endDate ""^^xsd:dateTime.]
+dcat:temporalResolution
+dcterms:language
+dpv:hasPersonalData
+dpv:hasLegalBasis
+dc:conformsTo
+healthdcatap:minTypicalAge
+healthdcatap:maxTypicalAge
+```
+
+### Optional Fields
+```
+dcterms:creator
+hwbp:status
+dcat:spatialResolutionInMeters
+foaf:page
+rdfs:comment
+skos:note
+dpv:hasDataController
+healthdcatap:populationCoverage
+dcat:inSeries
+healthdcatap:numberOfUniqueIndividuals
+skos:note
+```
+
 ---
 
 ## Pipeline steps for Indicators
