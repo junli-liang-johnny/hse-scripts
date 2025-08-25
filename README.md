@@ -491,13 +491,13 @@ create-subject-csv \
 
 ### 6. use rml-py to map csv to rdf
 ```
-map2rdf --config ./mapping/config.ttl
+map2rdf --config ../hse-data/mapping/config.ttl
 ```
 
 ### 7. delete unnecessary triples
 ```
 run_query \
-	--ttl-file ./mapping/delphi_indicators.ttl \
+	--ttl-file ../hse-data/mapping/delphi_indicators.ttl \
 	--query-file sparql/general_transfer.rq \
-	--output ./mapping/delphi_indicators_final.ttl
+	--output ../hse-data/mapping/delphi_indicators_final.ttl
 ```
