@@ -1,0 +1,43 @@
+PREFIX dpv: <http://www.w3.org/ns/dpv#>
+PREFIX dcterm: <http://purl.org/dc/terms/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX dct: <http://purl.org/dc/terms/>
+PREFIX dcat: <http://www.w3.org/ns/dcat#>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX prov: <http://www.w3.org/ns/prov#>
+PREFIX adms: <http://www.w3.org/ns/adms#>
+PREFIX dcterms: <http://purl.org/dc/terms/>
+PREFIX hwbp: <https://hse-oahwb-profile.adaptcentre.ie#>
+PREFIX healthdcatap: <http://example.org/healthdcatap#>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+PREFIX : <https://hse-oahwb-profile.adaptcentre.ie#>
+PREFIX healthdcat-ap: <http://healthdata.dublinked.ie/def/healthdcatap#>
+
+SELECT DISTINCT
+?indicator 
+?indicatorTitle
+?disaggregation
+?numeratorSourceTitle
+?denominatorSourceTitle
+WHERE {
+  ?indicator a dcat:Dataset ;
+  dcterms:title ?indicatorTitle .
+  dcterms:identifier ?indicatorID .
+  ?indicator :numeratorSource ?numeratorSource .
+#  ?indicator :denominatorSource ?denominatorSource .
+  
+  OPTIONAL { ?indicator :disaggregation ?disaggregation . }
+#  OPTIONAL { ?indicator :numeratorSource ?numeratorSource . }
+#  OPTIONAL { ?indicator :denominatorSource ?denominatorSource . }
+  
+  SERVICE<http://localhost:3030/datasets> {
+    ?numeratorSource a dcat:Dataset ;
+  		dcterms:title ?numeratorSourceTitle .
+    
+#    ?denominatorSource a dcat:Dataset ;
+#        dcterms:title ?denominatorSourceTitle .
+  }
+  
+  FILTER (CONTAINS(LCASE(STR(?disaggregation)), "65 years and over"))
+}
