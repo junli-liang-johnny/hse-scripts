@@ -25,7 +25,7 @@ classifiers = [
     "Programming Language :: Python :: 3.13",
 ]
 dependencies = [
-    # Add dependencies from requirements.txt here
+    "rml-py @ git+https://github.com/junli-liang-johnny/rml-py.git"
 ]
 
 [project.urls]
@@ -40,6 +40,8 @@ hse-re-order = "scripts:re_order"
 hse-add-subheaders = "scripts:add_subheaders"
 csv-rdf-convert = "scripts.rdf_mapping.csv_rdf_convert:main"
 create-csv = "scripts.rdf_mapping.create_csv:main"
+create-subject-csv = "scripts.rdf_mapping.create_subject_csv:main"
+map2rdf = "scripts.rdf_mapping.map_to_rdf:main"
 delphi-populate = "scripts.delphi.populate_metadata:main"
 
 [tool.setuptools.dynamic]

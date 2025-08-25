@@ -469,14 +469,14 @@ create-csv \
 
 ### 4. create indicators provenance
 ```
-create-csv  \
-	--input ./mapping/delphi_indicators.csv  \
-	--output ./mapping/delphi_indicators_provenance.csv  \
-	--column 'dct:provenance [a dct:ProvenanceStatement; rdfs:label ]'  \
-	--header 'id' 'rdf:type' 'rdfs:label'  \
-	--namespace 'https://hse-oahwb-profile.adaptcentre.ie'  \
+create-csv \
+	--input ../hse-data/mapping/indicators_v5.csv \
+	--output ../hse-data/mapping/indicators_provenance_v5.csv \
+	--column 'dct:provenance [a dct:ProvenanceStatement;rdfs:label ]' \
+	--header 'id' 'rdf:type' 'rdfs:label' \
+	--namespace 'https://hse-oahwb-profile.adaptcentre.ie' \
 	--id-template '/provenance/{uuid}' \
-  --extracted-value-insert-index 2  \
+	--extracted-value-insert-index 2 \
 	--optional-values-to-insert 'dcterms:ProvenanceStatement'
 ```
 

@@ -41,7 +41,7 @@ def create_subject_csv(
 		print(f"An error occurred: {e}")
 		return []
 
-if __name__ == "__main__":
+def main():
 	import argparse
 	import csv
 
@@ -83,3 +83,6 @@ if __name__ == "__main__":
 		writer = csv.DictWriter(outfile, fieldnames=fieldnames)
 		writer.writeheader()
 		writer.writerows(subject_csv)
+
+if __name__ == "__main__":
+	main()
