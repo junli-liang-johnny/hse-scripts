@@ -29,9 +29,9 @@ dependencies = [
 ]
 
 [project.urls]
-"Homepage" = "https://github.com/your-org/hse-scripts"
-"Bug Reports" = "https://github.com/your-org/hse-scripts/issues"
-"Source" = "https://github.com/your-org/hse-scripts"
+"Homepage" = "https://github.com/hse-ucd/hse-scripts"
+"Bug Reports" = "https://github.com/hse-ucd/hse-scripts/issues"
+"Source" = "https://github.com/hse-ucd/hse-scripts"
 
 [project.scripts]
 hse-data-join = "scripts:data_join"
@@ -43,6 +43,7 @@ create-csv = "scripts.rdf_mapping.create_csv:main"
 create-subject-csv = "scripts.rdf_mapping.create_subject_csv:main"
 map2rdf = "scripts.rdf_mapping.map_to_rdf:main"
 delphi-populate = "scripts.delphi.populate_metadata:main"
+run-query = "sparql.run_query:main"
 
 [tool.setuptools.dynamic]
 dependencies = {file = ["requirements.txt"]}
