@@ -431,19 +431,19 @@ hse-add-subheaders \
 	--fill-value not_set
 ```
 
-## Convert Delphi input into RDF
+## Convert Delphi input into RDF V.5
 ### 1. convert original csv to rdf-ready csv (data cleaning)
 ```
 csv-rdf-convert \
-	--input ../hse-data/data/schema/delphi_indicators_v.05.12.csv \
-	--output ../hse-data/mapping/delphi_indicators.csv
+	--input ../hse-data/data/schema/OAHP_MasterDataCatalogueVersion0005.xlsx - Indicators.csv \
+	--output ../hse-data/mapping/v5/indicators_v5.csv
 ```
 
 ### 2. create indicators dcat datasets
 ```
 create-csv \
-	--input ../hse-data/mapping/indicators_v5.csv \
-	--output ../hse-data/mapping/indicators_dcat-dataset_v5.csv \
+	--input ../hse-data/mapping/v5/indicators_v5.csv \
+	--output ../hse-data/mapping/v5/indicators_dcat-dataset_v5.csv \
 	--column 'hwbp:numeratorSource [a dct:dataset [a dct:publisher [a dcterms:source]]' \
 	--header 'id' 'rdf:type' 'dcterms:publisher' \
 	--namespace 'https://hse.ie' \
@@ -455,8 +455,8 @@ create-csv \
 ### 3. create indicators publishers
 ```
 create-csv \
-	--input ../hse-data/mapping/indicators_v5.csv \
-	--output ../hse-data/mapping/indicators_publishers_v5.csv \
+	--input ../hse-data/mapping/v5/indicators_v5.csv \
+	--output ../hse-data/mapping/v5/indicators_publishers_v5.csv \
 	--column 'hwbp:numeratorSource [a dct:dataset [a dct:publisher [a dcterms:source]]' \
 	--header 'id' 'rdf:type' 'dcterms:source' \
 	--namespace 'https://hse.ie' \
@@ -470,8 +470,8 @@ create-csv \
 ### 4. create indicators provenance
 ```
 create-csv \
-	--input ../hse-data/mapping/indicators_v5.csv \
-	--output ../hse-data/mapping/indicators_provenance_v5.csv \
+	--input ../hse-data/mapping/v5/indicators_v5.csv \
+	--output ../hse-data/mapping/v5/indicators_provenance_v5.csv \
 	--column 'dct:provenance [a dct:ProvenanceStatement;rdfs:label ]' \
 	--header 'id' 'rdf:type' 'rdfs:label' \
 	--namespace 'https://hse.ie' \
@@ -483,8 +483,8 @@ create-csv \
 ### 5. add id to rows in csv
 ```
 create-subject-csv \
- --input ../hse-data/mapping/indicators_v5.csv \
- --output ../hse-data/mapping/indicators_final_v5.csv \
+ --input ../hse-data/mapping/v5/indicators_v5.csv \
+ --output ../hse-data/mapping/v5/indicators_final_v5.csv \
  --namespace 'https://hse.ie/data/id' \
  --id-template-column 'dct:identifier'
 ```
@@ -497,7 +497,7 @@ map2rdf --config ../hse-data/mapping/config_v5.ttl
 ### 7. delete unnecessary triples
 ```
 run-query \
-	--ttl-file ../hse-data/mapping/indicators_final_v5.ttl \
+	--ttl-file ../hse-data/mapping/v5/indicators_final_v5.ttl \
 	--query-file sparql/general_transfer_v5.rq \
-	--output ../hse-data/mapping/indicators_final_v5.ttl
+	--output ../hse-data/mapping/v5/indicators_final_v5.ttl
 ```
