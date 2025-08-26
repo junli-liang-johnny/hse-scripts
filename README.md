@@ -491,13 +491,13 @@ create-subject-csv \
 
 ### 6. use rml-py to map csv to rdf
 ```
-map2rdf --config ../hse-data/mapping/config_v5.ttl
+map2rdf --config ../hse-data/mapping/v5/config_v5.ttl
 ```
 
 ### 7. delete unnecessary triples
 ```
 run-query \
-	--ttl-file ../hse-data/mapping/v5/indicators_final_v5.ttl \
+	--ttl-file ../hse-data/mapping/v5/indicators_v5.ttl \
 	--query-file sparql/general_transfer_v5.rq \
 	--output ../hse-data/mapping/v5/indicators_final_v5.ttl
 ```
