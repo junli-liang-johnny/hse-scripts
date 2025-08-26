@@ -56,6 +56,7 @@ row_index_remove_mapping = {
 	schema_file_prefix+'/data/combined_datasets_copy.csv': [0, 2, 3],
 	schema_file_prefix+'/data/cso/combined_datasets.csv': [0, 2, 3],
 	schema_file_prefix+'/data/schema/delphi_indicators_v.05.12.csv': [0, 2],
+	schema_file_prefix+'/data/schema/OAHP_MasterDataCatalogueVersion0005.xlsx - Indicators.csv.csv': [0, 2],
 }
 
 def filter_csv(csv_reader: list, input_file) -> list:

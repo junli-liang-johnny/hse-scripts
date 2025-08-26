@@ -431,73 +431,73 @@ hse-add-subheaders \
 	--fill-value not_set
 ```
 
-## Convert Delphi input into RDF
+## Convert Delphi input into RDF V.5
 ### 1. convert original csv to rdf-ready csv (data cleaning)
 ```
 csv-rdf-convert \
-	--input ../hse-data/data/schema/delphi_indicators_v.05.12.csv \
-	--output ../hse-data/mapping/delphi_indicators.csv
+	--input ../hse-data/data/schema/OAHP_MasterDataCatalogueVersion0005.xlsx - Indicators.csv \
+	--output ../hse-data/mapping/v5/indicators_v5.csv
 ```
 
 ### 2. create indicators dcat datasets
 ```
-create-csv  \
-	--input ../hse-data/mapping/delphi_indicators.csv  \
-	--output ../hse-data/mapping/indicators_dcat-dataset.csv  \
-	--column 'hwbp:numeratorSource [a dct:dataset [a dct:publisher [a dcterms:source]]'  \
-	--header 'id' 'rdf:type' 'dcterms:publisher'  \
-	--namespace 'https://hse-oahwb-profile.adaptcentre.ie'  \
-	--id-template '/dataset/{uuid}'  \
-	--extracted-value-insert-index -1  \
-	--optional-values-to-insert 'dcat:Dataset' 'https://hse-oahwb-profile.adaptcentre.ie/publisher/{uuid}'
+create-csv \
+	--input ../hse-data/mapping/v5/indicators_v5.csv \
+	--output ../hse-data/mapping/v5/indicators_dcat-dataset_v5.csv \
+	--column 'hwbp:numeratorSource [a dct:dataset [a dct:publisher [a dcterms:source]]' \
+	--header 'id' 'rdf:type' 'dcterms:publisher' \
+	--namespace 'https://hse.ie' \
+	--id-template '/data/id/{uuid}' \
+	--extracted-value-insert-index -1 \
+	--optional-values-to-insert 'dcat:Dataset' 'https://hse.ie/data/id/{uuid}'
 ```
 
 ### 3. create indicators publishers
 ```
 create-csv \
- --input ../hse-data/mapping/delphi_indicators.csv \
- --output ../hse-data/mapping/delphi_indicators_publishers.csv \
- --column 'hwbp:numeratorSource [a dct:dataset [a dct:publisher [a dcterms:source]]' \
- --header 'id' 'rdf:type' 'dcterms:source' \
- --namespace 'https://hse-oahwb-profile.adaptcentre.ie' \
- --id-template '/publisher/{uuid}' \
- --extracted-value-insert-index 2 \
- --optional-values-to-insert 'dct:Publisher' \
- --identifier-csv ./mapping/indicators_dcat-dataset.csv \
- --identifier-column dcterms:publisher
+	--input ../hse-data/mapping/v5/indicators_v5.csv \
+	--output ../hse-data/mapping/v5/indicators_publishers_v5.csv \
+	--column 'hwbp:numeratorSource [a dct:dataset [a dct:publisher [a dcterms:source]]' \
+	--header 'id' 'rdf:type' 'dcterms:source' \
+	--namespace 'https://hse.ie' \
+	--id-template '/data/id/{uuid}' \
+	--extracted-value-insert-index 2 \
+	--optional-values-to-insert 'dct:Publisher' \
+	--identifier-csv ../hse-data/mapping/indicators_dcat-dataset.csv \
+	--identifier-column dcterms:publisher
 ```
 
 ### 4. create indicators provenance
 ```
-create-csv  \
-	--input ./mapping/delphi_indicators.csv  \
-	--output ./mapping/delphi_indicators_provenance.csv  \
-	--column 'dct:provenance [a dct:ProvenanceStatement; rdfs:label ]'  \
-	--header 'id' 'rdf:type' 'rdfs:label'  \
-	--namespace 'https://hse-oahwb-profile.adaptcentre.ie'  \
-	--id-template '/provenance/{uuid}' \
-  --extracted-value-insert-index 2  \
+create-csv \
+	--input ../hse-data/mapping/v5/indicators_v5.csv \
+	--output ../hse-data/mapping/v5/indicators_provenance_v5.csv \
+	--column 'dct:provenance [a dct:ProvenanceStatement;rdfs:label ]' \
+	--header 'id' 'rdf:type' 'rdfs:label' \
+	--namespace 'https://hse.ie' \
+	--id-template '/data/id/{uuid}' \
+	--extracted-value-insert-index 2 \
 	--optional-values-to-insert 'dcterms:ProvenanceStatement'
 ```
 
 ### 5. add id to rows in csv
 ```
 create-subject-csv \
- --input ../hse-data/mapping/delphi_indicators.csv \
- --output ../hse-data/mapping/delphi_indicators_final.csv \
- --namespace 'https://hse-oahwb-profile.adaptcentre.ie/indicator/' \
+ --input ../hse-data/mapping/v5/indicators_v5.csv \
+ --output ../hse-data/mapping/v5/indicators_final_v5.csv \
+ --namespace 'https://hse.ie/data/id' \
  --id-template-column 'dct:identifier'
 ```
 
 ### 6. use rml-py to map csv to rdf
 ```
-map2rdf --config ./mapping/config.ttl
+map2rdf --config ../hse-data/mapping/config_v5.ttl
 ```
 
 ### 7. delete unnecessary triples
 ```
-run_query \
-	--ttl-file ./mapping/delphi_indicators.ttl \
-	--query-file sparql/general_transfer.rq \
-	--output ./mapping/delphi_indicators_final.ttl
+run-query \
+	--ttl-file ../hse-data/mapping/v5/indicators_final_v5.ttl \
+	--query-file sparql/general_transfer_v5.rq \
+	--output ../hse-data/mapping/v5/indicators_final_v5.ttl
 ```

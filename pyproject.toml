@@ -25,13 +25,13 @@ classifiers = [
     "Programming Language :: Python :: 3.13",
 ]
 dependencies = [
-    # Add dependencies from requirements.txt here
+    "rml-py @ git+https://github.com/junli-liang-johnny/rml-py.git"
 ]
 
 [project.urls]
-"Homepage" = "https://github.com/your-org/hse-scripts"
-"Bug Reports" = "https://github.com/your-org/hse-scripts/issues"
-"Source" = "https://github.com/your-org/hse-scripts"
+"Homepage" = "https://github.com/hse-ucd/hse-scripts"
+"Bug Reports" = "https://github.com/hse-ucd/hse-scripts/issues"
+"Source" = "https://github.com/hse-ucd/hse-scripts"
 
 [project.scripts]
 hse-data-join = "scripts:data_join"
@@ -40,7 +40,10 @@ hse-re-order = "scripts:re_order"
 hse-add-subheaders = "scripts:add_subheaders"
 csv-rdf-convert = "scripts.rdf_mapping.csv_rdf_convert:main"
 create-csv = "scripts.rdf_mapping.create_csv:main"
+create-subject-csv = "scripts.rdf_mapping.create_subject_csv:main"
+map2rdf = "scripts.rdf_mapping.map_to_rdf:main"
 delphi-populate = "scripts.delphi.populate_metadata:main"
+run-query = "sparql.run_query:main"
 
 [tool.setuptools.dynamic]
 dependencies = {file = ["requirements.txt"]}

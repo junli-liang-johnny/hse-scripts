@@ -1,0 +1,74 @@
+PREFIX : <https://hse.ie/>
+PREFIX hseOntology: <https://hse.ie/ontology/>
+PREFIX dcterms: <http://purl.org/dc/terms/>
+PREFIX dcat: <http://www.w3.org/ns/dcat#>
+
+DELETE {
+	?dataset hseOntology:numeratorSource ?sourceValue .
+} INSERT {
+	?dataset hseOntology:numeratorSource ?dataset2 .
+	?dataset2 a dcat:Dataset ;
+		dcterms:publisher ?publisher .
+} WHERE {
+	?dataset a dcat:Dataset ;
+		hseOntology:numeratorSource ?sourceValue .
+
+	?publisher a dcterms:Publisher ;
+		dcterms:source ?sourceValue .
+	BIND(REPLACE(?sourceValue, "^.*/", "") AS ?lastSegment)
+	BIND(IRI(CONCAT("https://hse.ie/data/id/", ?lastSegment)) AS ?dataset2)
+};
+
+DELETE {
+	?dataset hseOntology:denominatorSource ?sourceValue .
+} INSERT {
+	?dataset hseOntology:denominatorSource ?dataset2 .
+	?dataset2 a dcat:Dataset ;
+		dcterms:publisher ?publisher .
+} WHERE {
+	?dataset a dcat:Dataset ;
+		hseOntology:denominatorSource ?sourceValue .
+
+	?publisher a dcterms:Publisher ;
+		dcterms:source ?sourceValue .
+	BIND(REPLACE(?sourceValue, "^.*/", "") AS ?lastSegment)
+	BIND(IRI(CONCAT("https://hse.ie/data/id/", ?lastSegment)) AS ?dataset2)
+};
+
+DELETE {
+	?dataset dcterms:provenance ?label .
+} INSERT {
+	?dataset dcterms:provenance ?provenanceStatement .
+} WHERE {
+	?dataset a dcat:Dataset ;
+		dcterms:provenance ?label .
+
+	?provenanceStatement a dcterms:ProvenanceStatement ;
+		rdfs:label ?label .
+};
+
+# replace dcterms:publisher uris
+DELETE {
+	?s dcterms:publisher ?publisherStr .
+} INSERT {
+	?s dcterms:publisher ?publisher .
+} WHERE {
+	?s a dcat:Dataset ;
+		dcterms:publisher ?publisherStr .
+	
+	?publisher a dcterms:Publisher ;
+		foaf:name ?publisherStr .
+};
+
+# replace dataset distribution uris
+DELETE {
+	?dataset dcat:distribution ?distributionStr .
+} INSERT {
+	?dataset dcat:distribution ?distribution .
+} WHERE {
+	?dataset a dcat:Dataset ;
+		dcat:distribution ?distributionStr .
+
+	?distribution a dcat:Distribution ;
+		dcterms:format ?distributionStr .
+};

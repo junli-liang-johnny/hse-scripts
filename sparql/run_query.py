@@ -1,4 +1,7 @@
-from rdflib import Graph, Namespace, DCTERMS
+from rdflib import Graph, Namespace, DCTERMS, DCAT
+
+HSE = Namespace("https://hse.ie/")
+HSE_ONTOLOGY = Namespace("https://hse.ie/ontology/")
 
 def run_update_file(ttl_file: str, query_file: str, output: str) -> None:
 		"""
@@ -11,6 +14,9 @@ def run_update_file(ttl_file: str, query_file: str, output: str) -> None:
 		g = Graph()
 		g.bind("dcterms", DCTERMS)
 		g.bind("dct", DCTERMS)
+		g.bind("dcat", DCAT)
+		g.bind("hse", HSE)
+		g.bind("hseOntology", HSE_ONTOLOGY)
 		g.parse(ttl_file, format='turtle')
 
 		# Read the SPARQL query from the file
@@ -33,6 +39,9 @@ def run_update(ttl_file: str, query: str, output: str) -> None:
 		g = Graph()
 		g.bind("dcterms", DCTERMS)
 		g.bind("dct", DCTERMS)
+		g.bind("dcat", DCAT)
+		g.bind("hse", HSE)
+		g.bind("hseOntology", HSE_ONTOLOGY)
 		g.parse(ttl_file, format='turtle')
 
 		# Execute the SPARQL query
@@ -40,7 +49,7 @@ def run_update(ttl_file: str, query: str, output: str) -> None:
 
 		g.serialize(destination=output, format='turtle')
 
-if __name__ == "__main__":
+def main():
 	import argparse
 
 	parser = argparse.ArgumentParser(description="Run a SPARQL query on a Turtle file.")
@@ -57,3 +66,6 @@ if __name__ == "__main__":
 	else:
 		print("Please provide either a query string or a query file.")
 		parser.print_help()
+
+if __name__ == "__main__":
+	main()
