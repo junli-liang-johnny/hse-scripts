@@ -1,6 +1,3 @@
-PREFIX sd: <http://www.w3.org/ns/sparql-service-description#>
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX ddc: <http://purl.org/NET/decimalised#>
 PREFIX dpv: <https://w3id.org/dpv#>
 PREFIX dcterm: <http://purl.org/dc/terms/>
@@ -12,54 +9,50 @@ PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
 PREFIX prov: <http://www.w3.org/ns/prov#>
 PREFIX adms: <http://www.w3.org/ns/adms#>
 PREFIX dcterms: <http://purl.org/dc/terms/>
-PREFIX hwbp: <https://hse-oahwb-profile.adaptcentre.ie#>
 prefix dc: <http://purl.org/dc/elements/1.1/>
 PREFIX foaf: <http://xmlns.com/foaf/0.1/>
-PREFIX : <https://hse-oahwb-profile.adaptcentre.ie#>
+PREFIX : <https://hse.ie/>
+PREFIX phi: <https://hse.ie/ontology/phi#>
+PREFIX phd: <https://hse.ie/ontology/phd#>
 PREFIX healthdcatap: <http://healthdata.dublinked.ie/def/healthdcatap#>
 
 SELECT DISTINCT
-?indicator 
-?disaggregationPresent
-?denonimatorDataElementPresent
-?denonimatorSourcePresent
-?highLowGuidancePresent
-?measurementLimitationsPresent
-?validityGuidancePresent
-?provenancePresent
-?historyNotePresent
+?field
+?present
+(COUNT(?present) AS ?count)
 WHERE {
-  ?indicator a dcat:Dataset .
+  ?indicator a dcat:Dataset ;
+  	a phi:Indicator .
   # mandatory fields
   OPTIONAL { ?indicator dcterms:title ?title . }
   OPTIONAL { ?indicator dct:identifier ?identifier }
-  OPTIONAL { ?indicator hwbp:indicatorType ?indicatorType . }
+  OPTIONAL { ?indicator phi:indicatorType ?indicatorType . }
   OPTIONAL { ?indicator dcterms:accrualPeriodicity ?accrualPeriodicity . }
-  OPTIONAL { ?indicator hwbp:numeratorSource ?numeratorSource . }
+  OPTIONAL { ?indicator phi:numeratorSource ?numeratorSource . }
   
   # recommended fields
-  OPTIONAL { ?indicator hwbp:Rationale ?Rationale . }
+  OPTIONAL { ?indicator phi:Rationale ?Rationale . }
   OPTIONAL { ?indicator skos:definition ?definition . }
-  OPTIONAL { ?indicator hwbp:status ?status . }
-  OPTIONAL { ?indicator hwbp:numeratorDataElement ?numeratorDataElement . }
-  OPTIONAL { ?indicator hwbp:methodology ?methodology . }
-  OPTIONAL { ?indicator hwbp:reportStyle ?reportStyle . }
+  OPTIONAL { ?indicator phi:status ?status . }
+  OPTIONAL { ?indicator phi:numeratorDataElement ?numeratorDataElement . }
+  OPTIONAL { ?indicator phi:methodology ?methodology . }
+  OPTIONAL { ?indicator phi:reportStyle ?reportStyle . }
   OPTIONAL { ?indicator healthdcatap:healthTheme ?healthThemeDomain . 
 #    ?healthThemeDomain a healthdcatap:Domain . 
   }
   OPTIONAL { ?indicator healthdcatap:healthTheme ?healthThemeSubdomain . 
 #    ?healthThemeSubdomain a healthdcatap:Subdomain . 
   }
-  OPTIONAL { ?indicator hwbp:importance ?importance . }
+  OPTIONAL { ?indicator phi:importance ?importance . }
   OPTIONAL { ?indicator skos:note ?note . }
  
   # optional fields
-  OPTIONAL { ?indicator hwbp:disaggregation ?disaggregation . }
-  OPTIONAL { ?indicator hwbp:denominatorDataElement ?denonimatorDataElement . }
-  OPTIONAL { ?indicator hwbp:denominatorSource ?denonimatorSource . }
-  OPTIONAL { ?indicator hwbp:highLowGuidance ?highLowGuidance . }
-  OPTIONAL { ?indicator hwbp:measurementLimitations ?measurementLimitations . }
-  OPTIONAL { ?indicator hwbp:validityGuidance ?validityGuidance . }
+  OPTIONAL { ?indicator phi:disaggregation ?disaggregation . }
+  OPTIONAL { ?indicator phi:denominatorDataElement ?denominatorDataElement . }
+  OPTIONAL { ?indicator phi:denominatorSource ?denominatorSource . }
+  OPTIONAL { ?indicator phi:highLowGuidance ?highLowGuidance . }
+  OPTIONAL { ?indicator phi:measurementLimitations ?measurementLimitations . }
+  OPTIONAL { ?indicator phi:validityGuidance ?validityGuidance . }
   OPTIONAL { ?indicator dct:provenance ?provenance . }
   OPTIONAL { ?indicator skos:historyNote ?historyNote . }
 
@@ -81,11 +74,16 @@ WHERE {
   
   # optional fields boolean
   BIND(BOUND(?disaggregation) AS ?disaggregationPresent)
-  BIND(BOUND(?denonimatorDataElement) AS ?denonimatorDataElementPresent)
-  BIND(BOUND(?denonimatorSource) AS ?denonimatorSourcePresent)
+  BIND(BOUND(?denominatorDataElement) AS ?denominatorDataElementPresent)
+  BIND(BOUND(?denominatorSource) AS ?denominatorSourcePresent)
   BIND(BOUND(?highLowGuidance) AS ?highLowGuidancePresent)
   BIND(BOUND(?measurementLimitations) AS ?measurementLimitationsPresent)
   BIND(BOUND(?validityGuidance) AS ?validityGuidancePresent)
   BIND(BOUND(?provenance) AS ?provenancePresent)
   BIND(BOUND(?historyNote) AS ?historyNotePresent)
+  
+  # formatting
+  BIND("identifier" AS ?field)
+  BIND(?identifierPresent AS ?present)
 }
+GROUP BY ?field ?present

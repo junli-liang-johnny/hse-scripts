@@ -1,17 +1,19 @@
 PREFIX : <https://hse.ie/>
 PREFIX hseOntology: <https://hse.ie/ontology/>
+PREFIX phi: <https://hse.ie/ontology/phi#>
+PREFIX phd: <https://hse.ie/ontology/phd#>
 PREFIX dcterms: <http://purl.org/dc/terms/>
 PREFIX dcat: <http://www.w3.org/ns/dcat#>
 
 DELETE {
-	?dataset hseOntology:numeratorSource ?sourceValue .
+	?dataset phi:numeratorSource ?sourceValue .
 } INSERT {
-	?dataset hseOntology:numeratorSource ?dataset2 .
+	?dataset phi:numeratorSource ?dataset2 .
 	?dataset2 a dcat:Dataset ;
 		dcterms:publisher ?publisher .
 } WHERE {
 	?dataset a dcat:Dataset ;
-		hseOntology:numeratorSource ?sourceValue .
+		phi:numeratorSource ?sourceValue .
 
 	?publisher a dcterms:Publisher ;
 		dcterms:source ?sourceValue .
@@ -20,14 +22,14 @@ DELETE {
 };
 
 DELETE {
-	?dataset hseOntology:denominatorSource ?sourceValue .
+	?dataset phi:denominatorSource ?sourceValue .
 } INSERT {
-	?dataset hseOntology:denominatorSource ?dataset2 .
+	?dataset phi:denominatorSource ?dataset2 .
 	?dataset2 a dcat:Dataset ;
 		dcterms:publisher ?publisher .
 } WHERE {
 	?dataset a dcat:Dataset ;
-		hseOntology:denominatorSource ?sourceValue .
+		phi:denominatorSource ?sourceValue .
 
 	?publisher a dcterms:Publisher ;
 		dcterms:source ?sourceValue .

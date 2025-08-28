@@ -2,6 +2,8 @@ from rdflib import Graph, Namespace, DCTERMS, DCAT
 
 HSE = Namespace("https://hse.ie/")
 HSE_ONTOLOGY = Namespace("https://hse.ie/ontology/")
+PHI = Namespace("https://hse.ie/ontology/phi#")
+PHD = Namespace("https://hse.ie/ontology/phd#")
 
 def run_update_file(ttl_file: str, query_file: str, output: str) -> None:
 		"""
@@ -17,6 +19,8 @@ def run_update_file(ttl_file: str, query_file: str, output: str) -> None:
 		g.bind("dcat", DCAT)
 		g.bind("hse", HSE)
 		g.bind("hseOntology", HSE_ONTOLOGY)
+		g.bind("phi", PHI)
+		g.bind("phd", PHD)
 		g.parse(ttl_file, format='turtle')
 
 		# Read the SPARQL query from the file
@@ -42,6 +46,8 @@ def run_update(ttl_file: str, query: str, output: str) -> None:
 		g.bind("dcat", DCAT)
 		g.bind("hse", HSE)
 		g.bind("hseOntology", HSE_ONTOLOGY)
+		g.bind("phi", PHI)
+		g.bind("phd", PHD)
 		g.parse(ttl_file, format='turtle')
 
 		# Execute the SPARQL query

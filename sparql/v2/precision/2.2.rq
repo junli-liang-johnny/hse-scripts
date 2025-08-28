@@ -1,4 +1,8 @@
-PREFIX dpv: <http://www.w3.org/ns/dpv#>
+PREFIX sd: <http://www.w3.org/ns/sparql-service-description#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX ddc: <http://purl.org/NET/decimalised#>
+PREFIX dpv: <https://w3id.org/dpv#>
 PREFIX dcterm: <http://purl.org/dc/terms/>
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
@@ -8,37 +12,35 @@ PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
 PREFIX prov: <http://www.w3.org/ns/prov#>
 PREFIX adms: <http://www.w3.org/ns/adms#>
 PREFIX dcterms: <http://purl.org/dc/terms/>
-PREFIX hwbp: <https://hse-oahwb-profile.adaptcentre.ie#>
 prefix dc: <http://purl.org/dc/elements/1.1/>
-PREFIX healthdcatap: <http://example.org/healthdcatap#>
 PREFIX foaf: <http://xmlns.com/foaf/0.1/>
-PREFIX : <https://hse-oahwb-profile.adaptcentre.ie#>
-PREFIX healthdcat-ap: <http://healthdata.dublinked.ie/def/healthdcatap#>
+PREFIX : <https://hse.ie/>
+PREFIX phi: <https://hse.ie/ontology/phi#>
+PREFIX phd: <https://hse.ie/ontology/phd#>
+PREFIX phpt: <https://hse.ie/terminology/phpt#>
+PREFIX healthdcatap: <http://healthdata.dublinked.ie/def/healthdcatap#>
 
-# For each indicator with data sources, do the numerator and denominator datasets have data at the geospatial resolution of national, 
-# health region, integrated health area scales?
+# For each indicator with data sources, do the numerator and denominator datasets 
+# have data at the geospatial resolution of national, health region, integrated health area scales?
 
 SELECT 
-?dataset 
+?indicator 
 ?title
-?spatial
 ?spatialResolutionInMeters
+?SpatialAggregationCode
 WHERE {
+  ?indicator a dcat:Dataset ;
+  	a phi:Indicator .
+  ?indicator dcterms:title ?title .
+  ?indicator phi:numeratorSource ?dataset .
+  
   ?dataset a dcat:Dataset .
-  OPTIONAL { ?dataset dcterms:title ?title . }
-  OPTIONAL { ?dataset dcterms:accrualPeriodicity ?accrualPeriodicity . }
-  OPTIONAL { ?dataset dcat:temporalResolution ?temporalResolution . }
-  OPTIONAL { ?dataset dcterms:accessRights ?accessRights . }
-  OPTIONAL { ?dataset dc:spatial ?spatial . }
+  OPTIONAL { ?dataset phd:SpatialAggregationCode ?SpatialAggregationCode . }
   OPTIONAL { ?dataset dcat:spatialResolutionInMeters ?spatialResolutionInMeters . }
-  OPTIONAL { ?dataset dpv:hasLegalBasis ?hasLegalBasis . }
-  OPTIONAL { ?dataset dpv:hasPersonalData ?hasPersonalData . }
-  OPTIONAL { ?dataset dpv:hasDataController ?hasDataController . }
-  OPTIONAL { ?dataset healthdcatap:healthTheme ?healthTheme . }
-  OPTIONAL { ?dataset healthdcatap:minTypicalAge ?minTypicalAge . }
-  OPTIONAL { ?dataset healthdcatap:maxTypicalAge ?maxTypicalAge . }
-  FILTER (
-    ?spatial &&
-    ?spatialResolutionInMeters
+  
+  FILTER(
+    ?SpatialAggregationCode = phpt:National || 
+    ?SpatialAggregationCode = phpt:IHA || 
+    ?SpatialAggregationCode = phpt:NUTS1
   )
 }
