@@ -28,22 +28,20 @@ SELECT DISTINCT
 ?indicatorAccrualPeriodicity 
 ?numeratorSourceTitle
 ?datasetAccrualPeriodicity
-?startDate
-?endDate
+#?startDate
+#?endDate
 WHERE {
-  ?indicator a :Indicator ;
+  ?indicator a phi:Indicator ;
   dcterms:title ?indicatorTitle .
   ?indicator phi:numeratorSource ?numeratorSource .
   ?indicator dcterms:accrualPeriodicity ?indicatorAccrualPeriodicity .
-  
-  SERVICE<http://localhost:3030/hse-datasets> {
-    ?numeratorSource a dcat:Dataset ;
-  		dcterms:title ?numeratorSourceTitle .
-    ?numeratorSource dcterms:accrualPeriodicity ?datasetAccrualPeriodicity .
-    ?numeratorSource dcterms:temporal ?datatsetTemporal .
-    ?datatsetTemporal dcat:startDate ?startDate ;
-                      dcat:endDate ?endDate .
-  }
-  
+
+  ?numeratorSource a dcat:Dataset ;
+             dcterms:title ?numeratorSourceTitle .
+  ?numeratorSource dcterms:accrualPeriodicity ?datasetAccrualPeriodicity .
+#  ?numeratorSource dcterms:temporal ?datatsetTemporal .
+#  ?datatsetTemporal dcat:startDate ?startDate ;
+#                    dcat:endDate ?endDate .
+
   FILTER (?indicatorAccrualPeriodicity = ?datasetAccrualPeriodicity)
 }

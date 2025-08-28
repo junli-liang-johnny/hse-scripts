@@ -30,23 +30,22 @@ SELECT DISTINCT
 ?accessRight
 ?hasDataController
 WHERE {
-    ?indicator a :Indicator ;
-    dcterms:title ?indicatorTitle .
-    ?indicator phi:numeratorSource ?numeratorSource .
+  ?indicator a phi:Indicator ;
+  dcterms:title ?indicatorTitle .
+  ?indicator phi:numeratorSource ?numeratorSource .
 
-    SERVICE<http://localhost:3030/datasets> {
-        ?numeratorSource a dcat:Dataset ;
-            dcterms:title ?numeratorSourceTitle .
-        ?numeratorSource dpv:hasPersonalData ?hasPersonalData .
-  	    ?numeratorSource dcterms:accessRights ?accessRight .
-        ?numeratorSource dpv:hasDataController ?hasDataController .
-    }
+  ?numeratorSource a dcat:Dataset ;
+             dcterms:title ?numeratorSourceTitle .
+  OPTIONAL { ?numeratorSource dpv:hasPersonalData ?hasPersonalData . }
+  OPTIONAL {?numeratorSource dcterms:accessRights ?accessRight . }
+  OPTIONAL {?numeratorSource dpv:hasDataController ?hasDataController . }
 
-    FILTER (
-        (
-        ?hasPersonalData != dpv:NonPersonalData &&
-        ?hasDataController = "HSE"
-        ) &&
-        ?accessRights != "Public"
-    )
+
+  FILTER (
+    (
+      ?hasPersonalData != dpv:NonPersonalData &&
+      ?hasDataController = "HSE"
+    ) &&
+    ?accessRights != "Public"
+  )
 }

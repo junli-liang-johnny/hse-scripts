@@ -32,9 +32,8 @@ WHERE {
   dcterms:title ?indicatorTitle .
   ?indicator phi:reportStyle ?reportStyle .
   ?indicator phi:numeratorSource ?numeratorSource .
-  
-  SERVICE<http://localhost:3030/hse-datasets> {
-    ?numeratorSource a dcat:Dataset ;
-  		dcterms:title ?numeratorSourceTitle .
-  }
+
+  ?numeratorSource a dcat:Dataset ;
+             dcterms:title ?numeratorSourceTitle .
+
 }

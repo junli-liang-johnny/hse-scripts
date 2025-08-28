@@ -19,7 +19,8 @@ PREFIX phi: <https://hse.ie/ontology/phi#>
 PREFIX phd: <https://hse.ie/ontology/phd#>
 PREFIX healthdcatap: <http://healthdata.dublinked.ie/def/healthdcatap#>
 
-# For each indicator with data sources, do the numerator and denominator datasets have data at the minimum temporal resolution required by the indicator?
+# For each indicator with data sources, do the numerator and denominator datasets 
+# have data at the minimum temporal resolution required by the indicator?
 
 SELECT DISTINCT
 ?indicator 
@@ -30,10 +31,12 @@ WHERE {
   ?indicator a dcat:Dataset ;
   dcterms:title ?indicatorTitle .
   ?indicator phi:numeratorSource ?numeratorSource .
-  
-  SERVICE<http://localhost:3030/hse-datasets> {
-    ?numeratorSource a dcat:Dataset ;
-  		dcterms:title ?numeratorSourceTitle ;
-    dcat:temporalResolution ?temporalResolution .
-  }
+
+  ?numeratorSource a dcat:Dataset ;
+             dcterms:title ?numeratorSourceTitle ;
+             dcat:temporalResolution ?temporalResolution .
+#  ?numeratorSource dcterms:temporal ?datatsetTemporal .
+#  ?datatsetTemporal dcat:startDate ?startDate ;
+#                    dcat:endDate ?endDate .
+
 }

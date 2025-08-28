@@ -23,8 +23,9 @@ PREFIX healthdcatap: <http://healthdata.dublinked.ie/def/healthdcatap#>
 
 SELECT DISTINCT
 ?indicator 
+?title
 ?numeratorSource
-?denonimatorSource
+?denominatorSource
 WHERE {
   ?indicator a dcat:Dataset .
   # mandatory fields
@@ -52,8 +53,8 @@ WHERE {
  
   # optional fields
   OPTIONAL { ?indicator phi:disaggregation ?disaggregation . }
-  OPTIONAL { ?indicator phi:denominatorDataElement ?denonimatorDataElement . }
-  ?indicator phi:denominatorSource ?denonimatorSource .
+  OPTIONAL { ?indicator phi:denominatorDataElement ?denominatorDataElement . }
+  ?indicator phi:denominatorSource ?denominatorSource .
   OPTIONAL { ?indicator phi:highLowGuidance ?highLowGuidance . }
   OPTIONAL { ?indicator phi:measurementLimitations ?measurementLimitations . }
   OPTIONAL { ?indicator phi:validityGuidance ?validityGuidance . }
@@ -78,8 +79,8 @@ WHERE {
   
   # optional fields boolean
   BIND(BOUND(?disaggregation) AS ?disaggregationPresent)
-  BIND(BOUND(?denonimatorDataElement) AS ?denonimatorDataElementPresent)
-  BIND(BOUND(?denonimatorSource) AS ?denonimatorSourcePresent)
+  BIND(BOUND(?denominatorDataElement) AS ?denominatorDataElementPresent)
+  BIND(BOUND(?denominatorSource) AS ?denominatorSourcePresent)
   BIND(BOUND(?highLowGuidance) AS ?highLowGuidancePresent)
   BIND(BOUND(?measurementLimitations) AS ?measurementLimitationsPresent)
   BIND(BOUND(?validityGuidance) AS ?validityGuidancePresent)

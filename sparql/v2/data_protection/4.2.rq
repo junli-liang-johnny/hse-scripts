@@ -19,6 +19,8 @@ PREFIX phi: <https://hse.ie/ontology/phi#>
 PREFIX phd: <https://hse.ie/ontology/phd#>
 PREFIX healthdcatap: <http://healthdata.dublinked.ie/def/healthdcatap#>
 
+# Does any dataset potentially contain personal data?
+
 SELECT DISTINCT
 ?dataset
 ?datasetTitle

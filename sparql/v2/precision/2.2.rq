@@ -17,32 +17,30 @@ PREFIX foaf: <http://xmlns.com/foaf/0.1/>
 PREFIX : <https://hse.ie/>
 PREFIX phi: <https://hse.ie/ontology/phi#>
 PREFIX phd: <https://hse.ie/ontology/phd#>
+PREFIX phpt: <https://hse.ie/terminology/phpt#>
 PREFIX healthdcatap: <http://healthdata.dublinked.ie/def/healthdcatap#>
 
-# For each indicator with data sources, do the numerator and denominator datasets have data at the geospatial resolution of national, 
-# health region, integrated health area scales?
+# For each indicator with data sources, do the numerator and denominator datasets 
+# have data at the geospatial resolution of national, health region, integrated health area scales?
 
 SELECT 
-?dataset 
+?indicator 
 ?title
-?spatial
 ?spatialResolutionInMeters
+?SpatialAggregationCode
 WHERE {
+  ?indicator a dcat:Dataset ;
+  	a phi:Indicator .
+  ?indicator dcterms:title ?title .
+  ?indicator phi:numeratorSource ?dataset .
+  
   ?dataset a dcat:Dataset .
-  OPTIONAL { ?dataset dcterms:title ?title . }
-  OPTIONAL { ?dataset dcterms:accrualPeriodicity ?accrualPeriodicity . }
-  OPTIONAL { ?dataset dcat:temporalResolution ?temporalResolution . }
-  OPTIONAL { ?dataset dcterms:accessRights ?accessRights . }
-  OPTIONAL { ?dataset dc:spatial ?spatial . }
+  OPTIONAL { ?dataset phd:SpatialAggregationCode ?SpatialAggregationCode . }
   OPTIONAL { ?dataset dcat:spatialResolutionInMeters ?spatialResolutionInMeters . }
-  OPTIONAL { ?dataset dpv:hasLegalBasis ?hasLegalBasis . }
-  OPTIONAL { ?dataset dpv:hasPersonalData ?hasPersonalData . }
-  OPTIONAL { ?dataset dpv:hasDataController ?hasDataController . }
-  OPTIONAL { ?dataset healthdcatap:healthTheme ?healthTheme . }
-  OPTIONAL { ?dataset healthdcatap:minTypicalAge ?minTypicalAge . }
-  OPTIONAL { ?dataset healthdcatap:maxTypicalAge ?maxTypicalAge . }
-  FILTER (
-    ?spatial &&
-    ?spatialResolutionInMeters
+  
+  FILTER(
+    ?SpatialAggregationCode = phpt:National || 
+    ?SpatialAggregationCode = phpt:IHA || 
+    ?SpatialAggregationCode = phpt:NUTS1
   )
 }

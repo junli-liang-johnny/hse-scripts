@@ -30,22 +30,20 @@ SELECT DISTINCT
 ?denominatorSourceTitle
 WHERE {
   ?indicator a dcat:Dataset ;
-  dcterms:title ?indicatorTitle .
+  dcterms:title ?indicatorTitle ;
   dcterms:identifier ?indicatorID .
   ?indicator phi:numeratorSource ?numeratorSource .
-#  ?indicator :denominatorSource ?denominatorSource .
+#  ?indicator phi:denominatorSource ?denominatorSource .
 
   OPTIONAL { ?indicator phi:disaggregation ?disaggregation . }
-#  OPTIONAL { ?indicator phi:numeratorSource ?numeratorSource . }
-#  OPTIONAL { ?indicator phi:denominatorSource ?denominatorSource . }
-  
-  SERVICE<http://localhost:3030/datasets> {
-    ?numeratorSource a dcat:Dataset ;
-  		dcterms:title ?numeratorSourceTitle .
-    
-#    ?denominatorSource a dcat:Dataset ;
-#        dcterms:title ?denominatorSourceTitle .
-  }
-  
-  FILTER (CONTAINS(LCASE(STR(?disaggregation)), "65 years and over"))
+  #  OPTIONAL { ?indicator phi:numeratorSource ?numeratorSource . }
+  #  OPTIONAL { ?indicator phi:denominatorSource ?denominatorSource . }
+
+  ?numeratorSource a dcat:Dataset ;
+                        dcterms:title ?numeratorSourceTitle .
+
+  #    ?denominatorSource a dcat:Dataset ;
+  #        dcterms:title ?denominatorSourceTitle .
+
+  FILTER (CONTAINS(LCASE(STR(?disaggregation)), "65 years"))
 }

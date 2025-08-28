@@ -30,13 +30,14 @@ select
 ?datasetTitle
 ?spatial 
 ?spatialResolutionInMeters
+?SpatialAggregationCode
 where {
   ?indicator a dcat:Dataset ;
-    phi:numeratorSource ?dataset .
+  phi:numeratorSource ?dataset .
+
+  ?dataset dcterms:title ?datasetTitle ;
+           dc:spatial ?spatial ;
+           dcat:spatialResolutionInMeters ?spatialResolutionInMeters .
   
-  SERVICE<http://localhost:3030/datasets> {
-    ?dataset dcterms:title ?datasetTitle ;
-             dc:spatial ?spatial ;
-             dcat:spatialResolutionInMeters ?spatialResolutionInMeters .
-  }
+  OPTIONAL { ?dataset phd:SpatialAggregationCode ?SpatialAggregationCode . }
 }

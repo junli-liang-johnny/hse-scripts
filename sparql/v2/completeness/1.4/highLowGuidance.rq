@@ -1,6 +1,3 @@
-PREFIX sd: <http://www.w3.org/ns/sparql-service-description#>
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX ddc: <http://purl.org/NET/decimalised#>
 PREFIX dpv: <https://w3id.org/dpv#>
 PREFIX dcterm: <http://purl.org/dc/terms/>
@@ -19,20 +16,13 @@ PREFIX phi: <https://hse.ie/ontology/phi#>
 PREFIX phd: <https://hse.ie/ontology/phd#>
 PREFIX healthdcatap: <http://healthdata.dublinked.ie/def/healthdcatap#>
 
-# Are all optional fields present?
-
 SELECT DISTINCT
-?indicator 
-?disaggregationPresent
-?denominatorDataElementPresent
-?denominatorSourcePresent
-?highLowGuidancePresent
-?measurementLimitationsPresent
-?validityGuidancePresent
-?provenancePresent
-?historyNotePresent
+?field
+?present
+(COUNT(?present) AS ?count)
 WHERE {
-  ?indicator a dcat:Dataset .
+  ?indicator a dcat:Dataset ;
+  	a phi:Indicator .
   # mandatory fields
   OPTIONAL { ?indicator dcterms:title ?title . }
   OPTIONAL { ?indicator dct:identifier ?identifier }
@@ -91,4 +81,9 @@ WHERE {
   BIND(BOUND(?validityGuidance) AS ?validityGuidancePresent)
   BIND(BOUND(?provenance) AS ?provenancePresent)
   BIND(BOUND(?historyNote) AS ?historyNotePresent)
+  
+  # formatting
+  BIND("highLowGuidance" AS ?field)
+  BIND(?highLowGuidancePresent AS ?present)
 }
+GROUP BY ?field ?present

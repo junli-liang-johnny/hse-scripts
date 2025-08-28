@@ -51,40 +51,46 @@ The pipeline requires several Python packages (see `requirements.txt`) and follo
 
 **Note**: The raw CSV datasets used in this pipeline contain sensitive health data and are stored in a separate private repository for security and privacy compliance. The pipeline scripts in this repository are designed to work with these datasets once they are made available in the appropriate data directories.
 
+## Namespacing
+```
+PREFIX : <https://hse.ie/>
+PREFIX phi: <https://hse.ie/ontology/phi#>
+PREFIX phd: <https://hse.ie/ontology/phd#>
+PREFIX phpt: <https://hse.ie/ontology/phpt#>
+```
+
 ## Metadata Fields
 ### Indicators Metadata Fields
 #### Mandatory Fields
 ```
 dcterms:title
 dct:identifier
-hwbp:indicatorType
-hwbp:numeratorSource [a dct:dataset [a dct:publisher [a dcterms:source]]
+phi:indicatorType
+phi:numeratorSource [a dct:dataset [a dct:publisher [a dcterms:source]]
 dcterms:accrualPeriodicity
 ```
 
 #### Recommended Fields
 ```
-hwbp:Rationale
+phi:Rationale
 skos:definition
-hwbp:status
-hwbp:numeratorDataElement
-hwbp:methodology
-hwbp:reportStyle
+phi:status
+phi:disaggregation
+phi:numeratorDataElement
 healthdcatap:healthTheme (domain)
 healthdcatap:healthTheme (subdomain)
-hwbp:importance
+dct:provenance [a dct:ProvenanceStatement; rdfs:label ]
 skos:note
 ```
 
 #### Optional Fields
 ```
-hwbp:disaggregation
-hwbp:denominatorDataElement
-hwbp:denominatorSource [a dct:dataset [a dct:publisher [a dcterms:source]]]
-hwbp:highLowGuidance
-hwbp:measurementLimitations
-hwbp:validityGuidance
-dct:provenance [a dct:ProvenanceStatement; rdfs:label ]
+phi:denominatorDataElement
+phi:denominatorSource [a dct:dataset [a dct:publisher [a dcterms:source]]]
+phi:methodology
+phi:highLowGuidance
+phi:measurementLimitations
+phi:validityGuidance
 skos:historyNote
 ```
 
@@ -128,7 +134,7 @@ healthdcatap:maxTypicalAge
 ### Optional Fields
 ```
 dcterms:creator
-hwbp:status
+phd:status
 dcat:spatialResolutionInMeters
 foaf:page
 rdfs:comment
@@ -500,4 +506,98 @@ run-query \
 	--ttl-file ../hse-data/mapping/v5/indicators_v5.ttl \
 	--query-file sparql/general_transfer_v5.rq \
 	--output ../hse-data/mapping/v5/indicators_final_v5.ttl
+```
+
+
+## Data Quality Report
+### Completeness
+### 1.2-1.4
+```
+python -m scripts.pipeline.dq_sparql \
+	-e http://localhost:3030/v5/sparql \
+	-s sparql/v2/completeness/1.2/ sparql/v2/completeness/1.3/ sparql/v2/completeness/1.4/ \
+	-o ../hse-data/output/dq/v2/completeness_1.2-1.4.csv
+```
+
+### 1.5
+```
+python -m scripts.pipeline.dq_sparql \
+	-e http://localhost:3030/v5/sparql \
+	-s sparql/v2/completeness/1.5.rq \
+	-o ../hse-data/output/dq/v2/completeness_1.5.csv
+```
+
+### 1.6
+```
+python -m scripts.pipeline.dq_sparql \
+	-e http://localhost:3030/v5/sparql \
+	-s sparql/v2/completeness/1.6.rq \
+	-o ../hse-data/output/dq/v2/completeness_1.6.csv
+```
+
+### 1.7
+```
+python -m scripts.pipeline.dq_sparql \
+	-e http://localhost:3030/v5/sparql \
+	-s sparql/v2/completeness/1.7.rq \
+	-o ../hse-data/output/dq/v2/completeness_1.7.csv
+```
+
+## Precision
+### 2.1
+```
+python -m scripts.pipeline.dq_sparql \
+	-e http://localhost:3030/v5 \
+	-s sparql/v2/precision/2.1.rq \
+	-o ../hse-data/output/dq/v2/precision_2.1.csv
+```
+
+### 2.2
+```
+python -m scripts.pipeline.dq_sparql \
+	-e http://localhost:3030/v5 \
+	-s sparql/v2/precision/2.2.rq \
+	-o ../hse-data/output/dq/v2/precision_2.2.csv
+```
+
+## Timeline
+### 3.1
+```
+python -m scripts.pipeline.dq_sparql \
+	-e http://localhost:3030/v5 \
+	-s sparql/v2/timeline/3.1.rq \
+	-o ../hse-data/output/dq/v2/timeline_3.1.csv
+```
+
+### 3.2
+```
+python -m scripts.pipeline.dq_sparql \
+	-e http://localhost:3030/v5 \
+	-s sparql/v2/timeline/3.2.rq \
+	-o ../hse-data/output/dq/v2/timeline_3.2.csv
+```
+
+## Data Protection
+### 4.1
+```
+python -m scripts.pipeline.dq_sparql \
+	-e http://localhost:3030/v5 \
+	-s sparql/v2/data_protection/4.1.rq \
+	-o ../hse-data/output/dq/v2/data_protection_4.1.csv
+```
+
+### 4.2
+```
+python -m scripts.pipeline.dq_sparql \
+	-e http://localhost:3030/v5 \
+	-s sparql/v2/data_protection/4.2.rq \
+	-o ../hse-data/output/dq/v2/data_protection_4.2.csv
+```
+
+### 4.3
+```
+python -m scripts.pipeline.dq_sparql \
+	-e http://localhost:3030/v5 \
+	-s sparql/v2/data_protection/4.3.rq \
+	-o ../hse-data/output/dq/v2/data_protection_4.3.csv
 ```

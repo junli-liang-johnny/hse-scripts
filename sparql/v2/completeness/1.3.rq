@@ -58,8 +58,8 @@ WHERE {
  
   # optional fields
   OPTIONAL { ?indicator phi:disaggregation ?disaggregation . }
-  OPTIONAL { ?indicator phi:denominatorDataElement ?denonimatorDataElement . }
-  OPTIONAL { ?indicator phi:denominatorSource ?denonimatorSource . }
+  OPTIONAL { ?indicator phi:denominatorDataElement ?denominatorDataElement . }
+  OPTIONAL { ?indicator phi:denominatorSource ?denominatorSource . }
   OPTIONAL { ?indicator phi:highLowGuidance ?highLowGuidance . }
   OPTIONAL { ?indicator phi:measurementLimitations ?measurementLimitations . }
   OPTIONAL { ?indicator phi:validityGuidance ?validityGuidance . }
@@ -84,8 +84,8 @@ WHERE {
   
   # optional fields boolean
   BIND(BOUND(?disaggregation) AS ?disaggregationPresent)
-  BIND(BOUND(?denonimatorDataElement) AS ?denonimatorDataElementPresent)
-  BIND(BOUND(?denonimatorSource) AS ?denonimatorSourcePresent)
+  BIND(BOUND(?denominatorDataElement) AS ?denominatorDataElementPresent)
+  BIND(BOUND(?denominatorSource) AS ?denominatorSourcePresent)
   BIND(BOUND(?highLowGuidance) AS ?highLowGuidancePresent)
   BIND(BOUND(?measurementLimitations) AS ?measurementLimitationsPresent)
   BIND(BOUND(?validityGuidance) AS ?validityGuidancePresent)

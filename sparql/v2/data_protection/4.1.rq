@@ -27,16 +27,14 @@ SELECT DISTINCT
 ?indicatorTitle
 ?numeratorSourceTitle
 ?hasPersonalData
-?accessRight
 WHERE {
-    ?indicator a :Indicator ;
-    dcterms:title ?indicatorTitle .
-    ?indicator phi:numeratorSource ?numeratorSource .
+  ?indicator a phi:Indicator ;
+  dcterms:title ?indicatorTitle .
+  ?indicator phi:numeratorSource ?numeratorSource .
 
-    SERVICE<http://localhost:3030/hse-datasets> {
-        ?numeratorSource a dcat:Dataset ;
-            dcterms:title ?numeratorSourceTitle .
-        ?numeratorSource dpv:hasPersonalData ?hasPersonalData .
-        ?numeratorSource dcterms:accessRights ?accessRight .
-    }
+  ?numeratorSource a dcat:Dataset ;
+             dcterms:title ?numeratorSourceTitle .
+  ?numeratorSource dpv:hasPersonalData ?hasPersonalData .
+  
+  FILTER(?hasPersonalData != dpv:NonPersonalData)
 }
