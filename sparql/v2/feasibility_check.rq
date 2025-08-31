@@ -1,0 +1,79 @@
+PREFIX ddc: <http://purl.org/NET/decimalised#>
+PREFIX dpv: <https://w3id.org/dpv#>
+PREFIX dcterm: <http://purl.org/dc/terms/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX dct: <http://purl.org/dc/terms/>
+PREFIX dcat: <http://www.w3.org/ns/dcat#>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX prov: <http://www.w3.org/ns/prov#>
+PREFIX adms: <http://www.w3.org/ns/adms#>
+PREFIX dcterms: <http://purl.org/dc/terms/>
+prefix dc: <http://purl.org/dc/elements/1.1/>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+PREFIX : <https://hse.ie/>
+PREFIX phi: <https://hse.ie/ontology/phi#>
+PREFIX phd: <https://hse.ie/ontology/phd#>
+PREFIX phpt: <https://hse.ie/terminology/phpt#>
+PREFIX healthdcatap: <http://healthdata.dublinked.ie/def/healthdcatap#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+
+SELECT 
+?indicator 
+?indicatorTitle
+?pass
+?with_dataset
+?1_7_pass
+?1_7_note
+?2_1_pass
+?2_1_note
+?2_2_pass
+?2_2_note
+?3_1_pass
+?3_1_note
+?3_2_pass
+?3_2_note
+WHERE {
+  ?indicator a phi:Indicator ;
+  a dcat:Dataset .
+  ?indicator dcterms:title ?indicatorTitle .
+
+  OPTIONAL { ?indicator  phi:numeratorSource ?numeratorSource . }
+  OPTIONAL { ?indicator dcterms:accrualPeriodicity ?indicatorAccrualPeriodicity . }
+  OPTIONAL { ?indicator phi:disaggregation ?disaggregation . }
+  OPTIONAL { ?indicator phi:reportStyle ?reportStyle .}
+  OPTIONAL { ?numeratorSource dcat:temporalResolution ?temporalResolution . }
+  OPTIONAL { ?numeratorSource phd:SpatialAggregationCode ?SpatialAggregationCode . }
+  OPTIONAL { ?numeratorSource dcat:spatialResolutionInMeters ?spatialResolutionInMeters . }
+  OPTIONAL { ?numeratorSource dcterms:accrualPeriodicity ?datasetAccrualPeriodicity . }
+
+  # with dataset?
+  BIND(BOUND(?numeratorSource) AS ?with_dataset)
+  # 1.7
+  BIND(IF(!BOUND(?disaggregation), false, IF(CONTAINS(LCASE(STR(?disaggregation)), "65 years"), true, false)) AS ?1_7_pass)
+  BIND(IF(!BOUND(?disaggregation), "Disaggregation not present", IF(CONTAINS(LCASE(STR(?disaggregation)), "65 years"), "Q1.7 pass", "Q1.7 fail")) AS ?1_7_note)
+  # 2.1
+  BIND(BOUND(?temporalResolution) AS ?2_1_pass)
+  BIND(IF(BOUND(?temporalResolution), "Q2.1 pass", "Minimal Temporal resolution not present") AS ?2_1_note)
+  # 2.2
+  BIND(IF(!BOUND(?SpatialAggregationCode), false, 
+      IF(?SpatialAggregationCode = phpt:National || ?SpatialAggregationCode = phpt:IHA || ?SpatialAggregationCode = phpt:NUTS1, true, false)) 
+    AS ?2_2_pass)
+  BIND(IF(!BOUND(?SpatialAggregationCode), "Saptial Resolution Code not present", 
+      IF(?SpatialAggregationCode = phpt:National || ?SpatialAggregationCode = phpt:IHA || ?SpatialAggregationCode = phpt:NUTS1, "Q2.2 pass", "Q2.2 fail")) 
+    AS ?2_2_note)
+  # 3.1
+  BIND(IF(!BOUND(?indicatorAccrualPeriodicity), false, 
+      IF(!BOUND(?datasetAccrualPeriodicity), false, 
+        IF(?indicatorAccrualPeriodicity = ?datasetAccrualPeriodicity, true, false)))
+    AS ?3_1_pass)
+  BIND(IF(!BOUND(?indicatorAccrualPeriodicity), "Indicator Report Frequency not present", 
+      IF(!BOUND(?datasetAccrualPeriodicity), "Dataset Update Frequency not present", 
+        IF(?indicatorAccrualPeriodicity = ?datasetAccrualPeriodicity, "Q3.1 pass", "Q3.1 fail"))) 
+    AS ?3_1_note)
+  # 3.2
+  BIND(IF(BOUND(?reportStyle), true, false) AS ?3_2_pass)
+  BIND(IF(BOUND(?reportStyle), "Q3.2 pass", "Report Style not present") AS ?3_2_note)
+  # pass or fail
+  BIND(IF((?1_7_pass && ?2_1_pass && ?2_2_pass && ?3_1_pass && ?3_2_pass), true, false) AS ?pass)
+}

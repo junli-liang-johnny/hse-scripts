@@ -44,6 +44,7 @@ create-subject-csv = "scripts.rdf_mapping.create_subject_csv:main"
 map2rdf = "scripts.rdf_mapping.map_to_rdf:main"
 delphi-populate = "scripts.delphi.populate_metadata:main"
 run-query = "sparql.run_query:main"
+dq-sparql = "scripts.pipeline.sparql.dq_sparql:main"
 
 [tool.setuptools.dynamic]
 dependencies = {file = ["requirements.txt"]}

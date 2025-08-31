@@ -513,7 +513,7 @@ run-query \
 ### Completeness
 ### 1.2-1.4
 ```
-python -m scripts.pipeline.dq_sparql \
+dq-sparql \
 	-e http://localhost:3030/v5/sparql \
 	-s sparql/v2/completeness/1.2/ sparql/v2/completeness/1.3/ sparql/v2/completeness/1.4/ \
 	-o ../hse-data/output/dq/v2/completeness_1.2-1.4.csv
