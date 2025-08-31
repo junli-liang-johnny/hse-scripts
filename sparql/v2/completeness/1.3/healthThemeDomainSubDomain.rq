@@ -90,8 +90,8 @@ WHERE {
   BIND(BOUND(?sameAs) AS ?sameAsPresent)
 
   # formatting
-  BIND("status" AS ?field)
-  BIND("Status" AS ?label)
-  BIND(?statusPresent AS ?present)
+  BIND("healthThemeSubdomain" AS ?field)
+  BIND("Subdomain" AS ?label)
+  BIND(?healthThemeSubdomainPresent AS ?present)
 }
 GROUP BY ?field ?present ?label

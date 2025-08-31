@@ -513,7 +513,7 @@ run-query \
 ### Completeness
 ### 1.2-1.4
 ```
-python -m scripts.pipeline.dq_sparql \
+dq-sparql \
 	-e http://localhost:3030/v5/sparql \
 	-s sparql/v2/completeness/1.2/ sparql/v2/completeness/1.3/ sparql/v2/completeness/1.4/ \
 	-o ../hse-data/output/dq/v2/completeness_1.2-1.4.csv
@@ -600,4 +600,20 @@ python -m scripts.pipeline.dq_sparql \
 	-e http://localhost:3030/v5 \
 	-s sparql/v2/data_protection/4.3.rq \
 	-o ../hse-data/output/dq/v2/data_protection_4.3.csv
+```
+
+## Indicators metdata fields present
+```
+python -m scripts.pipeline.dq_sparql \
+	-e http://localhost:3030/v5 \
+	-s sparql/v2/indicators_metadata_fields_precent.rq  \
+	-o ../hse-data/output/dq/v2/indicators_metadata_fields_precent.csv
+```
+
+## Datasets metadata field present
+```
+python -m scripts.pipeline.dq_sparql \
+	-e http://localhost:3030/v5 \
+	-s sparql/v2/datasets_metadata_fields_precent.rq  \
+	-o ../hse-data/output/dq/v2/datasets_metadata_fields_precent.csv
 ```

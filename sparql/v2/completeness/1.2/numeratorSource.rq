@@ -90,8 +90,8 @@ WHERE {
   BIND(BOUND(?sameAs) AS ?sameAsPresent)
 
   # formatting
-  BIND("status" AS ?field)
-  BIND("Status" AS ?label)
-  BIND(?statusPresent AS ?present)
+  BIND("numeratorSource" AS ?field)
+  BIND("Numerator Source Dataset" AS ?label)
+  BIND(?numeratorSourcePresent AS ?present)
 }
 GROUP BY ?field ?present ?label

@@ -23,28 +23,26 @@ PREFIX healthdcatap: <http://healthdata.dublinked.ie/def/healthdcatap#>
 # that is not controlled by the HSE? (i.e. needs data sharing agreement)
 
 SELECT DISTINCT
-?indicator 
+?indicator
 ?indicatorTitle
 ?numeratorSourceTitle
 ?hasPersonalData
 ?accessRight
 ?hasDataController
+?warning
 WHERE {
   ?indicator a phi:Indicator ;
   dcterms:title ?indicatorTitle .
-  ?indicator phi:numeratorSource ?numeratorSource .
-
-  ?numeratorSource a dcat:Dataset ;
-             dcterms:title ?numeratorSourceTitle .
+  
+  OPTIONAL { ?indicator phi:numeratorSource ?numeratorSource . }
   OPTIONAL { ?numeratorSource dpv:hasPersonalData ?hasPersonalData . }
   OPTIONAL {?numeratorSource dcterms:accessRights ?accessRight . }
   OPTIONAL {?numeratorSource dpv:hasDataController ?hasDataController . }
 
-  FILTER (
-    (
-      ?hasPersonalData != dpv:NonPersonalData &&
-      ?hasDataController = "HSE"
-    ) &&
-    ?accessRights != "Public"
-  )
+  BIND(
+    IF(!BOUND(?numeratorSource), "Indicator w/o linked Dataset", 
+      IF(!BOUND(?hasPersonalData), "Indicator w/ Dataset potentially contains personal/sensitive data", 
+        IF(?hasPersonalData != dpv:NonPersonalData, "Indicator w/ Dataset contains personal data, sensitive personal data or pseudonymised personal data", 
+          IF(?hasDataController != "HSE", "Indicator w/ Dataset contains personal/sensitive data that is not controlled by HSE", "No data protection warnings found")
+        ))) AS ?warning)
 }

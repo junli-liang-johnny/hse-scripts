@@ -15,21 +15,23 @@ PREFIX : <https://hse.ie/>
 PREFIX phi: <https://hse.ie/ontology/phi#>
 PREFIX phd: <https://hse.ie/ontology/phd#>
 PREFIX healthdcatap: <http://healthdata.dublinked.ie/def/healthdcatap#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
 
 SELECT DISTINCT
 ?field
 ?present
+?label
 (COUNT(?present) AS ?count)
 WHERE {
   ?indicator a dcat:Dataset ;
-  	a phi:Indicator .
+  a phi:Indicator .
   # mandatory fields
   OPTIONAL { ?indicator dcterms:title ?title . }
   OPTIONAL { ?indicator dct:identifier ?identifier }
   OPTIONAL { ?indicator phi:indicatorType ?indicatorType . }
   OPTIONAL { ?indicator dcterms:accrualPeriodicity ?accrualPeriodicity . }
-  OPTIONAL { ?indicator phi:numeratorSource ?numeratorSource . }
-  
+  OPTIONAL { ?indicator (phi:numeratorSource | dct:publisher) ?numeratorSource . }
+
   # recommended fields
   OPTIONAL { ?indicator phi:Rationale ?Rationale . }
   OPTIONAL { ?indicator skos:definition ?definition . }
@@ -38,14 +40,14 @@ WHERE {
   OPTIONAL { ?indicator phi:methodology ?methodology . }
   OPTIONAL { ?indicator phi:reportStyle ?reportStyle . }
   OPTIONAL { ?indicator healthdcatap:healthTheme ?healthThemeDomain . 
-#    ?healthThemeDomain a healthdcatap:Domain . 
+    ?healthThemeDomain a healthdcatap:Domain . 
   }
   OPTIONAL { ?indicator healthdcatap:healthTheme ?healthThemeSubdomain . 
-#    ?healthThemeSubdomain a healthdcatap:Subdomain . 
+    ?healthThemeSubdomain a healthdcatap:Subdomain . 
   }
   OPTIONAL { ?indicator phi:importance ?importance . }
   OPTIONAL { ?indicator skos:note ?note . }
- 
+
   # optional fields
   OPTIONAL { ?indicator phi:disaggregation ?disaggregation . }
   OPTIONAL { ?indicator phi:denominatorDataElement ?denominatorDataElement . }
@@ -55,6 +57,7 @@ WHERE {
   OPTIONAL { ?indicator phi:validityGuidance ?validityGuidance . }
   OPTIONAL { ?indicator dct:provenance ?provenance . }
   OPTIONAL { ?indicator skos:historyNote ?historyNote . }
+  OPTIONAL { ?indicator owl:sameAs ?sameAs . }
 
   # mandatory fields boolean
   BIND(BOUND(?title) AS ?titlePresent)
@@ -62,7 +65,7 @@ WHERE {
   BIND(BOUND(?indicatorType) AS ?indicatorTypePresent)
   BIND(BOUND(?accrualPeriodicity) AS ?accrualPeriodicityPresent)
   BIND(BOUND(?numeratorSource) AS ?numeratorSourcePresent)
-  
+
   # recommended fields boolean
   BIND(BOUND(?Rationale) AS ?RationalePresent)
   BIND(BOUND(?definition) AS ?definitionPresent)
@@ -71,7 +74,10 @@ WHERE {
   BIND(BOUND(?methodology) AS ?methodologyPresent)
   BIND(BOUND(?reportStyle) AS ?reportStylePresent)
   BIND(BOUND(?healthThemeDomain) AS ?healthThemeDomainPresent)
-  
+  BIND(BOUND(?healthThemeSubdomain) AS ?healthThemeSubdomainPresent)
+  BIND(BOUND(?importance) AS ?importancePresent)
+  BIND(BOUND(?note) AS ?notePresent)
+
   # optional fields boolean
   BIND(BOUND(?disaggregation) AS ?disaggregationPresent)
   BIND(BOUND(?denominatorDataElement) AS ?denominatorDataElementPresent)
@@ -81,9 +87,11 @@ WHERE {
   BIND(BOUND(?validityGuidance) AS ?validityGuidancePresent)
   BIND(BOUND(?provenance) AS ?provenancePresent)
   BIND(BOUND(?historyNote) AS ?historyNotePresent)
-  
+  BIND(BOUND(?sameAs) AS ?sameAsPresent)
+
   # formatting
   BIND("historyNote" AS ?field)
+  BIND("Reasons for Inclusion/Exclusion" AS ?label)
   BIND(?historyNotePresent AS ?present)
 }
-GROUP BY ?field ?present
+GROUP BY ?field ?present ?label

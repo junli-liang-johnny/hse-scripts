@@ -39,9 +39,6 @@ WHERE {
   ?numeratorSource a dcat:Dataset ;
              dcterms:title ?numeratorSourceTitle .
   ?numeratorSource dcterms:accrualPeriodicity ?datasetAccrualPeriodicity .
-#  ?numeratorSource dcterms:temporal ?datatsetTemporal .
-#  ?datatsetTemporal dcat:startDate ?startDate ;
-#                    dcat:endDate ?endDate .
 
   FILTER (?indicatorAccrualPeriodicity = ?datasetAccrualPeriodicity)
 }
