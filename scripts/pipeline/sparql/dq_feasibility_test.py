@@ -58,69 +58,71 @@ def select_indicator_1_7(sparql, test_indicators: list[str]) -> list[str]:
     return [result["indicator"]["value"] for result in results["results"]["bindings"]]
 
 def feasibility_check(sparql, test_indicators: list[str]) -> list[str]:
-    query = f"""
-    {prefix}
+  with open("./sparql/v2/feasibility_check.rq", "r", encoding="utf-8") as f:
+    query = f.read()
+#     query = f"""
+#     {prefix}
 
-SELECT 
-?indicator 
-?indicatorTitle
-?pass
-?with_dataset
-?1_7_pass
-?1_7_note
-?2_1_pass
-?2_1_note
-?2_2_pass
-?2_2_note
-?3_1_pass
-?3_1_note
-?3_2_pass
-?3_2_note
-WHERE {{
-  ?indicator a phi:Indicator ;
-  a dcat:Dataset .
-  ?indicator dcterms:title ?indicatorTitle .
+# SELECT 
+# ?indicator 
+# ?indicatorTitle
+# ?pass
+# ?with_dataset
+# ?1_7_pass
+# ?1_7_note
+# ?2_1_pass
+# ?2_1_note
+# ?2_2_pass
+# ?2_2_note
+# ?3_1_pass
+# ?3_1_note
+# ?3_2_pass
+# ?3_2_note
+# WHERE {{
+#   ?indicator a phi:Indicator ;
+#   a dcat:Dataset .
+#   ?indicator dcterms:title ?indicatorTitle .
 
-  OPTIONAL {{ ?indicator  phi:numeratorSource ?numeratorSource . }}
-  OPTIONAL {{ ?indicator dcterms:accrualPeriodicity ?indicatorAccrualPeriodicity . }}
-  OPTIONAL {{ ?indicator phi:disaggregation ?disaggregation . }}
-  OPTIONAL {{ ?indicator phi:reportStyle ?reportStyle .}}
-  OPTIONAL {{ ?numeratorSource dcat:temporalResolution ?temporalResolution . }}
-  OPTIONAL {{ ?numeratorSource phd:SpatialAggregationCode ?SpatialAggregationCode . }}
-  OPTIONAL {{ ?numeratorSource dcat:spatialResolutionInMeters ?spatialResolutionInMeters . }}
-  OPTIONAL {{ ?numeratorSource dcterms:accrualPeriodicity ?datasetAccrualPeriodicity . }}
+#   OPTIONAL {{ ?indicator  phi:numeratorSource ?numeratorSource . }}
+#   OPTIONAL {{ ?indicator dcterms:accrualPeriodicity ?indicatorAccrualPeriodicity . }}
+#   OPTIONAL {{ ?indicator phi:disaggregation ?disaggregation . }}
+#   OPTIONAL {{ ?indicator phi:reportStyle ?reportStyle .}}
+#   OPTIONAL {{ ?numeratorSource dcat:temporalResolution ?temporalResolution . }}
+#   OPTIONAL {{ ?numeratorSource phd:SpatialAggregationCode ?SpatialAggregationCode . }}
+#   OPTIONAL {{ ?numeratorSource dcat:spatialResolutionInMeters ?spatialResolutionInMeters . }}
+#   OPTIONAL {{ ?numeratorSource dcterms:accrualPeriodicity ?datasetAccrualPeriodicity . }}
 
-  # with dataset?
-  BIND(BOUND(?numeratorSource) AS ?with_dataset)
-  # 1.7
-  BIND(IF(!BOUND(?disaggregation), false, IF(CONTAINS(LCASE(STR(?disaggregation)), "65 years"), true, false)) AS ?1_7_pass)
-  BIND(IF(!BOUND(?disaggregation), "Disaggregation not present", IF(CONTAINS(LCASE(STR(?disaggregation)), "65 years"), "Q1.7 pass", "Q1.7 fail")) AS ?1_7_note)
-  # 2.1
-  BIND(BOUND(?temporalResolution) AS ?2_1_pass)
-  BIND(IF(BOUND(?temporalResolution), "Q2.1 pass", "Minimal Temporal resolution not present") AS ?2_1_note)
-  # 2.2
-  BIND(IF(!BOUND(?SpatialAggregationCode), false, 
-      IF(?SpatialAggregationCode = phpt:National || ?SpatialAggregationCode = phpt:IHA || ?SpatialAggregationCode = phpt:NUTS1, true, false)) 
-    AS ?2_2_pass)
-  BIND(IF(!BOUND(?SpatialAggregationCode), "Saptial Resolution Code not present", 
-      IF(?SpatialAggregationCode = phpt:National || ?SpatialAggregationCode = phpt:IHA || ?SpatialAggregationCode = phpt:NUTS1, "Q2.2 pass", "Q2.2 fail")) 
-    AS ?2_2_note)
-  # 3.1
-  BIND(IF(!BOUND(?indicatorAccrualPeriodicity), false, 
-      IF(!BOUND(?datasetAccrualPeriodicity), false, 
-        IF(?indicatorAccrualPeriodicity = ?datasetAccrualPeriodicity, true, false)))
-    AS ?3_1_pass)
-  BIND(IF(!BOUND(?indicatorAccrualPeriodicity), "Indicator Report Frequency not present", 
-      IF(!BOUND(?datasetAccrualPeriodicity), "Dataset Update Frequency not present", 
-        IF(?indicatorAccrualPeriodicity = ?datasetAccrualPeriodicity, "Q3.1 pass", "Q3.1 fail"))) 
-    AS ?3_1_note)
-  # 3.2
-  BIND(IF(BOUND(?reportStyle), true, false) AS ?3_2_pass)
-  BIND(IF(BOUND(?reportStyle), "Q3.2 pass", "Report Style not present") AS ?3_2_note)
-  # pass or fail
-  BIND(IF((?1_7_pass && ?2_1_pass && ?2_2_pass && ?3_1_pass && ?3_2_pass), true, false) AS ?pass)
-}}
-    """
+#   # with dataset?
+#   BIND(BOUND(?numeratorSource) AS ?with_dataset)
+#   # 1.7
+#   BIND(IF(!BOUND(?disaggregation), false, IF(CONTAINS(LCASE(STR(?disaggregation)), "65 years"), true, false)) AS ?1_7_pass)
+#   BIND(IF(!BOUND(?disaggregation), "Disaggregation not present", IF(CONTAINS(LCASE(STR(?disaggregation)), "65 years"), "Q1.7 pass", "Q1.7 fail")) AS ?1_7_note)
+#   # 2.1
+#   BIND(BOUND(?temporalResolution) AS ?2_1_pass)
+#   BIND(IF(BOUND(?temporalResolution), "Q2.1 pass", "Minimal Temporal resolution not present") AS ?2_1_note)
+#   # 2.2
+#   BIND(IF(!BOUND(?SpatialAggregationCode), false, 
+#       IF(?SpatialAggregationCode = phpt:National || ?SpatialAggregationCode = phpt:IHA || ?SpatialAggregationCode = phpt:NUTS1, true, false)) 
+#     AS ?2_2_pass)
+#   BIND(IF(!BOUND(?SpatialAggregationCode), "Saptial Resolution Code not present", 
+#       IF(?SpatialAggregationCode = phpt:National || ?SpatialAggregationCode = phpt:IHA || ?SpatialAggregationCode = phpt:NUTS1, "Q2.2 pass", "Q2.2 fail")) 
+#     AS ?2_2_note)
+#   # 3.1
+#   BIND(IF(!BOUND(?indicatorAccrualPeriodicity), false, 
+#       IF(!BOUND(?datasetAccrualPeriodicity), false, 
+#         IF(?indicatorAccrualPeriodicity = ?datasetAccrualPeriodicity, true, false)))
+#     AS ?3_1_pass)
+#   BIND(IF(!BOUND(?indicatorAccrualPeriodicity), "Indicator Report Frequency not present", 
+#       IF(!BOUND(?datasetAccrualPeriodicity), "Dataset Update Frequency not present", 
+#         IF(?indicatorAccrualPeriodicity = ?datasetAccrualPeriodicity, "Q3.1 pass", "Q3.1 fail"))) 
+#     AS ?3_1_note)
+#   # 3.2
+#   BIND(IF(BOUND(?reportStyle), true, false) AS ?3_2_pass)
+#   BIND(IF(BOUND(?reportStyle), "Q3.2 pass", "Report Style not present") AS ?3_2_note)
+#   # pass or fail
+#   BIND(IF((?1_7_pass && ?2_1_pass && ?2_2_pass && ?3_1_pass && ?3_2_pass), true, false) AS ?pass)
+# }}
+#     """
     sparql.setQuery(query)
     sparql.setReturnFormat(JSON)
     results = sparql.query().convert()
@@ -138,8 +140,7 @@ WHERE {{
         "2_2_note": result["2_2_note"]["value"],
         "3_1_pass": result["3_1_pass"]["value"],
         "3_1_note": result["3_1_note"]["value"],
-        "3_2_pass": result["3_2_pass"]["value"],
-        "3_2_note": result["3_2_note"]["value"],
+        "data_protection_warning": result.get("data_protection_warning", {"value": "No personal data"})["value"],
       }
       for result in results["results"]["bindings"]
     ]
