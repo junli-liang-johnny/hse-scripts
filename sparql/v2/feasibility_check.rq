@@ -31,8 +31,7 @@ SELECT
 ?2_2_note
 ?3_1_pass
 ?3_1_note
-?3_2_pass
-?3_2_note
+?data_protection_warning
 WHERE {
   ?indicator a phi:Indicator ;
   a dcat:Dataset .
@@ -46,34 +45,43 @@ WHERE {
   OPTIONAL { ?numeratorSource phd:SpatialAggregationCode ?SpatialAggregationCode . }
   OPTIONAL { ?numeratorSource dcat:spatialResolutionInMeters ?spatialResolutionInMeters . }
   OPTIONAL { ?numeratorSource dcterms:accrualPeriodicity ?datasetAccrualPeriodicity . }
+  
+  # data protection
+  OPTIONAL { ?indicator phi:numeratorSource ?numeratorSource . }
+  OPTIONAL { ?numeratorSource dpv:hasPersonalData ?hasPersonalData . }
+  OPTIONAL { ?numeratorSource dcterms:accessRights ?accessRight . }
+  OPTIONAL { ?numeratorSource dpv:hasDataController ?hasDataController . }
+
+  BIND(
+    IF(!BOUND(?numeratorSource), "Indicator w/o linked Dataset", 
+      IF(!BOUND(?hasPersonalData), "Indicator w/ Dataset potentially contains personal/sensitive data since Personal Data Field is not present", 
+        IF(?hasPersonalData != dpv:NonPersonalData, "Indicator w/ Dataset contains personal data, sensitive personal data or pseudonymised personal data", 
+          IF(?hasDataController != "HSE", "Indicator w/ Dataset contains personal/sensitive data that is not controlled by HSE", "No data protection warnings found")
+        ))) AS ?data_protection_warning)
 
   # with dataset?
   BIND(BOUND(?numeratorSource) AS ?with_dataset)
   # 1.7
-  BIND(IF(!BOUND(?disaggregation), false, IF(CONTAINS(LCASE(STR(?disaggregation)), "65 years"), true, false)) AS ?1_7_pass)
-  BIND(IF(!BOUND(?disaggregation), "Disaggregation not present", IF(CONTAINS(LCASE(STR(?disaggregation)), "65 years"), "Q1.7 pass", "Q1.7 fail")) AS ?1_7_note)
+  BIND(IF(!BOUND(?disaggregation), "unknown", IF(CONTAINS(LCASE(STR(?disaggregation)), "65 years"), "true", "false")) AS ?1_7_pass)
+  BIND(IF(!BOUND(?disaggregation), "Disaggregation not present", IF(CONTAINS(LCASE(STR(?disaggregation)), "65 years"), "", "Q1.7 fail")) AS ?1_7_note)
   # 2.1
-  BIND(BOUND(?temporalResolution) AS ?2_1_pass)
-  BIND(IF(BOUND(?temporalResolution), "Q2.1 pass", "Minimal Temporal resolution not present") AS ?2_1_note)
+  BIND(IF(BOUND(?temporalResolution), "true", "unknown") AS ?2_1_pass)
+  BIND(IF(BOUND(?temporalResolution), "", "Minimal Temporal resolution not present") AS ?2_1_note)
   # 2.2
-  BIND(IF(!BOUND(?SpatialAggregationCode), false, 
-      IF(?SpatialAggregationCode = phpt:National || ?SpatialAggregationCode = phpt:IHA || ?SpatialAggregationCode = phpt:NUTS1, true, false)) 
+  BIND(IF(!BOUND(?SpatialAggregationCode), "unknown", 
+      IF(?SpatialAggregationCode = phpt:National || ?SpatialAggregationCode = phpt:IHA || ?SpatialAggregationCode = phpt:NUTS1, "true", "false")) 
     AS ?2_2_pass)
   BIND(IF(!BOUND(?SpatialAggregationCode), "Saptial Resolution Code not present", 
-      IF(?SpatialAggregationCode = phpt:National || ?SpatialAggregationCode = phpt:IHA || ?SpatialAggregationCode = phpt:NUTS1, "Q2.2 pass", "Q2.2 fail")) 
+      IF(?SpatialAggregationCode = phpt:National || ?SpatialAggregationCode = phpt:IHA || ?SpatialAggregationCode = phpt:NUTS1, "", "Q2.2 fail")) 
     AS ?2_2_note)
   # 3.1
-  BIND(IF(!BOUND(?indicatorAccrualPeriodicity), false, 
-      IF(!BOUND(?datasetAccrualPeriodicity), false, 
-        IF(?indicatorAccrualPeriodicity = ?datasetAccrualPeriodicity, true, false)))
+  BIND(IF(!BOUND(?indicatorAccrualPeriodicity), "unknown", 
+      IF(!BOUND(?datasetAccrualPeriodicity), "unknown", 
+        IF(?indicatorAccrualPeriodicity = ?datasetAccrualPeriodicity, "true", "false")))
     AS ?3_1_pass)
   BIND(IF(!BOUND(?indicatorAccrualPeriodicity), "Indicator Report Frequency not present", 
       IF(!BOUND(?datasetAccrualPeriodicity), "Dataset Update Frequency not present", 
-        IF(?indicatorAccrualPeriodicity = ?datasetAccrualPeriodicity, "Q3.1 pass", "Q3.1 fail"))) 
+        IF(?indicatorAccrualPeriodicity = ?datasetAccrualPeriodicity, "", "Q3.1 fail"))) 
     AS ?3_1_note)
-  # 3.2
-  BIND(IF(BOUND(?reportStyle), true, false) AS ?3_2_pass)
-  BIND(IF(BOUND(?reportStyle), "Q3.2 pass", "Report Style not present") AS ?3_2_note)
-  # pass or fail
-  BIND(IF((?1_7_pass && ?2_1_pass && ?2_2_pass && ?3_1_pass && ?3_2_pass), true, false) AS ?pass)
+  BIND(IF((?1_7_pass = "true" && ?2_1_pass = "true" && ?2_2_pass = "true" && ?3_1_pass = "true"), true, false) AS ?pass)
 }

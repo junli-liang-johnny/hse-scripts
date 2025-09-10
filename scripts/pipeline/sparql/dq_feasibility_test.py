@@ -58,69 +58,8 @@ def select_indicator_1_7(sparql, test_indicators: list[str]) -> list[str]:
     return [result["indicator"]["value"] for result in results["results"]["bindings"]]
 
 def feasibility_check(sparql, test_indicators: list[str]) -> list[str]:
-    query = f"""
-    {prefix}
-
-SELECT 
-?indicator 
-?indicatorTitle
-?pass
-?with_dataset
-?1_7_pass
-?1_7_note
-?2_1_pass
-?2_1_note
-?2_2_pass
-?2_2_note
-?3_1_pass
-?3_1_note
-?3_2_pass
-?3_2_note
-WHERE {{
-  ?indicator a phi:Indicator ;
-  a dcat:Dataset .
-  ?indicator dcterms:title ?indicatorTitle .
-
-  OPTIONAL {{ ?indicator  phi:numeratorSource ?numeratorSource . }}
-  OPTIONAL {{ ?indicator dcterms:accrualPeriodicity ?indicatorAccrualPeriodicity . }}
-  OPTIONAL {{ ?indicator phi:disaggregation ?disaggregation . }}
-  OPTIONAL {{ ?indicator phi:reportStyle ?reportStyle .}}
-  OPTIONAL {{ ?numeratorSource dcat:temporalResolution ?temporalResolution . }}
-  OPTIONAL {{ ?numeratorSource phd:SpatialAggregationCode ?SpatialAggregationCode . }}
-  OPTIONAL {{ ?numeratorSource dcat:spatialResolutionInMeters ?spatialResolutionInMeters . }}
-  OPTIONAL {{ ?numeratorSource dcterms:accrualPeriodicity ?datasetAccrualPeriodicity . }}
-
-  # with dataset?
-  BIND(BOUND(?numeratorSource) AS ?with_dataset)
-  # 1.7
-  BIND(IF(!BOUND(?disaggregation), false, IF(CONTAINS(LCASE(STR(?disaggregation)), "65 years"), true, false)) AS ?1_7_pass)
-  BIND(IF(!BOUND(?disaggregation), "Disaggregation not present", IF(CONTAINS(LCASE(STR(?disaggregation)), "65 years"), "Q1.7 pass", "Q1.7 fail")) AS ?1_7_note)
-  # 2.1
-  BIND(BOUND(?temporalResolution) AS ?2_1_pass)
-  BIND(IF(BOUND(?temporalResolution), "Q2.1 pass", "Minimal Temporal resolution not present") AS ?2_1_note)
-  # 2.2
-  BIND(IF(!BOUND(?SpatialAggregationCode), false, 
-      IF(?SpatialAggregationCode = phpt:National || ?SpatialAggregationCode = phpt:IHA || ?SpatialAggregationCode = phpt:NUTS1, true, false)) 
-    AS ?2_2_pass)
-  BIND(IF(!BOUND(?SpatialAggregationCode), "Saptial Resolution Code not present", 
-      IF(?SpatialAggregationCode = phpt:National || ?SpatialAggregationCode = phpt:IHA || ?SpatialAggregationCode = phpt:NUTS1, "Q2.2 pass", "Q2.2 fail")) 
-    AS ?2_2_note)
-  # 3.1
-  BIND(IF(!BOUND(?indicatorAccrualPeriodicity), false, 
-      IF(!BOUND(?datasetAccrualPeriodicity), false, 
-        IF(?indicatorAccrualPeriodicity = ?datasetAccrualPeriodicity, true, false)))
-    AS ?3_1_pass)
-  BIND(IF(!BOUND(?indicatorAccrualPeriodicity), "Indicator Report Frequency not present", 
-      IF(!BOUND(?datasetAccrualPeriodicity), "Dataset Update Frequency not present", 
-        IF(?indicatorAccrualPeriodicity = ?datasetAccrualPeriodicity, "Q3.1 pass", "Q3.1 fail"))) 
-    AS ?3_1_note)
-  # 3.2
-  BIND(IF(BOUND(?reportStyle), true, false) AS ?3_2_pass)
-  BIND(IF(BOUND(?reportStyle), "Q3.2 pass", "Report Style not present") AS ?3_2_note)
-  # pass or fail
-  BIND(IF((?1_7_pass && ?2_1_pass && ?2_2_pass && ?3_1_pass && ?3_2_pass), true, false) AS ?pass)
-}}
-    """
+  with open("./sparql/v2/feasibility_check.rq", "r", encoding="utf-8") as f:
+    query = f.read()
     sparql.setQuery(query)
     sparql.setReturnFormat(JSON)
     results = sparql.query().convert()
@@ -138,8 +77,7 @@ WHERE {{
         "2_2_note": result["2_2_note"]["value"],
         "3_1_pass": result["3_1_pass"]["value"],
         "3_1_note": result["3_1_note"]["value"],
-        "3_2_pass": result["3_2_pass"]["value"],
-        "3_2_note": result["3_2_note"]["value"],
+        "data_protection_warning": result.get("data_protection_warning", {"value": "No personal data"})["value"],
       }
       for result in results["results"]["bindings"]
     ]
@@ -196,6 +134,63 @@ def select_indicator_2_2(sparql, test_indicators: list[str]) -> list[str]:
     results = sparql.query().convert()
     return [result["indicator"]["value"] for result in results["results"]["bindings"]]
 
+def convert2_dq_table(df: pd.DataFrame) -> pd.DataFrame:
+    # Convert the DataFrame to the desired DQ table format
+    dq_table = df.copy()
+    # Apply any necessary transformations to match the DQ table structure
+    dq_table['DQ Pass'] = (
+      (dq_table['1_7_pass'] == "true") &
+      (dq_table['2_1_pass'] == "true") &
+      (dq_table['2_2_pass'] == "true") &
+      (dq_table['3_1_pass'] == "true")
+    )
+
+    # data protection column mapping
+    dq_table['Data Protection Warning'] = dq_table['data_protection_warning']
+
+    def failed_tests_row(row):
+        failed = []
+        # 1.7
+        if row.get('1_7_pass') == 'false':
+            failed.append('Q1.7')
+        elif row.get('1_7_pass') == 'unknown':
+            failed.append('Q1.7 unknown')
+        # 2.1
+        if row.get('2_1_pass') == 'false':
+            failed.append('Q2.1')
+        elif row.get('2_1_pass') == 'unknown':
+            failed.append('Q2.1 unknown')
+        # 2.2
+        if row.get('2_2_pass') == 'false':
+            failed.append('Q2.2')
+        elif row.get('2_2_pass') == 'unknown':
+            failed.append('Q2.2 unknown')
+        # 3.1
+        if row.get('3_1_pass') == 'false':
+            failed.append('Q3.1')
+        elif row.get('3_1_pass') == 'unknown':
+            failed.append('Q3.1 unknown')
+        return failed
+
+    dq_table['Failed Tests'] = dq_table.apply(lambda row: ', '.join(failed_tests_row(row)), axis=1)
+    # Failure Reasons: combine all *_note columns if not empty, prefix with test id
+    note_cols = [
+        ('1_7_note', 'Q1.7'),
+        ('2_1_note', 'Q2.1'),
+        ('2_2_note', 'Q2.2'),
+        ('3_1_note', 'Q3.1'),
+    ]
+    def failure_reasons_row(row):
+        reasons = [f"{test_id}: {row[col]}" for col, test_id in note_cols if col in row and pd.notna(row[col]) and str(row[col]).strip()]
+        return '; '.join(reasons)
+    dq_table['Failure Reasons'] = dq_table.apply(failure_reasons_row, axis=1)
+
+    # Drop intermediate columns
+    columns_to_drop = ['indicatorTitle', '1_7_pass', '1_7_note', '2_1_pass', '2_1_note', '2_2_pass', '2_2_note', '3_1_pass', '3_1_note', 'with_dataset', 'pass', 'data_protection_warning']
+    dq_table = dq_table.drop(columns=columns_to_drop)
+
+    return dq_table
+
 def main():
   parser = argparse.ArgumentParser(description="DQ feasibility test")
   parser.add_argument("--sparql-endpoint", "-e", default="http://localhost:3030/indicators", help="SPARQL endpoint URL")
@@ -222,21 +217,34 @@ def main():
   # indicator_2_2 = select_indicator_2_2(sparql, indicator_2_1)
   # print(f"indicator_2_2: {indicator_2_2}")
 
-  data_protection_warning = data_protection_warning_check(sparql, [])
-  # print(f"data_protection_warning: {data_protection_warning}")
+  # data_protection_warning = data_protection_warning_check(sparql, [])
+  # # print(f"data_protection_warning: {data_protection_warning}")
+
+  # feasibility_check_results = feasibility_check(sparql, [])
+  # # print(f"feasibility_check_results: {feasibility_check_results}")
+  # merged = pd.merge(
+  #   pd.DataFrame(feasibility_check_results),
+  #   pd.DataFrame(data_protection_warning),
+  #   on="indicator",
+  #   how="left",
+  #   suffixes=("", "_y")
+  # )
+  # merged = merged.drop(columns=[col for col in merged.columns if col.endswith("_y")])
+  # merged.to_csv(output_csv, index=False)
+  # print(f"Results written to {output_csv}")
 
   feasibility_check_results = feasibility_check(sparql, [])
-  # print(f"feasibility_check_results: {feasibility_check_results}")
-  merged = pd.merge(
-    pd.DataFrame(feasibility_check_results),
-    pd.DataFrame(data_protection_warning),
-    on="indicator",
-    how="left",
-    suffixes=("", "_y")
-  )
-  merged = merged.drop(columns=[col for col in merged.columns if col.endswith("_y")])
-  merged.to_csv(output_csv, index=False)
+  feasibility_results_df = pd.DataFrame(feasibility_check_results)
+  print(feasibility_results_df.head())
+  feasibility_results_df.to_csv(output_csv, index=False)
   print(f"Results written to {output_csv}")
+
+  print("Converting to DQ table format...")
+  dq_table_df = convert2_dq_table(feasibility_results_df)
+  print(dq_table_df.head())
+  dq_table_output_path = output_csv.replace(".csv", "_dq_table.csv")
+  dq_table_df.to_csv(dq_table_output_path, index=False)
+  print(f"DQ table results written to {dq_table_output_path}")
 
 if __name__ == "__main__":
   main()
