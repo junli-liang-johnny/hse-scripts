@@ -1,0 +1,162 @@
+PREFIX ddc: <http://purl.org/NET/decimalised#>
+PREFIX dpv: <https://w3id.org/dpv#>
+PREFIX dcterm: <http://purl.org/dc/terms/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX dct: <http://purl.org/dc/terms/>
+PREFIX dcat: <http://www.w3.org/ns/dcat#>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX prov: <http://www.w3.org/ns/prov#>
+PREFIX adms: <http://www.w3.org/ns/adms#>
+PREFIX dcterms: <http://purl.org/dc/terms/>
+prefix dc: <http://purl.org/dc/elements/1.1/>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+PREFIX : <https://hse.ie/>
+PREFIX phi: <https://hse.ie/ontology/phi#>
+PREFIX phd: <https://hse.ie/ontology/phd#>
+PREFIX healthdcatap: <http://healthdata.dublinked.ie/def/healthdcatap#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+
+SELECT DISTINCT
+?indicator 
+?title
+(
+  ROUND(
+    (
+      IF(?titlePresent, 1.0, 0) + 
+      IF(?identifierPresent, 1.0, 0) +
+      IF(?indicatorTypePresent, 1.0, 0) + 
+      IF(?accrualPeriodicityPresent, 1.0, 0) + 
+      IF(?numeratorSourcePresent, 1.0, 0)
+    ) / 5.0 * 100
+  ) / 100.0 AS ?mandatoryCompletenessPercent
+)
+(
+  ROUND(
+    (
+      IF(?RationalePresent, 1.0, 0) +
+      IF(?definitionPresent, 1.0, 0) +
+      IF(?statusPresent, 1.0, 0) +
+      IF(?numeratorDataElementPresent, 1.0, 0) +
+      IF(?methodologyPresent, 1.0, 0) +
+      IF(?healthThemeDomainPresent, 1.0, 0) +
+      IF(?healthThemeSubdomainPresent, 1.0, 0) +
+      IF(?importancePresent, 1.0, 0) +
+      IF(?notePresent, 1.0, 0)
+    ) / 9.0 * 100
+  ) / 100.0 AS ?recommendedCompletenessPercent
+)
+(
+  ROUND(
+    (
+      IF(?disaggregationPresent, 1.0, 0) +
+      IF(?denominatorDataElementPresent, 1.0, 0) +
+      IF(?denominatorSourcePresent, 1.0, 0) +
+      IF(?highLowGuidancePresent, 1.0, 0) +
+      IF(?measurementLimitationsPresent, 1.0, 0) +
+      IF(?validityGuidancePresent, 1.0, 0) +
+      IF(?provenancePresent, 1.0, 0) +
+      IF(?historyNotePresent, 1.0, 0) +
+      IF(?sameAsPresent, 1.0, 0)
+    ) / 9.0 * 100
+  ) / 100.0 AS ?optionalCompletenessPercent
+)
+(
+	ROUND(
+    (
+      IF(?titlePresent, 1.0, 0) +
+      IF(?identifierPresent, 1.0, 0) +
+      IF(?indicatorTypePresent, 1.0, 0) +
+      IF(?accrualPeriodicityPresent, 1.0, 0) +
+      IF(?numeratorSourcePresent, 1.0, 0) +
+      IF(?RationalePresent, 1.0, 0) +
+      IF(?definitionPresent, 1.0, 0) +
+      IF(?statusPresent, 1.0, 0) +
+      IF(?numeratorDataElementPresent, 1.0, 0) +
+      IF(?methodologyPresent, 1.0, 0) +
+      IF(?healthThemeDomainPresent, 1.0, 0) +
+      IF(?healthThemeSubdomainPresent, 1.0, 0) +
+      IF(?importancePresent, 1.0, 0) +
+      IF(?notePresent, 1.0, 0) +
+      IF(?disaggregationPresent, 1.0, 0) +
+      IF(?denominatorDataElementPresent, 1.0, 0) +
+      IF(?denominatorSourcePresent, 1.0, 0) +
+      IF(?highLowGuidancePresent, 1.0, 0) +
+      IF(?measurementLimitationsPresent, 1.0, 0) +
+      IF(?validityGuidancePresent, 1.0, 0) +
+      IF(?provenancePresent, 1.0, 0) +
+      IF(?historyNotePresent, 1.0, 0) +
+      IF(?sameAsPresent, 1.0, 0)
+    ) / 23.0 * 100
+  ) / 100.0 AS ?overallCompletenessPercent
+)
+WHERE {
+  ?indicator a dcat:Dataset ;
+  a phi:Indicator .
+  # mandatory fields
+  OPTIONAL { ?indicator dcterms:title ?title . }
+  OPTIONAL { ?indicator dct:identifier ?identifier }
+  OPTIONAL { ?indicator phi:indicatorType ?indicatorType . }
+  OPTIONAL { ?indicator dcterms:accrualPeriodicity ?accrualPeriodicity . }
+  OPTIONAL { ?indicator (phi:numeratorSource | dct:publisher) ?numeratorSource . }
+
+  # recommended fields
+  OPTIONAL { ?indicator phi:Rationale ?Rationale . }
+  OPTIONAL { ?indicator skos:definition ?definition . }
+  OPTIONAL { ?indicator phi:status ?status . }
+  OPTIONAL { ?indicator phi:numeratorDataElement ?numeratorDataElement . }
+  OPTIONAL { ?indicator phi:methodology ?methodology . }
+  OPTIONAL { ?indicator healthdcatap:healthTheme ?healthThemeDomain . 
+    ?healthThemeDomain a healthdcatap:Domain . 
+  }
+  OPTIONAL { ?indicator healthdcatap:healthTheme ?healthThemeSubdomain . 
+    ?healthThemeSubdomain a healthdcatap:Subdomain . 
+  }
+  OPTIONAL { ?indicator phi:importance ?importance . }
+  OPTIONAL { ?indicator skos:note ?note . }
+
+  # optional fields
+  OPTIONAL { ?indicator phi:disaggregation ?disaggregation . }
+  OPTIONAL { ?indicator phi:denominatorDataElement ?denominatorDataElement . }
+  OPTIONAL { ?indicator phi:denominatorSource ?denominatorSource . }
+  OPTIONAL { ?indicator phi:highLowGuidance ?highLowGuidance . }
+  OPTIONAL { ?indicator phi:measurementLimitations ?measurementLimitations . }
+  OPTIONAL { ?indicator phi:validityGuidance ?validityGuidance . }
+  OPTIONAL { ?indicator dct:provenance ?provenance . }
+  OPTIONAL { ?indicator skos:historyNote ?historyNote . }
+  OPTIONAL { ?indicator owl:sameAs ?sameAs . }
+
+  # mandatory fields boolean
+  BIND(BOUND(?title) AS ?titlePresent)
+  BIND(BOUND(?identifier) AS ?identifierPresent)
+  BIND(BOUND(?indicatorType) AS ?indicatorTypePresent)
+  BIND(BOUND(?accrualPeriodicity) AS ?accrualPeriodicityPresent)
+  BIND(BOUND(?numeratorSource) AS ?numeratorSourcePresent)
+
+  # recommended fields boolean
+  BIND(BOUND(?Rationale) AS ?RationalePresent)
+  BIND(BOUND(?definition) AS ?definitionPresent)
+  BIND(BOUND(?status) AS ?statusPresent)
+  BIND(BOUND(?numeratorDataElement) AS ?numeratorDataElementPresent)
+  BIND(BOUND(?methodology) AS ?methodologyPresent)
+  BIND(BOUND(?healthThemeDomain) AS ?healthThemeDomainPresent)
+  BIND(BOUND(?healthThemeSubdomain) AS ?healthThemeSubdomainPresent)
+  BIND(BOUND(?importance) AS ?importancePresent)
+  BIND(BOUND(?note) AS ?notePresent)
+
+  # optional fields boolean
+  BIND(BOUND(?disaggregation) AS ?disaggregationPresent)
+  BIND(BOUND(?denominatorDataElement) AS ?denominatorDataElementPresent)
+  BIND(BOUND(?denominatorSource) AS ?denominatorSourcePresent)
+  BIND(BOUND(?highLowGuidance) AS ?highLowGuidancePresent)
+  BIND(BOUND(?measurementLimitations) AS ?measurementLimitationsPresent)
+  BIND(BOUND(?validityGuidance) AS ?validityGuidancePresent)
+  BIND(BOUND(?provenance) AS ?provenancePresent)
+  BIND(BOUND(?historyNote) AS ?historyNotePresent)
+  BIND(BOUND(?sameAs) AS ?sameAsPresent)
+
+  # formatting
+  BIND("identifier" AS ?field)
+  BIND("Indicator ID" AS ?label)
+  BIND(?identifierPresent AS ?present)
+}
