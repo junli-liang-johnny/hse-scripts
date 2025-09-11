@@ -23,20 +23,39 @@ def main():
 	sparql.setQuery(query)
 	sparql.setReturnFormat(JSON)
 	results = sparql.query().convert()
+	def to_percent(val):
+		return round(float(val) * 100, 2)
+
 	data = [
 		{
 			"indicator": result["indicator"]["value"],
-			"requiredFieldCompletenessPercent": float(result["requiredFieldCompletenessPercent"]["value"]),
-			"mandatoryCompletenessPercent": float(result["mandatoryCompletenessPercent"]["value"]),
-			"recommendedCompletenessPercent": float(result["recommendedCompletenessPercent"]["value"]),
-			"optionalCompletenessPercent": float(result["optionalCompletenessPercent"]["value"]),
-			"overallCompletenessPercent": float(result["overallCompletenessPercent"]["value"])
+			"requiredFieldCompletenessPercent": to_percent(result["requiredFieldCompletenessPercent"]["value"]),
+			"mandatoryCompletenessPercent": to_percent(result["mandatoryCompletenessPercent"]["value"]),
+			"recommendedCompletenessPercent": to_percent(result["recommendedCompletenessPercent"]["value"]),
+			"optionalCompletenessPercent": to_percent(result["optionalCompletenessPercent"]["value"]),
+			"overallCompletenessPercent": to_percent(result["overallCompletenessPercent"]["value"])
 		}
 		for result in results["results"]["bindings"]
 	]
 	df = pd.DataFrame(data)
 	df.to_csv(output_csv, index=False)
 	print(f"Results written to {output_csv}")
+
+	# output raw results
+	data = [
+		{
+			"indicator": result["indicator"]["value"],
+			"requiredFieldCompletenessPercent": result["requiredFieldCompletenessPercent"]["value"],
+			"mandatoryCompletenessPercent": result["mandatoryCompletenessPercent"]["value"],
+			"recommendedCompletenessPercent": result["recommendedCompletenessPercent"]["value"],
+			"optionalCompletenessPercent": result["optionalCompletenessPercent"]["value"]
+		}
+		for result in results["results"]["bindings"]
+	]
+	df = pd.DataFrame(data)
+	raw_output_csv = output_csv.replace(".csv", "_raw.csv")
+	df.to_csv(raw_output_csv, index=False)
+	print(f"Raw results written to {raw_output_csv}")
 
 if __name__ == "__main__":
 	main()
