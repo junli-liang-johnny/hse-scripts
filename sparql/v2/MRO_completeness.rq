@@ -19,50 +19,57 @@ PREFIX owl: <http://www.w3.org/2002/07/owl#>
 
 SELECT DISTINCT
 ?indicator 
-?title
+?title 
 (
-  ROUND(
-    (
-      IF(?titlePresent, 1.0, 0) + 
-      IF(?identifierPresent, 1.0, 0) +
-      IF(?indicatorTypePresent, 1.0, 0) + 
-      IF(?accrualPeriodicityPresent, 1.0, 0) + 
-      IF(?numeratorSourcePresent, 1.0, 0)
-    ) / 5.0 * 100
-  ) / 100.0 AS ?mandatoryCompletenessPercent
+  (
+    IF(?titlePresent, 1.0, 0) + 
+    IF(?identifierPresent, 1.0, 0) +
+    IF(?indicatorTypePresent, 1.0, 0) + 
+    IF(?accrualPeriodicityPresent, 1.0, 0) + 
+    IF(?numeratorSourcePresent, 1.0, 0) +
+    IF(?disaggregationPresent, 1.0, 0)
+  ) / 6.0 * 100
+  / 100.0 AS ?requiredFieldCompletenessPercent
+)
+(
+  (
+    IF(?titlePresent, 1.0, 0) + 
+    IF(?identifierPresent, 1.0, 0) +
+    IF(?indicatorTypePresent, 1.0, 0) + 
+    IF(?accrualPeriodicityPresent, 1.0, 0) + 
+    IF(?numeratorSourcePresent, 1.0, 0)
+  ) / 5.0 * 100
+  / 100.0 AS ?mandatoryCompletenessPercent
+)
+(
+  (
+    IF(?RationalePresent, 1.0, 0) +
+    IF(?definitionPresent, 1.0, 0) +
+    IF(?statusPresent, 1.0, 0) +
+    IF(?numeratorDataElementPresent, 1.0, 0) +
+    IF(?methodologyPresent, 1.0, 0) +
+    IF(?healthThemeDomainPresent, 1.0, 0) +
+    IF(?healthThemeSubdomainPresent, 1.0, 0) +
+    IF(?importancePresent, 1.0, 0) +
+    IF(?notePresent, 1.0, 0)
+  ) / 9.0 * 100
+  / 100.0 AS ?recommendedCompletenessPercent
+)
+(
+  (
+    IF(?disaggregationPresent, 1.0, 0) +
+    IF(?denominatorDataElementPresent, 1.0, 0) +
+    IF(?denominatorSourcePresent, 1.0, 0) +
+    IF(?highLowGuidancePresent, 1.0, 0) +
+    IF(?measurementLimitationsPresent, 1.0, 0) +
+    IF(?validityGuidancePresent, 1.0, 0) +
+    IF(?provenancePresent, 1.0, 0) +
+    IF(?historyNotePresent, 1.0, 0) +
+    IF(?sameAsPresent, 1.0, 0)
+  ) / 9.0 * 100 / 100.0 AS ?optionalCompletenessPercent
 )
 (
   ROUND(
-    (
-      IF(?RationalePresent, 1.0, 0) +
-      IF(?definitionPresent, 1.0, 0) +
-      IF(?statusPresent, 1.0, 0) +
-      IF(?numeratorDataElementPresent, 1.0, 0) +
-      IF(?methodologyPresent, 1.0, 0) +
-      IF(?healthThemeDomainPresent, 1.0, 0) +
-      IF(?healthThemeSubdomainPresent, 1.0, 0) +
-      IF(?importancePresent, 1.0, 0) +
-      IF(?notePresent, 1.0, 0)
-    ) / 9.0 * 100
-  ) / 100.0 AS ?recommendedCompletenessPercent
-)
-(
-  ROUND(
-    (
-      IF(?disaggregationPresent, 1.0, 0) +
-      IF(?denominatorDataElementPresent, 1.0, 0) +
-      IF(?denominatorSourcePresent, 1.0, 0) +
-      IF(?highLowGuidancePresent, 1.0, 0) +
-      IF(?measurementLimitationsPresent, 1.0, 0) +
-      IF(?validityGuidancePresent, 1.0, 0) +
-      IF(?provenancePresent, 1.0, 0) +
-      IF(?historyNotePresent, 1.0, 0) +
-      IF(?sameAsPresent, 1.0, 0)
-    ) / 9.0 * 100
-  ) / 100.0 AS ?optionalCompletenessPercent
-)
-(
-	ROUND(
     (
       IF(?titlePresent, 1.0, 0) +
       IF(?identifierPresent, 1.0, 0) +

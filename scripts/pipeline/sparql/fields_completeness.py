@@ -26,6 +26,7 @@ def main():
 	data = [
 		{
 			"indicator": result["indicator"]["value"],
+			"requiredFieldCompletenessPercent": float(result["requiredFieldCompletenessPercent"]["value"]),
 			"mandatoryCompletenessPercent": float(result["mandatoryCompletenessPercent"]["value"]),
 			"recommendedCompletenessPercent": float(result["recommendedCompletenessPercent"]["value"]),
 			"optionalCompletenessPercent": float(result["optionalCompletenessPercent"]["value"]),
