@@ -27,8 +27,15 @@ SELECT DISTINCT
     IF(?indicatorTypePresent, 1.0, 0) + 
     IF(?accrualPeriodicityPresent, 1.0, 0) + 
     IF(?numeratorSourcePresent, 1.0, 0) +
-    IF(?disaggregationPresent, 1.0, 0)
-  ) / 6.0 * 100
+    IF(?disaggregationPresent, 1.0, 0) + 
+    IF(?datasetTitlePresent, 1.0, 0) +
+    IF(?datasetAccrualPeriodicityPresent, 1.0, 0) +
+    IF(?temporalResolutionPresent, 1.0, 0) +
+    IF(?SpatialAggregationCodePresent, 1.0, 0) +
+    IF(?accessRightsPresent, 1.0, 0) +
+    IF(?hasPersonalDataPresent, 1.0, 0) +
+    IF(?hasDataControllerPresent, 1.0, 0)
+  ) / 13.0 * 100
   / 100.0 AS ?requiredFieldCompletenessPercent
 )
 (
@@ -107,6 +114,14 @@ WHERE {
   OPTIONAL { ?indicator dcterms:accrualPeriodicity ?accrualPeriodicity . }
   OPTIONAL { ?indicator (phi:numeratorSource | dct:publisher) ?numeratorSource . }
 
+  OPTIONAL { ?numeratorSource a dcat:Dataset ; dcterms:title ?datasetTitle . }
+  OPTIONAL { ?numeratorSource a dcat:Dataset ; dcterms:accrualPeriodicity ?datasetAccrualPeriodicity . }
+  OPTIONAL { ?numeratorSource a dcat:Dataset ; dcat:temporalResolution ?temporalResolution . }
+  OPTIONAL { ?numeratorSource a dcat:Dataset ; phd:SpatialAggregationCode ?SpatialAggregationCode . }
+  OPTIONAL { ?numeratorSource a dcat:Dataset ; dcterms:accessRights ?accessRights . }
+  OPTIONAL { ?numeratorSource a dcat:Dataset ; dpv:hasPersonalData ?hasPersonalData . }
+  OPTIONAL { ?numeratorSource a dcat:Dataset ; dcterms:hasDataController ?hasDataController . }
+
   # recommended fields
   OPTIONAL { ?indicator phi:Rationale ?Rationale . }
   OPTIONAL { ?indicator skos:definition ?definition . }
@@ -140,6 +155,15 @@ WHERE {
   BIND(BOUND(?accrualPeriodicity) AS ?accrualPeriodicityPresent)
   BIND(BOUND(?numeratorSource) AS ?numeratorSourcePresent)
 
+  # required dataset fields boolean
+  BIND(BOUND(?datasetTitle) AS ?datasetTitlePresent)
+  BIND(BOUND(?datasetAccrualPeriodicity) AS ?datasetAccrualPeriodicityPresent)
+  BIND(BOUND(?temporalResolution) AS ?temporalResolutionPresent)
+  BIND(BOUND(?SpatialAggregationCode) AS ?SpatialAggregationCodePresent)
+  BIND(BOUND(?accessRights) AS ?accessRightsPresent)
+  BIND(BOUND(?hasPersonalData) AS ?hasPersonalDataPresent)
+  BIND(BOUND(?hasDataController) AS ?hasDataControllerPresent)
+
   # recommended fields boolean
   BIND(BOUND(?Rationale) AS ?RationalePresent)
   BIND(BOUND(?definition) AS ?definitionPresent)
@@ -167,3 +191,4 @@ WHERE {
   BIND("Indicator ID" AS ?label)
   BIND(?identifierPresent AS ?present)
 }
+ORDER BY ASC(?indicator)

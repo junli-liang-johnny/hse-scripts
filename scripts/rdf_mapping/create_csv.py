@@ -12,6 +12,7 @@ def create_csv(config: dict) -> None:
 		:param config: Dictionary containing all configuration parameters
 		"""
 		try:
+				print('before reading config')
 				input_file = config["input_file"]
 				output_file = config["output_file"]
 				column_name = config["column_name"]

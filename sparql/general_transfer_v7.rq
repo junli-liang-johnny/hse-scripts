@@ -1,0 +1,64 @@
+PREFIX : <https://hse.ie/>
+PREFIX hseOntology: <https://hse.ie/ontology/>
+PREFIX phi: <https://hse.ie/ontology/phi#>
+PREFIX phd: <https://hse.ie/ontology/phd#>
+PREFIX dcterms: <http://purl.org/dc/terms/>
+PREFIX dcat: <http://www.w3.org/ns/dcat#>
+
+# DELETE {
+#   ?dataset phi:numeratorSource ?sourceValue .
+# } INSERT {
+#   ?dataset phi:numeratorSource ?dataset2 .
+# } WHERE {
+#   ?dataset a dcat:Dataset ;
+#            phi:numeratorSource ?sourceValue .
+
+#   BIND(IRI(?sourceValue) AS ?dataset2)
+# };
+
+DELETE {
+  ?dataset phi:denominatorSource ?sourceValue .
+} INSERT {
+  ?dataset phi:denominatorSource ?dataset2 .
+} WHERE {
+  ?dataset a dcat:Dataset ;
+           phi:denominatorSource ?sourceValue .
+
+  BIND(IRI(?sourceValue) AS ?dataset2)
+};
+
+DELETE {
+  ?dataset dcterms:provenance ?label .
+} INSERT {
+  ?dataset dcterms:provenance ?provenanceStatement .
+} WHERE {
+  ?dataset a dcat:Dataset ;
+           dcterms:provenance ?label .
+
+  ?provenanceStatement a dcterms:ProvenanceStatement ;
+           rdfs:label ?label .
+};
+
+# replace dcterms:publisher uris
+DELETE {
+  ?s dcterms:publisher ?publisherStr .
+} INSERT {
+  ?s dcterms:publisher ?publisher .
+} WHERE {
+  ?s a dcat:Dataset ;
+     dcterms:publisher ?publisherStr .
+
+  ?publisher a dcterms:Publisher ;
+     foaf:name ?publisherStr .
+};
+DELETE {
+  ?dataset dcat:distribution ?distributionStr .
+} INSERT {
+  ?dataset dcat:distribution ?distribution .
+} WHERE {
+  ?dataset a dcat:Dataset ;
+           dcat:distribution ?distributionStr .
+
+  ?distribution a dcat:Distribution ;
+           dcterms:format ?distributionStr .
+};

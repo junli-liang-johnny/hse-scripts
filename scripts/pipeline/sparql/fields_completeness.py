@@ -8,7 +8,7 @@ python -m scripts.pipeline.sparql.fields_completeness -e http://localhost:3030/v
 
 def main():
 	parser = argparse.ArgumentParser(description="Fields completeness assessment")
-	parser.add_argument("--sparql-endpoint", "-e", default="http://localhost:3030/indicators", help="SPARQL endpoint URL")
+	parser.add_argument("--sparql-endpoint", "-e", default="http://localhost:3030/v5", help="SPARQL endpoint URL")
 	parser.add_argument("-o", "--output-csv", default="fields_completeness_output.csv", help="Output file")
 	args = parser.parse_args()
 
