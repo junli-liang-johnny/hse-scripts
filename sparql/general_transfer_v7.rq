@@ -5,16 +5,16 @@ PREFIX phd: <https://hse.ie/ontology/phd#>
 PREFIX dcterms: <http://purl.org/dc/terms/>
 PREFIX dcat: <http://www.w3.org/ns/dcat#>
 
-# DELETE {
-#   ?dataset phi:numeratorSource ?sourceValue .
-# } INSERT {
-#   ?dataset phi:numeratorSource ?dataset2 .
-# } WHERE {
-#   ?dataset a dcat:Dataset ;
-#            phi:numeratorSource ?sourceValue .
+DELETE {
+  ?dataset phi:numeratorSource ?sourceValue .
+} INSERT {
+  ?dataset phi:numeratorSource ?dataset2 .
+} WHERE {
+  ?dataset a dcat:Dataset ;
+           phi:numeratorSource ?sourceValue .
 
-#   BIND(IRI(?sourceValue) AS ?dataset2)
-# };
+  BIND(IRI(?sourceValue) AS ?dataset2)
+};
 
 DELETE {
   ?dataset phi:denominatorSource ?sourceValue .

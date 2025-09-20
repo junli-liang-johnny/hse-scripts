@@ -20,107 +20,32 @@ PREFIX owl: <http://www.w3.org/2002/07/owl#>
 SELECT DISTINCT
 ?indicator 
 ?title 
-(
-  (
-    IF(?titlePresent, 1.0, 0) + 
-    IF(?identifierPresent, 1.0, 0) +
-    IF(?indicatorTypePresent, 1.0, 0) + 
-    IF(?accrualPeriodicityPresent, 1.0, 0) + 
-    IF(?numeratorSourcePresent, 1.0, 0) +
-    IF(?disaggregationPresent, 1.0, 0) + 
-    IF(?datasetTitlePresent, 1.0, 0) +
-    IF(?datasetAccrualPeriodicityPresent, 1.0, 0) +
-    IF(?temporalResolutionPresent, 1.0, 0) +
-    IF(?SpatialAggregationCodePresent, 1.0, 0) +
-    IF(?accessRightsPresent, 1.0, 0) +
-    IF(?hasPersonalDataPresent, 1.0, 0) +
-    IF(?hasDataControllerPresent, 1.0, 0)
-  ) / 13.0 * 100
-  / 100.0 AS ?requiredFieldCompletenessPercent
-)
-(
-  (
-    IF(?titlePresent, 1.0, 0) + 
-    IF(?identifierPresent, 1.0, 0) +
-    IF(?indicatorTypePresent, 1.0, 0) + 
-    IF(?accrualPeriodicityPresent, 1.0, 0) + 
-    IF(?numeratorSourcePresent, 1.0, 0)
-  ) / 5.0 * 100
-  / 100.0 AS ?mandatoryCompletenessPercent
-)
-(
-  (
-    IF(?RationalePresent, 1.0, 0) +
-    IF(?definitionPresent, 1.0, 0) +
-    IF(?statusPresent, 1.0, 0) +
-    IF(?numeratorDataElementPresent, 1.0, 0) +
-    IF(?methodologyPresent, 1.0, 0) +
-    IF(?healthThemeDomainPresent, 1.0, 0) +
-    IF(?healthThemeSubdomainPresent, 1.0, 0) +
-    IF(?importancePresent, 1.0, 0) +
-    IF(?notePresent, 1.0, 0)
-  ) / 9.0 * 100
-  / 100.0 AS ?recommendedCompletenessPercent
-)
-(
-  (
-    IF(?disaggregationPresent, 1.0, 0) +
-    IF(?denominatorDataElementPresent, 1.0, 0) +
-    IF(?denominatorSourcePresent, 1.0, 0) +
-    IF(?highLowGuidancePresent, 1.0, 0) +
-    IF(?measurementLimitationsPresent, 1.0, 0) +
-    IF(?validityGuidancePresent, 1.0, 0) +
-    IF(?provenancePresent, 1.0, 0) +
-    IF(?historyNotePresent, 1.0, 0) +
-    IF(?sameAsPresent, 1.0, 0)
-  ) / 9.0 * 100 / 100.0 AS ?optionalCompletenessPercent
-)
-(
-  ROUND(
-    (
-      IF(?titlePresent, 1.0, 0) +
-      IF(?identifierPresent, 1.0, 0) +
-      IF(?indicatorTypePresent, 1.0, 0) +
-      IF(?accrualPeriodicityPresent, 1.0, 0) +
-      IF(?numeratorSourcePresent, 1.0, 0) +
-      IF(?RationalePresent, 1.0, 0) +
-      IF(?definitionPresent, 1.0, 0) +
-      IF(?statusPresent, 1.0, 0) +
-      IF(?numeratorDataElementPresent, 1.0, 0) +
-      IF(?methodologyPresent, 1.0, 0) +
-      IF(?healthThemeDomainPresent, 1.0, 0) +
-      IF(?healthThemeSubdomainPresent, 1.0, 0) +
-      IF(?importancePresent, 1.0, 0) +
-      IF(?notePresent, 1.0, 0) +
-      IF(?disaggregationPresent, 1.0, 0) +
-      IF(?denominatorDataElementPresent, 1.0, 0) +
-      IF(?denominatorSourcePresent, 1.0, 0) +
-      IF(?highLowGuidancePresent, 1.0, 0) +
-      IF(?measurementLimitationsPresent, 1.0, 0) +
-      IF(?validityGuidancePresent, 1.0, 0) +
-      IF(?provenancePresent, 1.0, 0) +
-      IF(?historyNotePresent, 1.0, 0) +
-      IF(?sameAsPresent, 1.0, 0)
-    ) / 23.0 * 100
-  ) / 100.0 AS ?overallCompletenessPercent
-)
+?numeratorSource
+?numeratorSourcePresent 
+?requiredFieldCompletenessPercent
+?mandatoryCompletenessPercent
+?recommendedCompletenessPercent
+?optionalCompletenessPercent 
+?overallCompletenessPercent
 WHERE {
   ?indicator a dcat:Dataset ;
   a phi:Indicator .
+  
   # mandatory fields
   OPTIONAL { ?indicator dcterms:title ?title . }
   OPTIONAL { ?indicator dct:identifier ?identifier }
   OPTIONAL { ?indicator phi:indicatorType ?indicatorType . }
   OPTIONAL { ?indicator dcterms:accrualPeriodicity ?accrualPeriodicity . }
-  OPTIONAL { ?indicator (phi:numeratorSource | dct:publisher) ?numeratorSource . }
-
-  OPTIONAL { ?numeratorSource a dcat:Dataset ; dcterms:title ?datasetTitle . }
-  OPTIONAL { ?numeratorSource a dcat:Dataset ; dcterms:accrualPeriodicity ?datasetAccrualPeriodicity . }
-  OPTIONAL { ?numeratorSource a dcat:Dataset ; dcat:temporalResolution ?temporalResolution . }
-  OPTIONAL { ?numeratorSource a dcat:Dataset ; phd:SpatialAggregationCode ?SpatialAggregationCode . }
-  OPTIONAL { ?numeratorSource a dcat:Dataset ; dcterms:accessRights ?accessRights . }
-  OPTIONAL { ?numeratorSource a dcat:Dataset ; dpv:hasPersonalData ?hasPersonalData . }
-  OPTIONAL { ?numeratorSource a dcat:Dataset ; dcterms:hasDataController ?hasDataController . }
+  OPTIONAL { 
+    ?indicator phi:numeratorSource ?numeratorSource .
+    OPTIONAL { ?numeratorSource a dcat:Dataset ; dcterms:title ?datasetTitle . }
+    OPTIONAL { ?numeratorSource a dcat:Dataset ; dcterms:accrualPeriodicity ?datasetAccrualPeriodicity . }
+    OPTIONAL { ?numeratorSource a dcat:Dataset ; dcat:temporalResolution ?temporalResolution . }
+    OPTIONAL { ?numeratorSource a dcat:Dataset ; phd:SpatialAggregationCode ?SpatialAggregationCode . }
+    OPTIONAL { ?numeratorSource a dcat:Dataset ; dcterms:accessRights ?accessRights . }
+    OPTIONAL { ?numeratorSource a dcat:Dataset ; dpv:hasPersonalData ?hasPersonalData . }
+    OPTIONAL { ?numeratorSource a dcat:Dataset ; dcterms:hasDataController ?hasDataController . }
+  }
 
   # recommended fields
   OPTIONAL { ?indicator phi:Rationale ?Rationale . }
@@ -190,5 +115,93 @@ WHERE {
   BIND("identifier" AS ?field)
   BIND("Indicator ID" AS ?label)
   BIND(?identifierPresent AS ?present)
+
+  # mandatory fields completeness calculation
+  BIND(
+    (
+      IF(?titlePresent, 1.0, 0) + 
+      IF(?identifierPresent, 1.0, 0) +
+      IF(?indicatorTypePresent, 1.0, 0) + 
+      IF(?accrualPeriodicityPresent, 1.0, 0) + 
+      IF(?numeratorSourcePresent, 1.0, 0)
+    ) / 5.0 * 100
+    / 100.0 AS ?mandatoryCompletenessPercent
+  )
+  BIND(
+    (
+      IF(?RationalePresent, 1.0, 0) +
+      IF(?definitionPresent, 1.0, 0) +
+      IF(?statusPresent, 1.0, 0) +
+      IF(?numeratorDataElementPresent, 1.0, 0) +
+      IF(?methodologyPresent, 1.0, 0) +
+      IF(?healthThemeDomainPresent, 1.0, 0) +
+      IF(?healthThemeSubdomainPresent, 1.0, 0) +
+      IF(?importancePresent, 1.0, 0) +
+      IF(?notePresent, 1.0, 0)
+    ) / 9.0 * 100
+    / 100.0 AS ?recommendedCompletenessPercent
+  )
+  BIND(
+    (
+      IF(?disaggregationPresent, 1.0, 0) +
+      IF(?denominatorDataElementPresent, 1.0, 0) +
+      IF(?denominatorSourcePresent, 1.0, 0) +
+      IF(?highLowGuidancePresent, 1.0, 0) +
+      IF(?measurementLimitationsPresent, 1.0, 0) +
+      IF(?validityGuidancePresent, 1.0, 0) +
+      IF(?provenancePresent, 1.0, 0) +
+      IF(?historyNotePresent, 1.0, 0) +
+      IF(?sameAsPresent, 1.0, 0)
+    ) / 9.0 * 100 / 100.0 AS ?optionalCompletenessPercent
+  )
+  BIND(
+    ROUND(
+      (
+        IF(?titlePresent, 1.0, 0) +
+        IF(?identifierPresent, 1.0, 0) +
+        IF(?indicatorTypePresent, 1.0, 0) +
+        IF(?accrualPeriodicityPresent, 1.0, 0) +
+        IF(?numeratorSourcePresent, 1.0, 0) +
+        IF(?RationalePresent, 1.0, 0) +
+        IF(?definitionPresent, 1.0, 0) +
+        IF(?statusPresent, 1.0, 0) +
+        IF(?numeratorDataElementPresent, 1.0, 0) +
+        IF(?methodologyPresent, 1.0, 0) +
+        IF(?healthThemeDomainPresent, 1.0, 0) +
+        IF(?healthThemeSubdomainPresent, 1.0, 0) +
+        IF(?importancePresent, 1.0, 0) +
+        IF(?notePresent, 1.0, 0) +
+        IF(?disaggregationPresent, 1.0, 0) +
+        IF(?denominatorDataElementPresent, 1.0, 0) +
+        IF(?denominatorSourcePresent, 1.0, 0) +
+        IF(?highLowGuidancePresent, 1.0, 0) +
+        IF(?measurementLimitationsPresent, 1.0, 0) +
+        IF(?validityGuidancePresent, 1.0, 0) +
+        IF(?provenancePresent, 1.0, 0) +
+        IF(?historyNotePresent, 1.0, 0) +
+        IF(?sameAsPresent, 1.0, 0)
+      ) / 23.0 * 100
+    ) / 100.0 AS ?overallCompletenessPercent
+  )
+
+  # required dq fields
+  BIND(
+    (
+      IF(?titlePresent, 1.0, 0) + 
+      IF(?identifierPresent, 1.0, 0) +
+      IF(?indicatorTypePresent, 1.0, 0) + 
+      IF(?accrualPeriodicityPresent, 1.0, 0) + 
+      IF(?numeratorSourcePresent, 1.0, 0) +
+      IF(?disaggregationPresent, 1.0, 0) + 
+      IF(?datasetTitlePresent, 1.0, 0) +
+      IF(?datasetAccrualPeriodicityPresent, 1.0, 0) +
+      IF(?temporalResolutionPresent, 1.0, 0) +
+      IF(?SpatialAggregationCodePresent, 1.0, 0) +
+      IF(?accessRightsPresent, 1.0, 0) +
+      IF(?hasPersonalDataPresent, 1.0, 0) +
+      IF(?hasDataControllerPresent, 1.0, 0)
+    ) / 13.0 * 100
+    / 100.0 AS ?requiredFieldCompletenessPercent
+  )
 }
 ORDER BY ASC(?indicator)

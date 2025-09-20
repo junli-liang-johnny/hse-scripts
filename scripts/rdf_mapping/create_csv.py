@@ -28,7 +28,7 @@ def create_csv(config: dict) -> None:
 				print(f"Identifiers loaded: {identifiers}")
 
 				with open(input_file, mode='r', encoding='utf-8') as infile:
-						reader = filter_csv(list(csv.reader(infile)), input_file)
+						reader = filter_csv(list(csv.reader(infile)), input_file, [])
 						filtered_rows = _minimise_rows(reader, column_name)
 						print(f"Filtered rows: {filtered_rows}")
 
@@ -80,6 +80,8 @@ def _load_identifiers(csv_file: str, column: str) -> list:
 				return [row[column] for row in reader]
 		except FileNotFoundError:
 			print(f"Error: The file '{csv_file}' was not found.")
+		except Exception as e:
+			print(f"An error occurred while loading identifiers: {e}")
 			return []	
 
 def _minimise_rows(csv_reader: list[list], column_name: str) -> list[list]:
@@ -90,19 +92,22 @@ def _minimise_rows(csv_reader: list[list], column_name: str) -> list[list]:
 		:param column_name: Column name to filter by
 		:return: Filtered list of rows
 		"""
-		unique_values = set()
-		filtered_rows = []
-		print(f"CSV header: {csv_reader[0]}")
-		column_index = csv_reader[0].index(column_name)
+		try:
+			unique_values = set()
+			filtered_rows = []
+			print(f"CSV header: {csv_reader[0]}")
+			column_index = csv_reader[0].index(column_name)
 
-		for row in csv_reader:
-			value = row[column_index].strip()
-			print(f"Processing value: {value}")
-			if value != '' and value not in unique_values:
-				unique_values.add(value)
-				filtered_rows.append(value)
-
-		return filtered_rows[1:]
+			for row in csv_reader:
+				value = row[column_index].strip()
+				print(f"Processing value: {value}")
+				if value != '' and value not in unique_values:
+					unique_values.add(value)
+					filtered_rows.append(value)
+			return filtered_rows[1:]
+		except Exception as e:
+			print(f"An error occurred while filtering rows: {e}")
+			return []
 
 def main():
 		parser = argparse.ArgumentParser(description="Generalized CSV creation script.")

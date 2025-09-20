@@ -5,7 +5,7 @@ used by R2RML mapping tool
 from scripts.csv_utils import load_and_print_csv
 import csv
 
-def r2rml_csv_convert(input_file: str, output_file: str) -> None:
+def r2rml_csv_convert(input_file: str, row_indexes_to_remove: list[int], output_file: str) -> None:
 	"""
 	this function converts a csv file to another csv file that is ready to be used by R2RML mapping tool
 	"""
@@ -13,30 +13,32 @@ def r2rml_csv_convert(input_file: str, output_file: str) -> None:
 	with open(output_file, mode='w', encoding='utf-8') as outfile:
 		writer = csv.writer(outfile)
 
-		filtered_rows = filter_csv(reader, input_file)
-		# print(f"Filtered rows: {filtered_rows}")
+		filtered_rows = filter_csv(reader, input_file, row_indexes_to_remove)
+		print(f"Length of filtered rows: {len(filtered_rows)}")
+		cleaned_rows = remove_special_characters(filtered_rows)
+		print(f"Length of cleaned rows: {len(cleaned_rows)}")
 
-		if filtered_rows:
-			filtered_rows[0] = [
-				column_name_mapping.get(col, col) for col in filtered_rows[0]
+		if cleaned_rows:
+			cleaned_rows[0] = [
+				column_name_mapping.get(col, col) for col in cleaned_rows[0]
 			]
 		
 		# Write the filtered rows to the output file
-		writer.writerows(filtered_rows)
-	
+		writer.writerows(cleaned_rows)
+
 	print(f"Converted {input_file} to {output_file}")
 
 column_name_mapping = {
-	'dct:publisher [ a dct:Publisher; foaf:name ]': 'dct:publisher',
-	'dct:Provenance [a dct:ProvenanceStatement;\nrdfs:label ]': 'dct:Provenance',
-	'dct:Provenance [a dct:ProvenanceStatement; rdfs:label ]': 'dct:Provenance',
-	'dcterms:temporal [a dct:PeriodOfTime;  dcat:startDate ""^^xsd:dateTime; dcat:endDate ""^^xsd:dateTime.]': 'dct:temporal',
-	'dcterms:temporal [a dct:PeriodOfTime;  dcat:endDate ""^^xsd:dateTime.]': 'dct:temporal',
-	'dcat:distribution [ a dcat:Distribution; dct:format]': 'dcat:distribution',
-	'dcat:contactPoint [vcard:individual vard:fn]': 'dcat:contactPoint',
-	'dcterms:accrualPeriodicity <http://purl.org/linked-data/sdmx/2009/code#': 'dcterms:accrualPeriodicity',
-	'adms:sample[ a dcat:Distribution; dcat:accessURL]': 'adms:sample',
-	'healthdcatap:hdab [a foaf:Agent;  foaf:name ]': 'healthdcatap:hdab',
+	# 'dct:publisher [ a dct:Publisher; foaf:name ]': 'dct:publisher',
+	# 'dct:Provenance [a dct:ProvenanceStatement;\nrdfs:label ]': 'dct:Provenance',
+	# 'dct:Provenance [a dct:ProvenanceStatement; rdfs:label ]': 'dct:Provenance',
+	# 'dcterms:temporal [a dct:PeriodOfTime;  dcat:startDate ""^^xsd:dateTime; dcat:endDate ""^^xsd:dateTime.]': 'dct:temporal',
+	# 'dcterms:temporal [a dct:PeriodOfTime;  dcat:endDate ""^^xsd:dateTime.]': 'dct:temporal',
+	# 'dcat:distribution [ a dcat:Distribution; dct:format]': 'dcat:distribution',
+	# 'dcat:contactPoint [vcard:individual vard:fn]': 'dcat:contactPoint',
+	# 'dcterms:accrualPeriodicity <http://purl.org/linked-data/sdmx/2009/code#': 'dcterms:accrualPeriodicity',
+	# 'adms:sample[ a dcat:Distribution; dcat:accessURL]': 'adms:sample',
+	# 'healthdcatap:hdab [a foaf:Agent;  foaf:name ]': 'healthdcatap:hdab',
 }
 
 """
@@ -59,15 +61,18 @@ row_index_remove_mapping = {
 	schema_file_prefix+'/data/schema/OAHP_MasterDataCatalogueVersion0005.xlsx - Indicators.csv.csv': [0, 2],
 }
 
-def filter_csv(csv_reader: list, input_file) -> list:
+def filter_csv(csv_reader: list, input_file, row_indexes_to_remove: list[int]) -> list:
 	"""
 	Filter the CSV data based on specific criteria.
 	:param csv_reader: List of rows from the CSV file
 	:return: Filtered list of rows
 	"""
-	print("mapping file dict: ", row_index_remove_mapping)
+	# print("mapping file dict: ", row_index_remove_mapping)
 	print(f"Input file: {input_file}")
-	rows_to_remove = row_index_remove_mapping.get(input_file, [])
+	if row_indexes_to_remove and len(row_indexes_to_remove) > 0:
+		rows_to_remove = row_indexes_to_remove
+	else:
+		rows_to_remove = row_index_remove_mapping.get(input_file, [])
 	print(f"Rows to remove: {rows_to_remove}")
 	filtered_rows = [
 		[col.strip() for col in row]
@@ -75,6 +80,18 @@ def filter_csv(csv_reader: list, input_file) -> list:
 		if index not in rows_to_remove
 	]
 	return filtered_rows
+
+def remove_special_characters(rows: list[list[str]]) -> list[list[str]]:
+	"""
+	Remove special characters from each cell in the CSV data.
+	:param rows: List of rows from the CSV file
+	:return: List of rows with special characters removed
+	"""
+	cleaned_rows = []
+	for row in rows:
+		cleaned_row = [col.replace('\n', ' ').replace('\r', ' ').strip() for col in row]
+		cleaned_rows.append(cleaned_row)
+	return cleaned_rows
 
 def main():
 	import argparse
@@ -92,9 +109,10 @@ def main():
 		required=True,
 		help="Path to the output CSV file"
 	)
+	parser.add_argument('--row-index-remove', type=int, nargs='+', help="Row indexes to remove, e.g., --row-index-remove 0 --row-index-remove 2")
 
 	args = parser.parse_args()
-	r2rml_csv_convert(args.input, args.output)
+	r2rml_csv_convert(args.input, args.row_index_remove, args.output)
 
 if __name__ == "__main__":
 	main()

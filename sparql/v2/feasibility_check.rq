@@ -41,24 +41,27 @@ SELECT
 ?data_protection_warning_check
 ?data_protection_warning_note
 WHERE {
+#  BIND(<https://hse.ie/data/id/hse0000136> AS ?indicator)
   ?indicator a phi:Indicator ;
   a dcat:Dataset .
   ?indicator dcterms:title ?indicatorTitle .
 
-  OPTIONAL { ?indicator  phi:numeratorSource ?numeratorSource . }
   OPTIONAL { ?indicator dcterms:accrualPeriodicity ?indicatorAccrualPeriodicity . }
   OPTIONAL { ?indicator phi:disaggregation ?disaggregation . }
   OPTIONAL { ?indicator phi:reportStyle ?reportStyle .}
-  OPTIONAL { ?numeratorSource dcat:temporalResolution ?temporalResolution . }
-  OPTIONAL { ?numeratorSource phd:SpatialAggregationCode ?SpatialAggregationCode . }
-  OPTIONAL { ?numeratorSource dcat:spatialResolutionInMeters ?spatialResolutionInMeters . }
-  OPTIONAL { ?numeratorSource dcterms:accrualPeriodicity ?datasetAccrualPeriodicity . }
 
-  # data protection
-  OPTIONAL { ?indicator phi:numeratorSource ?numeratorSource . }
-  OPTIONAL { ?numeratorSource dpv:hasPersonalData ?hasPersonalData . }
-  OPTIONAL { ?numeratorSource dcterms:accessRights ?accessRight . }
-  OPTIONAL { ?numeratorSource dpv:hasDataController ?hasDataController . }
+  OPTIONAL { 
+    ?indicator  phi:numeratorSource ?numeratorSource .
+
+    OPTIONAL { ?numeratorSource dcat:temporalResolution ?temporalResolution . }
+    OPTIONAL { ?numeratorSource phd:SpatialAggregationCode ?SpatialAggregationCode . }
+    OPTIONAL { ?numeratorSource dcat:spatialResolutionInMeters ?spatialResolutionInMeters . }
+    OPTIONAL { ?numeratorSource dcterms:accrualPeriodicity ?datasetAccrualPeriodicity . }
+
+    OPTIONAL { ?numeratorSource dpv:hasPersonalData ?hasPersonalData . }
+    OPTIONAL { ?numeratorSource dcterms:accessRights ?accessRight . }
+    OPTIONAL { ?numeratorSource dpv:hasDataController ?hasDataController . }
+  }
 
   # Q 4.1
   BIND(IF(!BOUND(?hasPersonalData), 'unknown',

@@ -18,7 +18,9 @@ Data protection column has three states:
 """
 
 def feasibility_check(sparql, test_indicators: list[str]) -> list[str]:
-  with open("./sparql/v2/feasibility_check.rq", "r", encoding="utf-8") as f:
+  sparql_path = "./sparql/v2/feasibility_check.rq"
+  print(f"Using SPARQL query from: {sparql_path}")
+  with open(sparql_path, "r", encoding="utf-8") as f:
     query = f.read()
     sparql.setQuery(query)
     sparql.setReturnFormat(JSON)

@@ -28,7 +28,7 @@ def create_subject_csv(
 				split_value = row[id_template_column].split(split_by)[template_split_index]
 				new_id = namespace + str(split_value)
 			else:
-				new_id = namespace + str(row[id_template_column]).replace(" ", "-").lower()
+				new_id = namespace + str(row[id_template_column]).replace(" ", "-")
 			updated_row = {'id': new_id, **row}  # Add 'new_id' as the first column
 			updated_rows.append(updated_row)
 
@@ -83,6 +83,8 @@ def main():
 		writer = csv.DictWriter(outfile, fieldnames=fieldnames)
 		writer.writeheader()
 		writer.writerows(subject_csv)
+
+	print(f"Output written to {args.output}")
 
 if __name__ == "__main__":
 	main()

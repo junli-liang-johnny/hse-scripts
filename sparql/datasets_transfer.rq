@@ -27,7 +27,7 @@ WHERE {
   ?dataset a dcat:Dataset ;
            dcterms:temporal ?start, ?end .
   FILTER(?start < ?end)
-  BIND(IRI(CONCAT("https://hse-oahwb-profile.adaptcentre.ie/period/", STRUUID())) AS ?period)
+  BIND(IRI(CONCAT("https://hse.ie/data/id/", STRUUID())) AS ?period)
 };
 
 # replace dcterms:publisher uris
