@@ -22,7 +22,8 @@ SELECT
 ?indicator 
 ?indicatorTitle
 ?pass
-?with_dataset
+?dq_score
+?valid_dataset
 ?1_7_pass
 ?1_7_note
 ?2_1_pass
@@ -31,57 +32,104 @@ SELECT
 ?2_2_note
 ?3_1_pass
 ?3_1_note
-?data_protection_warning
+?4_1_warn
+?4_1_note
+?4_2_warn
+?4_2_note
+?4_3_warn
+?4_3_note
+?data_protection_warning_check
+?data_protection_warning_note
 WHERE {
+#  BIND(<https://hse.ie/data/id/hse0000136> AS ?indicator)
   ?indicator a phi:Indicator ;
   a dcat:Dataset .
   ?indicator dcterms:title ?indicatorTitle .
 
-  OPTIONAL { ?indicator  phi:numeratorSource ?numeratorSource . }
   OPTIONAL { ?indicator dcterms:accrualPeriodicity ?indicatorAccrualPeriodicity . }
   OPTIONAL { ?indicator phi:disaggregation ?disaggregation . }
   OPTIONAL { ?indicator phi:reportStyle ?reportStyle .}
-  OPTIONAL { ?numeratorSource dcat:temporalResolution ?temporalResolution . }
-  OPTIONAL { ?numeratorSource phd:SpatialAggregationCode ?SpatialAggregationCode . }
-  OPTIONAL { ?numeratorSource dcat:spatialResolutionInMeters ?spatialResolutionInMeters . }
-  OPTIONAL { ?numeratorSource dcterms:accrualPeriodicity ?datasetAccrualPeriodicity . }
-  
-  # data protection
-  OPTIONAL { ?indicator phi:numeratorSource ?numeratorSource . }
-  OPTIONAL { ?numeratorSource dpv:hasPersonalData ?hasPersonalData . }
-  OPTIONAL { ?numeratorSource dcterms:accessRights ?accessRight . }
-  OPTIONAL { ?numeratorSource dpv:hasDataController ?hasDataController . }
 
-  BIND(
-    IF(!BOUND(?numeratorSource), "Indicator w/o linked Dataset", 
-      IF(!BOUND(?hasPersonalData), "Indicator w/ Dataset potentially contains personal/sensitive data since Personal Data Field is not present", 
-        IF(?hasPersonalData != dpv:NonPersonalData, "Indicator w/ Dataset contains personal data, sensitive personal data or pseudonymised personal data", 
-          IF(?hasDataController != "HSE", "Indicator w/ Dataset contains personal/sensitive data that is not controlled by HSE", "No data protection warnings found")
-        ))) AS ?data_protection_warning)
+  OPTIONAL { 
+    ?indicator  phi:numeratorSource ?numeratorSource .
+
+    OPTIONAL { ?numeratorSource dcat:temporalResolution ?temporalResolution . }
+    OPTIONAL { ?numeratorSource phd:SpatialAggregationCode ?SpatialAggregationCode . }
+    OPTIONAL { ?numeratorSource dcat:spatialResolutionInMeters ?spatialResolutionInMeters . }
+    OPTIONAL { ?numeratorSource dcterms:accrualPeriodicity ?datasetAccrualPeriodicity . }
+
+    OPTIONAL { ?numeratorSource dpv:hasPersonalData ?hasPersonalData . }
+    OPTIONAL { ?numeratorSource dcterms:accessRights ?accessRight . }
+    OPTIONAL { ?numeratorSource dpv:hasDataController ?hasDataController . }
+  }
+
+  # Q 4.1
+  BIND(IF(!BOUND(?hasPersonalData), 'unknown',
+      IF(?hasPersonalData = dpv:NonPersonalData, "false", "true")
+    ) AS ?4_1_warn)
+  BIND(IF(?4_1_warn = 'unknown', "Q4.1: Personal Data field not present", 
+      IF(?4_1_warn = 'true', "Q4.1: Indicator w/ Dataset contains personal/sensitive data", "")
+    ) AS ?4_1_note)
+
+  # Q 4.2
+  BIND(IF(!BOUND(?hasPersonalData), 'unknown', IF(?hasPersonalData = dpv:NonPersonalData, "false", "true")) AS ?4_2_warn)
+  BIND(IF(?4_2_warn = 'unknown', "Q4.2: Personal Data field not present",
+      IF(?4_2_warn = 'true', "Q4.2: Indicator w/ Dataset contains personal/sensitive data", "")
+    ) AS ?4_2_note)
+
+  # Q 4.3
+  BIND(IF(!BOUND(?hasDataController), 'unknown', 
+      IF(?hasDataController != "HSE", "true", "false")
+    ) AS ?4_3_warn)
+  BIND(IF(?4_3_warn = 'unknown', "Q4.3: Data Controller field not present",
+      IF(?4_3_warn = 'true', "Q4.3: Indicator w/ Dataset contains personal/sensitive data that is not controlled by HSE", "")
+    ) AS ?4_3_note)
+
+  # overall data protection warning
+  BIND(IF((?4_1_warn = 'true' || ?4_2_warn = 'true' || ?4_3_warn = 'true'), "true", 
+      IF((?4_1_warn = 'unknown' || ?4_2_warn = 'unknown' || ?4_3_warn = 'unknown'), "unknown", "false")
+    ) AS ?data_protection_warning_check)
+  # concat all data protection notes
+  BIND(CONCAT(
+      IF(?4_1_note != "", CONCAT(?4_1_note, '; '), ""),
+      IF(?4_2_note != "", CONCAT(?4_2_note, '; ' ), ""),
+      IF(?4_3_note != "", ?4_3_note, "")
+    ) AS ?data_protection_warning_note)
 
   # with dataset?
-  BIND(BOUND(?numeratorSource) AS ?with_dataset)
+  BIND(BOUND(?numeratorSource) && isURI(?numeratorSource) AS ?valid_dataset)
+  BIND(IF(?valid_dataset, '', 'Indicator w/o a valid or linked Dataset') AS ?dataset_note)
+
   # 1.7
   BIND(IF(!BOUND(?disaggregation), "unknown", IF(CONTAINS(LCASE(STR(?disaggregation)), "65 years"), "true", "false")) AS ?1_7_pass)
-  BIND(IF(!BOUND(?disaggregation), "Disaggregation not present", IF(CONTAINS(LCASE(STR(?disaggregation)), "65 years"), "", "Q1.7 fail")) AS ?1_7_note)
+  BIND(IF(!BOUND(?disaggregation), "Q1.7: Disaggregation not present", IF(CONTAINS(LCASE(STR(?disaggregation)), "65 years"), "", "Q1.7: don't have indicators w/ dataset for people aged over 65")) AS ?1_7_note)
   # 2.1
   BIND(IF(BOUND(?temporalResolution), "true", "unknown") AS ?2_1_pass)
-  BIND(IF(BOUND(?temporalResolution), "", "Minimal Temporal resolution not present") AS ?2_1_note)
+  BIND(IF(BOUND(?temporalResolution), "", "2.1: Minimal Temporal resolution not present") AS ?2_1_note)
   # 2.2
   BIND(IF(!BOUND(?SpatialAggregationCode), "unknown", 
       IF(?SpatialAggregationCode = phpt:National || ?SpatialAggregationCode = phpt:IHA || ?SpatialAggregationCode = phpt:NUTS1, "true", "false")) 
     AS ?2_2_pass)
-  BIND(IF(!BOUND(?SpatialAggregationCode), "Saptial Resolution Code not present", 
-      IF(?SpatialAggregationCode = phpt:National || ?SpatialAggregationCode = phpt:IHA || ?SpatialAggregationCode = phpt:NUTS1, "", "Q2.2 fail")) 
+  BIND(IF(!BOUND(?SpatialAggregationCode), "Q2.2: Spatial Resolution Code not present", 
+      IF(?SpatialAggregationCode = phpt:National || ?SpatialAggregationCode = phpt:IHA || ?SpatialAggregationCode = phpt:NUTS1, "", "Q2.2: indicators w/ dataset don't have spatial resolution of National, IHA or NUTS1")) 
     AS ?2_2_note)
   # 3.1
   BIND(IF(!BOUND(?indicatorAccrualPeriodicity), "unknown", 
       IF(!BOUND(?datasetAccrualPeriodicity), "unknown", 
         IF(?indicatorAccrualPeriodicity = ?datasetAccrualPeriodicity, "true", "false")))
     AS ?3_1_pass)
-  BIND(IF(!BOUND(?indicatorAccrualPeriodicity), "Indicator Report Frequency not present", 
-      IF(!BOUND(?datasetAccrualPeriodicity), "Dataset Update Frequency not present", 
-        IF(?indicatorAccrualPeriodicity = ?datasetAccrualPeriodicity, "", "Q3.1 fail"))) 
+  BIND(IF(!BOUND(?indicatorAccrualPeriodicity), "Q3.1: Indicator Report Frequency not present", 
+      IF(!BOUND(?datasetAccrualPeriodicity), "Q3.1: Dataset Update Frequency not present", 
+        IF(?indicatorAccrualPeriodicity = ?datasetAccrualPeriodicity, "", "Q3.1: numerator dataset update frequency does not match indicator report frequency"))) 
     AS ?3_1_note)
-  BIND(IF((?1_7_pass = "true" && ?2_1_pass = "true" && ?2_2_pass = "true" && ?3_1_pass = "true"), true, false) AS ?pass)
+
+  # overall pass
+  BIND(IF((?1_7_pass = "true" && ?2_1_pass = "true" && ?2_2_pass = "true" && ?3_1_pass = "true"), true, 
+      IF((?1_7_pass = "false" && ?2_1_pass = "false" && ?2_2_pass = "false" && ?3_1_pass = "false"), false, "unknown")
+    ) AS ?pass)
+
+  # DQ score
+  BIND(IF(?1_7_pass = "true", 1, 0) + IF(?2_1_pass = "true", 1, 0) + IF(?2_2_pass = "true", 1, 0) + IF(?3_1_pass = "true", 1, 0) AS ?num_pass)
+  BIND(?num_pass/5 AS ?dq_score)
 }
+ORDER BY ASC(?indicator)
