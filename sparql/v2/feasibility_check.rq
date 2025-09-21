@@ -1,3 +1,4 @@
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 PREFIX ddc: <http://purl.org/NET/decimalised#>
 PREFIX dpv: <https://w3id.org/dpv#>
 PREFIX dcterm: <http://purl.org/dc/terms/>
@@ -41,7 +42,6 @@ SELECT
 ?data_protection_warning_check
 ?data_protection_warning_note
 WHERE {
-#  BIND(<https://hse.ie/data/id/hse0000136> AS ?indicator)
   ?indicator a phi:Indicator ;
   a dcat:Dataset .
   ?indicator dcterms:title ?indicatorTitle .
@@ -61,6 +61,7 @@ WHERE {
     OPTIONAL { ?numeratorSource dpv:hasPersonalData ?hasPersonalData . }
     OPTIONAL { ?numeratorSource dcterms:accessRights ?accessRight . }
     OPTIONAL { ?numeratorSource dpv:hasDataController ?hasDataController . }
+    OPTIONAL { ?numeratorSource healthdcatap:maxTypicalAge ?maxTypicalAge . }
   }
 
   # Q 4.1
@@ -100,9 +101,20 @@ WHERE {
   BIND(BOUND(?numeratorSource) && isURI(?numeratorSource) AS ?valid_dataset)
   BIND(IF(?valid_dataset, '', 'Indicator w/o a valid or linked Dataset') AS ?dataset_note)
 
-  # 1.7
-  BIND(IF(!BOUND(?disaggregation), "unknown", IF(CONTAINS(LCASE(STR(?disaggregation)), "65 years"), "true", "false")) AS ?1_7_pass)
-  BIND(IF(!BOUND(?disaggregation), "Q1.7: Disaggregation not present", IF(CONTAINS(LCASE(STR(?disaggregation)), "65 years"), "", "Q1.7: don't have indicators w/ dataset for people aged over 65")) AS ?1_7_note)
+  # 1.7 - disaggregation
+  BIND(IF(!BOUND(?disaggregation), "unknown", IF(CONTAINS(LCASE(STR(?disaggregation)), "65"), "true", "false")) AS ?disaggregation_pass)
+  BIND(IF(!BOUND(?disaggregation), "Q1.7: Disaggregation not present", IF(CONTAINS(LCASE(STR(?disaggregation)), "65"), "", "Q1.7: don't have indicators w/ dataset for people aged over 65 ")) AS ?disaggregation_note)
+
+  # 1.7 - max typical age
+  BIND(IF(!BOUND(?maxTypicalAge), "unknown", IF(xsd:integer(?maxTypicalAge) >= 65, "true", "false")) AS ?maxAge_pass)
+  BIND(IF(!BOUND(?maxTypicalAge), "Maximum Typical Age not present", IF(xsd:integer(?maxTypicalAge) >= 65, "Maximum Typical Age >= 65", "Maximum Typical Age < 65")) AS ?maxAge_note)
+
+  # 1.7 check disaggregation and max tpyical age
+  BIND(IF(?disaggregation_pass = "true" || ?maxAge_pass = "true", "true", 
+      IF(?disaggregation_pass = "unknown" || ?maxAge_pass = "unknown", "unknown", "false")
+    ) AS ?1_7_pass)
+  BIND(CONCAT(?disaggregation_note, ?maxAge_note) AS ?1_7_note)
+
   # 2.1
   BIND(IF(BOUND(?temporalResolution), "true", "unknown") AS ?2_1_pass)
   BIND(IF(BOUND(?temporalResolution), "", "2.1: Minimal Temporal resolution not present") AS ?2_1_note)
