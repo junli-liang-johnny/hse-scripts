@@ -17,9 +17,7 @@ def main():
 
 	sparql = SPARQLWrapper(sparql_endpoint)
 
-	sparql_path = "./sparql/v2/MRO_completeness.rq"
-	print(f"Using SPARQL query from: {sparql_path}")
-	with open(sparql_path, "r") as f:
+	with open("./sparql/v2/MRO_completeness.rq", "r") as f:
 		query = f.read()
 
 	sparql.setQuery(query)
