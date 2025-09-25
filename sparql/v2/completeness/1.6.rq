@@ -39,5 +39,5 @@ where {
            dc:spatial ?spatial ;
            dcat:spatialResolutionInMeters ?spatialResolutionInMeters .
   
-  OPTIONAL { ?dataset phd:SpatialAggregationCode ?SpatialAggregationCode . }
+  OPTIONAL { ?dataset phd:spatialAggregation ?SpatialAggregationCode . }
 }
