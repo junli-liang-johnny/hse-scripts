@@ -142,6 +142,6 @@ WHERE {
 
   # DQ score
   BIND(IF(?1_7_pass = "true", 1, 0) + IF(?2_1_pass = "true", 1, 0) + IF(?2_2_pass = "true", 1, 0) + IF(?3_1_pass = "true", 1, 0) AS ?num_pass)
-  BIND(?num_pass/5 AS ?dq_score)
+  BIND(?num_pass/4 AS ?dq_score)
 }
 ORDER BY ASC(?indicator)
