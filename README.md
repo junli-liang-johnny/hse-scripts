@@ -549,7 +549,7 @@ dq-sparql \
 ### 1.5
 
 ```
-python -m scripts.pipeline.dq_sparql \
+python -m scripts.pipeline_scripts.dq_sparql \
 	-e http://localhost:3030/v5/sparql \
 	-s sparql/v2/completeness/1.5.rq \
 	-o ../hse-data/output/dq/v2/completeness_1.5.csv
@@ -558,7 +558,7 @@ python -m scripts.pipeline.dq_sparql \
 ### 1.6
 
 ```
-python -m scripts.pipeline.dq_sparql \
+python -m scripts.pipeline_scripts.dq_sparql \
 	-e http://localhost:3030/v5/sparql \
 	-s sparql/v2/completeness/1.6.rq \
 	-o ../hse-data/output/dq/v2/completeness_1.6.csv
@@ -567,7 +567,7 @@ python -m scripts.pipeline.dq_sparql \
 ### 1.7
 
 ```
-python -m scripts.pipeline.dq_sparql \
+python -m scripts.pipeline_scripts.dq_sparql \
 	-e http://localhost:3030/v5/sparql \
 	-s sparql/v2/completeness/1.7.rq \
 	-o ../hse-data/output/dq/v2/completeness_1.7.csv
@@ -578,7 +578,7 @@ python -m scripts.pipeline.dq_sparql \
 ### 2.1
 
 ```
-python -m scripts.pipeline.dq_sparql \
+python -m scripts.pipeline_scripts.dq_sparql \
 	-e http://localhost:3030/v5 \
 	-s sparql/v2/precision/2.1.rq \
 	-o ../hse-data/output/dq/v2/precision_2.1.csv
@@ -587,7 +587,7 @@ python -m scripts.pipeline.dq_sparql \
 ### 2.2
 
 ```
-python -m scripts.pipeline.dq_sparql \
+python -m scripts.pipeline_scripts.dq_sparql \
 	-e http://localhost:3030/v5 \
 	-s sparql/v2/precision/2.2.rq \
 	-o ../hse-data/output/dq/v2/precision_2.2.csv
@@ -598,7 +598,7 @@ python -m scripts.pipeline.dq_sparql \
 ### 3.1
 
 ```
-python -m scripts.pipeline.dq_sparql \
+python -m scripts.pipeline_scripts.dq_sparql \
 	-e http://localhost:3030/v5 \
 	-s sparql/v2/timeline/3.1.rq \
 	-o ../hse-data/output/dq/v2/timeline_3.1.csv
@@ -607,7 +607,7 @@ python -m scripts.pipeline.dq_sparql \
 ### 3.2
 
 ```
-python -m scripts.pipeline.dq_sparql \
+python -m scripts.pipeline_scripts.dq_sparql \
 	-e http://localhost:3030/v5 \
 	-s sparql/v2/timeline/3.2.rq \
 	-o ../hse-data/output/dq/v2/timeline_3.2.csv
@@ -618,7 +618,7 @@ python -m scripts.pipeline.dq_sparql \
 ### 4.1
 
 ```
-python -m scripts.pipeline.dq_sparql \
+python -m scripts.pipeline_scripts.dq_sparql \
 	-e http://localhost:3030/v5 \
 	-s sparql/v2/data_protection/4.1.rq \
 	-o ../hse-data/output/dq/v2/data_protection_4.1.csv
@@ -627,7 +627,7 @@ python -m scripts.pipeline.dq_sparql \
 ### 4.2
 
 ```
-python -m scripts.pipeline.dq_sparql \
+python -m scripts.pipeline_scripts.dq_sparql \
 	-e http://localhost:3030/v5 \
 	-s sparql/v2/data_protection/4.2.rq \
 	-o ../hse-data/output/dq/v2/data_protection_4.2.csv
@@ -636,7 +636,7 @@ python -m scripts.pipeline.dq_sparql \
 ### 4.3
 
 ```
-python -m scripts.pipeline.dq_sparql \
+python -m scripts.pipeline_scripts.dq_sparql \
 	-e http://localhost:3030/v5 \
 	-s sparql/v2/data_protection/4.3.rq \
 	-o ../hse-data/output/dq/v2/data_protection_4.3.csv
@@ -645,7 +645,7 @@ python -m scripts.pipeline.dq_sparql \
 ## Indicators metdata fields present
 
 ```
-python -m scripts.pipeline.dq_sparql \
+python -m scripts.pipeline_scripts.dq_sparql \
 	-e http://localhost:3030/v5 \
 	-s sparql/v2/indicators_metadata_fields_precent.rq  \
 	-o ../hse-data/output/dq/v2/indicators_metadata_fields_precent.csv
@@ -654,7 +654,7 @@ python -m scripts.pipeline.dq_sparql \
 ## Datasets metadata field present
 
 ```
-python -m scripts.pipeline.dq_sparql \
+python -m scripts.pipeline_scripts.dq_sparql \
 	-e http://localhost:3030/v5 \
 	-s sparql/v2/datasets_metadata_fields_precent.rq  \
 	-o ../hse-data/output/dq/v2/datasets_metadata_fields_precent.csv

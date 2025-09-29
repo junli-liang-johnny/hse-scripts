@@ -41,7 +41,7 @@ WHERE {
     OPTIONAL { ?numeratorSource a dcat:Dataset ; dcterms:title ?datasetTitle . }
     OPTIONAL { ?numeratorSource a dcat:Dataset ; dcterms:accrualPeriodicity ?datasetAccrualPeriodicity . }
     OPTIONAL { ?numeratorSource a dcat:Dataset ; dcat:temporalResolution ?temporalResolution . }
-    OPTIONAL { ?numeratorSource a dcat:Dataset ; phd:SpatialAggregationCode ?SpatialAggregationCode . }
+    OPTIONAL { ?numeratorSource a dcat:Dataset ; phd:spatialAggregation ?SpatialAggregationCode . }
     OPTIONAL { ?numeratorSource a dcat:Dataset ; dcterms:accessRights ?accessRights . }
     OPTIONAL { ?numeratorSource a dcat:Dataset ; dpv:hasPersonalData ?hasPersonalData . }
     OPTIONAL { ?numeratorSource a dcat:Dataset ; dcterms:hasDataController ?hasDataController . }

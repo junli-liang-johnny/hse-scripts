@@ -35,7 +35,7 @@ WHERE {
   ?indicator phi:numeratorSource ?dataset .
   
   ?dataset a dcat:Dataset .
-  OPTIONAL { ?dataset phd:SpatialAggregationCode ?SpatialAggregationCode . }
+  OPTIONAL { ?dataset phd:spatialAggregation ?SpatialAggregationCode . }
   OPTIONAL { ?dataset dcat:spatialResolutionInMeters ?spatialResolutionInMeters . }
   
   FILTER(

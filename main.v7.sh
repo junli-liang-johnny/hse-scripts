@@ -1,17 +1,58 @@
-# Pipeline steps for datasets
+echo "Converting OAHP Master Data Catalogue Version 0007 - Indicators.csv to RDF..."
+csv-rdf-convert \
+	--input "../hse-data/data/schema/OAHP_MasterDataCatalogueVersion0007.xlsx - Indicators.csv" \
+	--row-index-remove 0 2 \
+	--output ../hse-data/mapping/v7/indicators.csv
 
-## 1. convert original csv to rdf-ready csv (data cleaning)
+echo "Creating DCAT Dataset from Indicators.csv..."
+create-csv \
+	--input ../hse-data/mapping/v7/indicators.csv \
+	--output ../hse-data/mapping/v7/indicators_dcat-dataset.csv \
+	--column 'phi:numeratorSource [a dct:dataset [a dct:publisher [a dcterms:source]]' \
+	--header 'id' 'rdf:type' 'dcterms:publisher' \
+	--namespace 'https://hse.ie' \
+	--id-template '/data/id/{uuid}' \
+	--extracted-value-insert-index -1 \
+	--optional-values-to-insert 'dcat:Dataset' 'https://hse.ie/data/id/{uuid}'
 
-```
+echo "Creating DCAT Publisher from Indicators.csv..."
+create-csv \
+	--input ../hse-data/mapping/v7/indicators.csv \
+	--output ../hse-data/mapping/v7/indicators_publishers.csv \
+	--column 'phi:numeratorSource [a dct:dataset [a dct:publisher [a dcterms:source]]' \
+	--header 'id' 'rdf:type' 'dcterms:source' \
+	--namespace 'https://hse.ie' \
+	--id-template '/data/id/{uuid}' \
+	--extracted-value-insert-index 2 \
+	--optional-values-to-insert 'dct:Publisher' \
+	--identifier-csv ../hse-data/mapping/indicators_dcat-dataset.csv \
+	--identifier-column dcterms:publisher
+
+echo "Creating DCAT ProvenanceStatement from Indicators.csv..."
+create-csv \
+	--input ../hse-data/mapping/v7/indicators.csv \
+	--output ../hse-data/mapping/v7/indicators_provenance.csv \
+	--column 'dct:provenance [a dct:ProvenanceStatement; rdfs:label ]' \
+	--header 'id' 'rdf:type' 'rdfs:label' \
+	--namespace 'https://hse.ie' \
+	--id-template '/data/id/{uuid}' \
+	--extracted-value-insert-index 2 \
+	--optional-values-to-insert 'dcterms:ProvenanceStatement'
+
+echo "Creating identifiers for Indicators.csv..."
+create-subject-csv \
+ --input ../hse-data/mapping/v7/indicators.csv \
+ --output ../hse-data/mapping/v7/indicators_final.csv \
+ --namespace 'https://hse.ie/data/id/' \
+ --id-template-column 'dct:identifier'
+
+echo "Converting OAHP Master Data Catalogue Version 0007 - Datasets.csv to RDF..."
 csv-rdf-convert \
   --input "../hse-data/data/schema/OAHP_MasterDataCatalogueVersion0007.xlsx - Datasets.csv" \
   --row-index-remove 0 2 3 \
   --output ../hse-data/mapping/v7/datasets.csv
-```
 
-## 2. create datasets' publisher
-
-```
+echo "Creating DCAT Dataset from Datasets.csv..."
 create-csv \
  --input ../hse-data/mapping/v7/datasets.csv \
  --output ../hse-data/mapping/v7/datasets_publishers.csv \
@@ -23,11 +64,8 @@ create-csv \
  --optional-values-to-insert 'dct:Publisher' \
  --identifier-csv ../hse-data/mapping/v7/datasets.csv \
  --identifier-column 'dct:publisher'
-```
 
-## 3. create datasets provenance
-
-```
+echo "Creating DCAT ProvenanceStatement from Datasets.csv..."
 create-csv \
  --input ../hse-data/mapping/v7/datasets.csv \
  --output ../hse-data/mapping/v7/datasets_provenance.csv \
@@ -37,11 +75,8 @@ create-csv \
  --id-template '/data/id/{uuid}' \
  --extracted-value-insert-index 2 \
  --optional-values-to-insert 'dcterms:ProvenanceStatement'
-```
 
-## 4. create datasets contact point
-
-```
+echo "Creating DCAT ContactPoint from Datasets.csv..."
 create-csv \
  --input ../hse-data/mapping/v7/datasets.csv \
  --output ../hse-data/mapping/v7/datasets_contact_point.csv \
@@ -51,11 +86,8 @@ create-csv \
  --id-template '/data/id/{uuid}' \
  --extracted-value-insert-index 2 \
  --optional-values-to-insert 'vcard:Individual'
-```
 
-## 5. create datasets Data Coverage Start Date
-
-```
+echo "Creating DCAT Data Coverage Start Date from Datasets.csv..."
 create-csv \
  --input ../hse-data/mapping/v7/datasets.csv \
  --output ../hse-data/mapping/v7/datasets_data_coverage_start_date.csv \
@@ -65,11 +97,8 @@ create-csv \
  --id-template '/data/id/{uuid}' \
  --extracted-value-insert-index 2 \
  --optional-values-to-insert 'dct:PeriodOfTime'
-```
 
-## 6. create datasets Data Coverage End Date
-
-```
+echo "Creating DCAT Data Coverage End Date from Datasets.csv..."
 create-csv \
  --input ../hse-data/mapping/v7/datasets.csv \
  --output ../hse-data/mapping/v7/datasets_data_coverage_end_date.csv \
@@ -79,11 +108,8 @@ create-csv \
  --id-template '/data/id/{uuid}' \
  --extracted-value-insert-index 2 \
  --optional-values-to-insert 'dct:PeriodOfTime'
-```
 
-## 7. create datasets distributions
-
-```
+echo "Creating DCAT Distributions from Datasets.csv..."
 create-csv \
  --input ../hse-data/mapping/v7/datasets.csv \
  --output ../hse-data/mapping/v7/datasets_distributions.csv \
@@ -93,11 +119,8 @@ create-csv \
  --id-template '/data/id/{uuid}' \
  --extracted-value-insert-index 2 \
  --optional-values-to-insert 'dcat:Distribution'
-```
 
-## 8. create datasets adms:sample
-
-```
+echo "Creating ADMS Sample from Datasets.csv..."
 create-csv \
  --input ../hse-data/mapping/v7/datasets.csv \
  --output ../hse-data/mapping/v7/datasets_adms_sample.csv \
@@ -107,11 +130,8 @@ create-csv \
  --id-template '/data/id/{uuid}' \
  --extracted-value-insert-index 2 \
  --optional-values-to-insert 'dcat:Distribution'
-```
 
-## 9. create datasets healthdcatap:hdab
-
-```
+echo "Creating Health DCAT AP HDAB from Datasets.csv..."
 create-csv \
  --input ../hse-data/mapping/v7/datasets.csv \
  --output ../hse-data/mapping/v7/datasets_healthdcatap:hdab.csv \
@@ -121,49 +141,43 @@ create-csv \
  --id-template '/data/id/{uuid}' \
  --extracted-value-insert-index 2 \
  --optional-values-to-insert 'foaf:Agent'
-```
 
-## 10. add id to rows in csv
-
-```
-<!-- create-subject-csv \
- --input ../hse-data/mapping/v7/datasets.csv \
- --output ../hse-data/mapping/v7/datasets_final.csv \
- --namespace 'https://hse.id' \
-	--id-template '/data/id/{uuid}' \
- --id-template-column 'dct:identifier' \
- --split-by "/" \
- --template-split-index -1 -->
-
+echo "Creating identifiers for Datasets.csv..."
 create-subject-csv \
  --input ../hse-data/mapping/v7/datasets.csv \
  --output ../hse-data/mapping/v7/datasets_final.csv \
  --namespace '' \
  --id-template-column 'dct:identifier'
-```
 
-## 12. use rml-py to map csv to rdf
-
-```
+echo "Generating RDF from CSV files using RML mapping..."
 map2rdf --config ../hse-data/mapping/v7/config.ttl
-```
 
-## 13. delete unnecessary triples
-
-```
+echo "Merging all generated TTL files into a single datasets.ttl file..."
 run-query \
 	--ttl-file ../hse-data/mapping/v7/datasets.ttl \
 	--query-file sparql/general_transfer.rq \
 	--output ../hse-data/mapping/v7/datasets_final.ttl
-```
 
-## 14. data transformation
-
-"dpv:NonPersonalData" -> dpv:NonPersonalData
-
-```
+echo "Running final transformations on datasets_final.ttl..."
 run-query \
 	--ttl-file ../hse-data/mapping/v7/datasets.ttl \
 	--query-file ./sparql/datasets_transfer_v5.rq \
 	--output ../hse-data/mapping/v7/datasets_final.ttl
-```
+
+echo "Running final transformations on indicators_final.ttl..."
+run-query \
+	--ttl-file ../hse-data/mapping/v7/indicators.ttl \
+	--query-file sparql/general_transfer_v7.rq \
+	--output ../hse-data/mapping/v7/indicators_final.ttl
+
+echo "All done!"
+
+echo "Generating MRO fields completeness report..."
+python -m scripts.pipeline_scripts.sparql.fields_completeness \
+  -e http://localhost:3030/v5 \
+  -o ../hse-data/output/dq/v7/mro_fields_completeness.csv
+
+echo "Generating DQ Feasibility Test report..."
+python -m scripts.pipeline_scripts.sparql.dq_feasibility_test \
+  -e http://localhost:3030/v5 \
+  -o ../hse-data/output/dq/v7/feasibility_test.csv

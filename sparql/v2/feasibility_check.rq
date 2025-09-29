@@ -54,7 +54,7 @@ WHERE {
     ?indicator  phi:numeratorSource ?numeratorSource .
 
     OPTIONAL { ?numeratorSource dcat:temporalResolution ?temporalResolution . }
-    OPTIONAL { ?numeratorSource phd:SpatialAggregationCode ?SpatialAggregationCode . }
+    OPTIONAL { ?numeratorSource phd:spatialAggregation ?spatialAggregation . }
     OPTIONAL { ?numeratorSource dcat:spatialResolutionInMeters ?spatialResolutionInMeters . }
     OPTIONAL { ?numeratorSource dcterms:accrualPeriodicity ?datasetAccrualPeriodicity . }
 
@@ -119,11 +119,11 @@ WHERE {
   BIND(IF(BOUND(?temporalResolution), "true", "unknown") AS ?2_1_pass)
   BIND(IF(BOUND(?temporalResolution), "", "2.1: Minimal Temporal resolution not present") AS ?2_1_note)
   # 2.2
-  BIND(IF(!BOUND(?SpatialAggregationCode), "unknown", 
-      IF(?SpatialAggregationCode = phpt:National || ?SpatialAggregationCode = phpt:IHA || ?SpatialAggregationCode = phpt:NUTS1, "true", "false")) 
+  BIND(IF(!BOUND(?spatialAggregation), "unknown", 
+      IF(?spatialAggregation = phpt:National || ?spatialAggregation = phpt:IHA || ?spatialAggregation = phpt:NUTS1, "true", "false")) 
     AS ?2_2_pass)
-  BIND(IF(!BOUND(?SpatialAggregationCode), "Q2.2: Spatial Resolution Code not present", 
-      IF(?SpatialAggregationCode = phpt:National || ?SpatialAggregationCode = phpt:IHA || ?SpatialAggregationCode = phpt:NUTS1, "", "Q2.2: indicators w/ dataset don't have spatial resolution of National, IHA or NUTS1")) 
+  BIND(IF(!BOUND(?spatialAggregation), "Q2.2: Spatial Resolution Code not present", 
+      IF(?spatialAggregation = phpt:National || ?spatialAggregation = phpt:IHA || ?spatialAggregation = phpt:NUTS1, "", "Q2.2: indicators w/ dataset don't have spatial resolution of National, IHA or NUTS1")) 
     AS ?2_2_note)
   # 3.1
   BIND(IF(!BOUND(?indicatorAccrualPeriodicity), "unknown", 
@@ -142,6 +142,6 @@ WHERE {
 
   # DQ score
   BIND(IF(?1_7_pass = "true", 1, 0) + IF(?2_1_pass = "true", 1, 0) + IF(?2_2_pass = "true", 1, 0) + IF(?3_1_pass = "true", 1, 0) AS ?num_pass)
-  BIND(?num_pass/5 AS ?dq_score)
+  BIND(?num_pass/4 AS ?dq_score)
 }
 ORDER BY ASC(?indicator)

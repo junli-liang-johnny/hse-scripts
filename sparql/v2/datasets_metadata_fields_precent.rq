@@ -41,7 +41,7 @@ WHERE {
   OPTIONAL { ?dataset dcterms:accrualPeriodicity ?accrualPeriodicity . }
   OPTIONAL { ?dataset dcat:temporalResolution ?temporalResolution . }
   OPTIONAL { ?dataset dcterms:accessRights ?accessRights . }
-  OPTIONAL { ?dataset (phd:SpatialAggregationCode | dcat:spatialResolutionInMeters) ?SpatialAggregationCode . }
+  OPTIONAL { ?dataset (phd:spatialAggregation | dcat:spatialResolutionInMeters) ?SpatialAggregationCode . }
   ?dataset dpv:hasPersonalData ?hasPersonalData .
   OPTIONAL { ?dataset dpv:hasDataController ?hasDataController . }
   

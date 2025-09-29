@@ -1,7 +1,7 @@
-PREFIX : <https://hse.ie/ontology/>
 PREFIX dcat: <http://www.w2.org/ns/dcat#>
 PREFIX dcterms: <http://purl.org/dc/terms/>
 PREFIX dpv: <https://w3id.org/dpv#>
+PREFIX phpt: <https://hse.ie/terminology/phpt#>
 
 DELETE {
   ?s ?p "dpv:NonPersonalData" .
@@ -64,4 +64,41 @@ DELETE {
 
 	?distribution a dcat:Distribution ;
 		dcterms:format ?distributionStr .
+};
+
+
+# transform phd:spatialAggregation 
+DELETE {
+  ?s phd:spatialAggregation ?spatialAggregationStr .
+} INSERT {
+  ?s phd:spatialAggregation ?spatialAggregation .
+} WHERE {
+  ?s a dcat:Dataset ;
+     phd:spatialAggregation ?spatialAggregationStr .
+
+  BIND(IF(?spatialAggregationStr = "National", phpt:National, 
+      IF(?spatialAggregationStr = "County", phpt:County,
+        IF(?spatialAggregationStr = "IHA", phpt:IHA,
+          IF(?spatialAggregationStr = "LAU", phpt:LAU,
+            IF(?spatialAggregationStr = "LHO", phpt:LHO,
+              IF(?spatialAggregationStr = "NUTS1", phpt:NUTS1,
+                IF(?spatialAggregationStr = "NUTS2", phpt:NUTS2,
+                  IF(?spatialAggregationStr = "NUTS3", phpt:NUTS3, phpt:National)))))))
+    ) AS ?spatialAggregation)
+};
+
+# transform dc:spatial
+DELETE {
+  ?s dc:spatial ?spatialStr .
+} INSERT {
+  ?s dc:spatial ?spatial .
+} WHERE {
+  ?s a dcat:Dataset ;
+     dc:spatial ?spatialStr .
+
+  BIND(IF(?spatialStr = "Country", phpt:Country, 
+      IF(?spatialStr = "County", phpt:County,
+        IF(?spatialStr = "IHA", phpt:IHA,
+          IF(?spatialStr = "Health region", phpt:HealthRegion, phpt:Country)))
+    ) AS ?spatial)
 };

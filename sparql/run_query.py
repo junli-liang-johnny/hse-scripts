@@ -1,9 +1,23 @@
 from rdflib import Graph, Namespace, DCTERMS, DCAT
+from SPARQLWrapper import SPARQLWrapper, JSON
 
 HSE = Namespace("https://hse.ie/")
 HSE_ONTOLOGY = Namespace("https://hse.ie/ontology/")
 PHI = Namespace("https://hse.ie/ontology/phi#")
 PHD = Namespace("https://hse.ie/ontology/phd#")
+DPV = Namespace("https://w3id.org/dpv#")
+
+def create_graph() -> Graph:
+	g = Graph()
+	g.bind("dcterms", DCTERMS)
+	g.bind("dct", DCTERMS)
+	g.bind("dcat", DCAT)
+	g.bind("hse", HSE)
+	g.bind("hseOntology", HSE_ONTOLOGY)
+	g.bind("phi", PHI)
+	g.bind("phd", PHD)
+	g.bind("dpv", DPV)
+	return g
 
 def run_update_file(ttl_file: str, query_file: str, output: str) -> None:
 		"""
@@ -13,14 +27,7 @@ def run_update_file(ttl_file: str, query_file: str, output: str) -> None:
 		:param query_file: Path to the SPARQL query file.
 		"""
 		# Load the Turtle file into a graph
-		g = Graph()
-		g.bind("dcterms", DCTERMS)
-		g.bind("dct", DCTERMS)
-		g.bind("dcat", DCAT)
-		g.bind("hse", HSE)
-		g.bind("hseOntology", HSE_ONTOLOGY)
-		g.bind("phi", PHI)
-		g.bind("phd", PHD)
+		g = create_graph()
 		g.parse(ttl_file, format='turtle')
 
 		# Read the SPARQL query from the file
@@ -40,14 +47,7 @@ def run_update(ttl_file: str, query: str, output: str) -> None:
 		:param query: SPARQL query string.
 		"""
 		# Load the Turtle file into a graph
-		g = Graph()
-		g.bind("dcterms", DCTERMS)
-		g.bind("dct", DCTERMS)
-		g.bind("dcat", DCAT)
-		g.bind("hse", HSE)
-		g.bind("hseOntology", HSE_ONTOLOGY)
-		g.bind("phi", PHI)
-		g.bind("phd", PHD)
+		g = create_graph()
 		g.parse(ttl_file, format='turtle')
 
 		# Execute the SPARQL query
