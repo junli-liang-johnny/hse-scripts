@@ -1,0 +1,34 @@
+CHARSET="UTF-16";
+AXIS-VERSION="2013";
+LANGUAGE="en";
+LAST-UPDATED="20241203 11:00";
+OFFICIAL-STATISTICS="YES";
+DECIMALS=1;
+MATRIX="HIS49";
+SUBJECT-AREA="Healthy Ireland Survey";
+SUBJECT-CODE="HSI";
+DESCRIPTION="Unpaid personal help";
+TITLE="Unpaid personal help - Sex, Age Group and Year 2015 - 2024";
+CONTENTS="Unpaid personal help";
+UNITS="%";
+STUB="Statistic";
+HEADING="Year","Sex","Age Group";
+CONTVARIABLE="Statistic";
+VALUES("Statistic")="Persons who provide unpaid personal help for a friend or family member with a long-term illness, health problem or disability";
+VALUES("Year")="2015","2016","2017","2018","2019","2021","2022","2023","2024";
+VALUES("Sex")="Both sexes","Male","Female";
+VALUES("Age Group")="All ages","15 - 19 years","20 - 24 years","25 - 29 years","30 - 34 years","35 - 39 years","40 - 44 years",
+"45 - 49 years","50 - 54 years","55 - 59 years","60 - 64 years","65 - 69 years","70 - 74 years","75 years and over";
+TIMEVAL("Year")=TLIST(A1),"2015","2016","2017","2018","2019","2021","2022","2023","2024";
+CODES("Statistic")="HIS49C01";
+CODES("Sex")="-","1","2";
+CODES("Age Group")="-","300","365","410","440","460","475","495","515","530","550","565","580","605";
+DOMAIN("Sex")="C02199V02655";
+DOMAIN("Age Group")="C02076V03371";
+UNITS("Persons who provide unpaid personal help for a friend or family member with a long-term illness, health problem or disability")="%";
+REFPERIOD("Persons who provide unpaid personal help for a friend or family member with a long-term illness, health problem or disability")=" ";
+BASEPERIOD("Persons who provide unpaid personal help for a friend or family member with a long-term illness, health problem or disability")=" ";
+SOURCE="Department of Health";
+NOTE="";
+DATA=
+8.9 6.9 6 2.7 8.7 6.8 10.7 11.8 11.9 13.6 11.8 11 8.1 6.5 6.8 7.7 6.9 1.2 9.7 5.2 6.1 9.5 8.4 8 7.6 8.2 5.5 4.5 10.9 6.2 5 4.3 8 8.3 15.5 14.2 15.2 19 16 13.7 10.3 8.1 10.3 7.5 6.8 8.2 6.1 9.6 13.1 12 14.3 14.7 13.1 12.9 8.4 7.5 8.6 8.7 8.6 7.1 6.5 8.4 10.6 9.7 11.7 11.7 9.2 5.7 3.6 6.8 12 6.2 5.1 9.3 5.7 10.9 15.3 14.2 17.1 17.3 17.6 19.3 13.3 8.1 8.6 3.5 6 2.8 6.7 7.9 9.1 12.2 16.1 12.4 13.2 8 8.5 5.1 6.3 2.5 4 1.6 4.6 5.4 6.6 10.8 9.8 8.6 11.9 4.8 8.3 4.5 10.7 4.5 7.9 4.3 8.4 10.2 11.6 13.6 22 15.8 14.5 10.9 8.6 5.5 7.7 3.9 4.9 2.1 4.2 7.4 11.2 11.4 13.6 11.3 8.9 7.2 8.4 4.5 6.4 4 4.5 2.5 3 5.2 10.2 7.1 12.7 8.9 8 6 4.9 4.9 8.9 3.8 5.4 1.8 5.1 9.4 12.2 15.4 14.6 13.7 9.7 8.3 11.4 4.1 8.6 4.7 3.8 4.8 6.2 7.9 8.4 16.7 14.7 12.4 11.4 9.1 8.3 3.9 6.8 6.7 0 3.1 5.4 6.9 8.2 11.7 11.9 9.2 5.6 6.3 6.5 4.1 10.4 2.2 6.9 6.7 6.8 8.8 8.5 22 17.2 15.8 16.7 11.3 10.1 3.8 8.7 4.9 5 4.9 6.4 8.1 11.6 13.3 14.7 14 9.9 8.9 6.2 2.7 6.9 4 6.6 4.3 5.9 6.1 8.1 12.3 10.1 10.9 7.4 6.2 3.7 1.3 10.4 5.8 3.4 5.5 6.8 10 15.1 14.3 19.1 17.2 12.3 11 8.3 4.1 10.1 5.9 5.2 5.2 6.9 10.3 12.7 12.1 18.9 16.7 13.4 9.5 5.6 5.3 7 8 5.4 2.7 4.5 6.1 8.8 4.6 13.4 10.1 8.6 8.6 3.1 3.7 13 3.4 5 7.9 9.2 13.6 16.9 18.7 25 23.4 17.7 10.3 7.5 6.8 12 4 3.8 5.8 10 12.4 13.3 18.1 21.1 21.8 15.8 12.6 6.3 7.4 9.1 1.9 2.5 6.6 9.1 10.1 8.8 14.4 16.5 14.8 11.8 9.1 4.7 4.6 14.8 6.2 5.1 5 10.7 14.5 17.7 21.7 25.7 28.5 19.8 15.6 8 9.7 13.7 8.2 5.6 8.1 9.5 13 15.3 24 21.7 18.9 18.9 12.4 11.6 8.3 11 7.9 7.9 10.3 6.8 9.6 12.2 16.9 16.3 14.9 12.8 8.9 6.4 8.6 16.2 8.6 3.3 6.1 11.7 16.3 18.2 31 27.1 22.7 25.1 15.5 16.7 8.1;

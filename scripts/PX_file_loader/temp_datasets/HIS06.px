@@ -1,0 +1,41 @@
+CHARSET="UTF-16";
+AXIS-VERSION="2013";
+LANGUAGE="en";
+LAST-UPDATED="20241203 11:00";
+OFFICIAL-STATISTICS="YES";
+DECIMALS=1;
+MATRIX="HIS06";
+SUBJECT-AREA="Healthy Ireland Survey";
+SUBJECT-CODE="HSI";
+DESCRIPTION="Persons with limitations";
+TITLE="Persons with limitations - Sex, Country of Birth and Year 2015 - 2024";
+CONTENTS="Persons with limitations";
+UNITS="%";
+STUB="Statistic";
+HEADING="Year","Sex","Country of Birth";
+CONTVARIABLE="Statistic";
+VALUES("Statistic")="All persons who are limited or severely limited","Persons who are limited","Persons who are severely limited";
+VALUES("Year")="2015","2016","2017","2018","2019","2021","2022","2023","2024";
+VALUES("Sex")="Both sexes","Male","Female";
+VALUES("Country of Birth")="All countries","Ireland","UK","EU15","Rest of EU","Rest of World";
+TIMEVAL("Year")=TLIST(A1),"2015","2016","2017","2018","2019","2021","2022","2023","2024";
+CODES("Statistic")="HIS06C01","HIS06C02","HIS06C03";
+CODES("Sex")="-","1","2";
+CODES("Country of Birth")="-","IE","UK","ZZEUAB","ZZROEU","ZZROW";
+DOMAIN("Sex")="C02199V02655";
+DOMAIN("Country of Birth")="C04143V04909";
+UNITS("All persons who are limited or severely limited")="%";
+UNITS("Persons who are limited")="%";
+UNITS("Persons who are severely limited")="%";
+REFPERIOD("All persons who are limited or severely limited")=" ";
+REFPERIOD("Persons who are limited")=" ";
+REFPERIOD("Persons who are severely limited")=" ";
+BASEPERIOD("All persons who are limited or severely limited")=" ";
+BASEPERIOD("Persons who are limited")=" ";
+BASEPERIOD("Persons who are severely limited")=" ";
+SOURCE="Department of Health";
+NOTE="";
+DATA=
+19.1 20.1 21.8 14.1 11.4 9.7 18.3 19.1 20.6 15.9 12.4 8.3 19.9 21 23.2 12.1 10.3 10.8 19.7 20.9 23.8 5.5 8.7 12.4 19.6 20.7 28 7.3 8.9 9.5 19.8 21.1 19 3.6 8.5 15.3 21.5 22.7 23.3 6.4 9.8 15.7 21.4 22.9 20.5 5.4 9.3 17.3 21.5 22.6 26.5 7.3 10.3 14.2 19.7 21 22.4 9.3 9.6 10.6 20.4 22 24.7 14.9 6.9 9.1 19.1 20 20.3 6.1 13 11.9 21 21.8 25 17.7 10.4 12.8 20.4 21.4 20.7 16.4 9.1 13.5 21.5 22.1 29.2 19.1 11.5 12.3 17.4 18 27.5 9.7 9.2 9.5 16.5 16.9 27.3 9.8 11.1 7.2 18.4 19 27.6 9.6 7.6 11.5 23.2 24.7 26.8 15.2 15.4 14.5 21.9 23.3 25.3 24.2 12.3 13.5 24.5 26.1 28.2 8.6 18.4 15.5 25 27.4 28.7 15.4 18.4 10.7 23 25.6 25.6 12.9 16 8.6 27 29.2 31.7 16.7 20.6 12.8 25.3 26.6 30.2 24 16.2 16.2 22.8 24.5 22.4 18.8 12.2 14 27.6 28.6 36.9 28.8 19.9 18.2 
+16 16.8 18.6 11.7 9.4 8.7 15.6 16.2 18.2 15 10.9 6.2 16.5 17.4 19 8.1 7.8 10.8 16 16.9 20.5 5.2 6.5 11.4 16 16.7 25.1 7.3 6.6 8.4 16.1 17 15.4 3 6.3 14.5 17.9 18.8 20.3 6.4 8.4 14.6 17.5 18.4 18.7 5.4 7.4 17.3 18.3 19.2 22.1 7.3 9.6 12.1 16.5 17.3 19.6 8.6 9.2 9.9 17.1 18.3 21.7 14.9 6.5 8.8 15.8 16.4 17.6 4.8 12.6 10.9 17.3 17.9 20.6 15.3 7.8 11.5 16.8 17.6 18 11.8 7.7 11.4 17.7 18.2 23.1 19.1 8 11.7 14.4 14.9 22.5 9.3 8.4 6.6 13.9 14.3 22.8 8.9 10.6 5.4 14.8 15.5 22.1 9.6 6.6 7.7 19.7 20.9 22.1 15.2 12.9 13 18.3 19.5 20.1 24.2 9 12.1 20.9 22.2 24.3 8.6 16.7 13.9 21.2 23.1 24.6 12.9 15.1 9.8 19.4 21.6 21.5 10.7 12.4 7.7 22.8 24.5 27.5 14.2 17.7 12.1 21.4 22.2 26.9 22.8 13.9 14.5 18.8 20.2 18.6 17.3 11.3 11.5 23.7 24.2 34 27.8 16.5 17.3 
+3.2 3.5 3.5 2.5 2 1 2.9 3.1 2.7 1.1 1.5 2.1 3.6 3.8 4.6 4.1 2.6 0 3.9 4.3 3.4 0.3 2.3 1 3.8 4.2 3.2 0 2.3 1.1 4 4.4 3.7 0.6 2.2 0.8 3.8 4.2 3.3 0 1.4 1.2 4.2 4.8 1.8 0 2 0 3.4 3.6 5 0 0.7 2.3 3.6 4 3.2 0.8 0.4 0.7 3.6 4.1 3.5 0 0.4 0.3 3.5 3.9 2.9 1.2 0.4 1 3.9 4.2 4.7 2.5 2.6 1.4 3.8 4.1 2.8 4.8 1.5 2.1 4.1 4.2 6.7 0 3.6 0.7 3.2 3.3 5.4 0.4 0.9 2.9 2.7 2.8 4.6 0.8 0.6 1.8 3.8 3.9 6.1 0 1.1 3.8 3.8 4.2 5.3 0 2.8 1.6 3.8 4.1 6 0 3.5 1.5 3.8 4.2 4.5 0 2 1.6 4.2 4.7 4.9 2.5 3.2 0.9 3.9 4.3 4.7 2.2 3.6 0.9 4.5 5.1 5.1 2.6 2.9 0.8 4.2 4.7 3.8 1.5 2.6 1.7 4.3 4.7 4 1.8 1.1 2.6 4.2 4.7 3.7 1.3 4 0.9;

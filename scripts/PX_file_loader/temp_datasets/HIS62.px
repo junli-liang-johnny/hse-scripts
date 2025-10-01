@@ -1,0 +1,47 @@
+CHARSET="UTF-16";
+AXIS-VERSION="2013";
+LANGUAGE="en";
+LAST-UPDATED="20241203 11:00";
+OFFICIAL-STATISTICS="YES";
+DECIMALS=1;
+MATRIX="HIS62";
+SUBJECT-AREA="Healthy Ireland Survey";
+SUBJECT-CODE="HSI";
+DESCRIPTION="Length of time it took to return to usual health after COVID-19 infection";
+TITLE="Length of time it took to return to usual health after COVID-19 infection - Sex, Country of Birth and Year 2024";
+CONTENTS="Length of time it took to return to usual health after COVID-19 infection";
+UNITS="%";
+STUB="Statistic";
+HEADING="Year","Sex","Country of Birth";
+CONTVARIABLE="Statistic";
+VALUES("Statistic")="Persons who returned to usual health after COVID-19 infection in less than 1 month",
+"Persons who returned to usual health after COVID-19 infection in 1 month or more but less than 1 year","Persons who returned to usual health after COVID-19 infection in 1 year or more but less than 2 years",
+"Persons who returned to usual health after COVID-19 infection in 2 years or longer";
+VALUES("Year")="2024";
+VALUES("Sex")="Both sexes","Male","Female";
+VALUES("Country of Birth")="All countries","Ireland","UK","EU15","Rest of EU","Rest of World";
+TIMEVAL("Year")=TLIST(A1),"2024";
+CODES("Statistic")="HIS62C01","HIS62C02","HIS62C03","HIS62C04";
+CODES("Sex")="-","1","2";
+CODES("Country of Birth")="-","IE","UK","ZZEUAB","ZZROEU","ZZROW";
+DOMAIN("Sex")="C02199V02655";
+DOMAIN("Country of Birth")="C04143V04909";
+UNITS("Persons who returned to usual health after COVID-19 infection in less than 1 month")="%";
+UNITS("Persons who returned to usual health after COVID-19 infection in 1 month or more but less than 1 year")="%";
+UNITS("Persons who returned to usual health after COVID-19 infection in 1 year or more but less than 2 years")="%";
+UNITS("Persons who returned to usual health after COVID-19 infection in 2 years or longer")="%";
+REFPERIOD("Persons who returned to usual health after COVID-19 infection in less than 1 month")=" ";
+REFPERIOD("Persons who returned to usual health after COVID-19 infection in 1 month or more but less than 1 year")=" ";
+REFPERIOD("Persons who returned to usual health after COVID-19 infection in 1 year or more but less than 2 years")=" ";
+REFPERIOD("Persons who returned to usual health after COVID-19 infection in 2 years or longer")=" ";
+BASEPERIOD("Persons who returned to usual health after COVID-19 infection in less than 1 month")=" ";
+BASEPERIOD("Persons who returned to usual health after COVID-19 infection in 1 month or more but less than 1 year")=" ";
+BASEPERIOD("Persons who returned to usual health after COVID-19 infection in 1 year or more but less than 2 years")=" ";
+BASEPERIOD("Persons who returned to usual health after COVID-19 infection in 2 years or longer")=" ";
+SOURCE="Department of Health";
+NOTE="";
+DATA=
+80.3 80 78.5 80.4 81.6 83.1 82.3 82.1 82.2 88.9 86.5 82 78.4 78.1 75.3 73.3 76.7 84 
+11.6 11.3 17.7 13.5 9.5 11 10.3 10.1 14.2 8.3 8.8 10 12.8 12.4 20.8 17.9 10.3 11.8 
+5.9 6.2 2.8 5.9 7.4 4.1 5.5 5.7 3.1 2.4 3.8 5.7 6.2 6.6 2.5 8.9 10.9 2.8 
+2.3 2.5 1 0.2 1.5 1.8 2 2.1 0.6 0.4 1 2.3 2.5 2.8 1.4 0 2.1 1.4;

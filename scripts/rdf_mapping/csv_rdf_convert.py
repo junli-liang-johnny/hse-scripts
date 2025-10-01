@@ -15,31 +15,13 @@ def r2rml_csv_convert(input_file: str, row_indexes_to_remove: list[int], output_
 
 		filtered_rows = filter_csv(reader, input_file, row_indexes_to_remove)
 		print(f"Length of filtered rows: {len(filtered_rows)}")
-		cleaned_rows = remove_special_characters(filtered_rows)
+		cleaned_rows = remove_special_characters(filtered_rows, output_log_file=output_file.replace('.csv', '_cleaning_log.txt'))
 		print(f"Length of cleaned rows: {len(cleaned_rows)}")
 
-		if cleaned_rows:
-			cleaned_rows[0] = [
-				column_name_mapping.get(col, col) for col in cleaned_rows[0]
-			]
-		
 		# Write the filtered rows to the output file
 		writer.writerows(cleaned_rows)
 
 	print(f"Converted {input_file} to {output_file}")
-
-column_name_mapping = {
-	# 'dct:publisher [ a dct:Publisher; foaf:name ]': 'dct:publisher',
-	# 'dct:Provenance [a dct:ProvenanceStatement;\nrdfs:label ]': 'dct:Provenance',
-	# 'dct:Provenance [a dct:ProvenanceStatement; rdfs:label ]': 'dct:Provenance',
-	# 'dcterms:temporal [a dct:PeriodOfTime;  dcat:startDate ""^^xsd:dateTime; dcat:endDate ""^^xsd:dateTime.]': 'dct:temporal',
-	# 'dcterms:temporal [a dct:PeriodOfTime;  dcat:endDate ""^^xsd:dateTime.]': 'dct:temporal',
-	# 'dcat:distribution [ a dcat:Distribution; dct:format]': 'dcat:distribution',
-	# 'dcat:contactPoint [vcard:individual vard:fn]': 'dcat:contactPoint',
-	# 'dcterms:accrualPeriodicity <http://purl.org/linked-data/sdmx/2009/code#': 'dcterms:accrualPeriodicity',
-	# 'adms:sample[ a dcat:Distribution; dcat:accessURL]': 'adms:sample',
-	# 'healthdcatap:hdab [a foaf:Agent;  foaf:name ]': 'healthdcatap:hdab',
-}
 
 """
 	key: file name string
@@ -81,15 +63,26 @@ def filter_csv(csv_reader: list, input_file, row_indexes_to_remove: list[int]) -
 	]
 	return filtered_rows
 
-def remove_special_characters(rows: list[list[str]]) -> list[list[str]]:
+def remove_special_characters(rows: list[list[str]], output_log_file: str) -> list[list[str]]:
 	"""
 	Remove special characters from each cell in the CSV data.
 	:param rows: List of rows from the CSV file
 	:return: List of rows with special characters removed
 	"""
+	with open(output_log_file, mode="w", encoding="utf-8") as log_file:
+		log_file.write("Log of cleaned cells:\n")
+		log_file.write("="*100 + "\n")
+
 	cleaned_rows = []
 	for row in rows:
-		cleaned_row = [col.replace('\n', ' ').replace('\r', ' ').strip() for col in row]
+		# cleaned_row = [col.replace('\n', ' ').replace('\r', ' ').strip() for col in row]
+		cleaned_row = []
+		for col in row:
+			cleaned_col = col.replace('\n', ' ').replace('\r', ' ').strip()
+			if col != cleaned_col:
+				with open(output_log_file, mode="a", encoding="utf-8") as log_file:
+					log_file.write(f"Identifier:\n{row[1]}\n{'-'*100}\nOriginal:\n{col}\n{'-'*100}\nCleaned:\n{cleaned_col}\n{'='*100}\n")
+			cleaned_row.append(cleaned_col)
 		cleaned_rows.append(cleaned_row)
 	return cleaned_rows
 

@@ -1,0 +1,37 @@
+CHARSET="UTF-16";
+AXIS-VERSION="2013";
+LANGUAGE="en";
+LAST-UPDATED="20241203 11:00";
+OFFICIAL-STATISTICS="YES";
+DECIMALS=1;
+MATRIX="HIS02";
+SUBJECT-AREA="Healthy Ireland Survey";
+SUBJECT-CODE="HSI";
+DESCRIPTION="General Health Status";
+TITLE="General Health Status - Sex, Country of Birth and Year 2015 - 2024";
+CONTENTS="General Health Status";
+UNITS="%";
+STUB="Statistic";
+HEADING="Year","Sex","Country of Birth";
+CONTVARIABLE="Statistic";
+VALUES("Statistic")="Good or very good health status","Bad or very bad health status";
+VALUES("Year")="2015","2016","2017","2018","2019","2021","2022","2023","2024";
+VALUES("Sex")="Both sexes","Male","Female";
+VALUES("Country of Birth")="All countries","Ireland","UK","EU15","Rest of EU","Rest of World";
+TIMEVAL("Year")=TLIST(A1),"2015","2016","2017","2018","2019","2021","2022","2023","2024";
+CODES("Statistic")="HIS02C01","HIS02C02";
+CODES("Sex")="-","1","2";
+CODES("Country of Birth")="-","IE","UK","ZZEUAB","ZZROEU","ZZROW";
+DOMAIN("Sex")="C02199V02655";
+DOMAIN("Country of Birth")="C04143V04909";
+UNITS("Good or very good health status")="%";
+UNITS("Bad or very bad health status")="%";
+REFPERIOD("Good or very good health status")=" ";
+REFPERIOD("Bad or very bad health status")=" ";
+BASEPERIOD("Good or very good health status")=" ";
+BASEPERIOD("Bad or very bad health status")=" ";
+SOURCE="Department of Health";
+NOTE="";
+DATA=
+85.1 84.4 81.2 89.9 92.3 91.4 85.3 84.8 81.5 89.5 91.4 91.7 84.9 84.1 80.8 90.3 93.2 91.1 83.6 83.2 78.9 91.6 92.7 83.5 83.2 82.6 76.3 93 93 86.3 84 83.8 81.9 90.3 92.3 80.6 84.1 83.2 83 98.7 93.8 86.6 83.4 82.3 84.1 100 93.4 85.8 84.8 84 81.8 97.4 94.2 87.5 85 83.9 82.5 91.6 94.6 93 83.9 82.4 81.8 87.2 95.9 94.7 86 85.3 83.1 94.1 92.9 91.5 84.5 84 83.5 85.9 88.3 90.9 84.6 83.7 85.4 87.6 92.1 90.3 84.5 84.2 81.7 83.9 84.7 91.5 84 83.3 78.9 96.5 90.3 91.2 83.7 82.8 78.2 96.8 90.3 93.4 84.3 83.7 79.5 96.3 90.3 89.2 81.7 80.8 77.9 82.7 87.6 87.4 82.7 81.7 79 80.5 87.4 89.1 80.9 80 76.8 84.2 87.8 85.6 79.9 78.2 73 89.9 88.2 90.6 81.3 79.3 79.3 87.1 90.8 91.1 78.6 77.2 67.2 91.4 85.5 90.1 80.6 80 73.8 88.5 86.1 86.2 80.7 79.6 77.8 88.2 89.7 87.2 80.6 80.4 70.3 88.8 83 85.3 
+2.4 2.6 2.7 0.8 0.7 1 2.2 2.5 1.5 1.1 0.4 1 2.5 2.7 3.9 0.5 0.9 1 3.1 3.2 3.9 0 1.6 3 3.2 3.3 5.7 0 2.1 0.9 3.1 3.2 2 0 1.1 5.2 3.1 3.4 3 0 1.6 2.5 3 3.3 1.4 0 1.4 1.4 3.3 3.4 4.8 0 1.8 3.6 3.2 3.5 3.9 1.9 0.7 0.2 3.6 4 3.8 5.2 0.2 0.3 2.8 3.1 3.9 0 1.3 0.1 2.7 2.9 2.6 2.9 0.3 2 2.4 2.7 1.4 1.4 0.5 0.8 3.1 3.1 3.8 4.6 0 3.2 2.9 3 3.6 1 1.7 1.4 2.4 2.6 1.4 0 3.2 0 3.3 3.4 5.5 2 0.4 2.6 3.5 3.4 8.2 0.5 2.4 3 3.3 3.2 6.9 0 2.4 2.9 3.6 3.5 9.5 0.8 2.3 3.1 3.5 3.9 5.2 0 2.2 1.2 3.3 3.8 3.2 0 3.2 0.4 3.8 3.9 7 0 1.1 2.1 3.3 3.6 4.2 1.5 3.4 1.2 3.7 4 3.8 1.8 1.1 2 3 3.2 4.6 1.3 5.5 0.5;

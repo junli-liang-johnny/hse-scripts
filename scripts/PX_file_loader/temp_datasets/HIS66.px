@@ -1,0 +1,46 @@
+CHARSET="UTF-16";
+AXIS-VERSION="2013";
+LANGUAGE="en";
+LAST-UPDATED="20241203 11:00";
+OFFICIAL-STATISTICS="YES";
+DECIMALS=1;
+MATRIX="HIS66";
+SUBJECT-AREA="Healthy Ireland Survey";
+SUBJECT-CODE="HSI";
+DESCRIPTION="Hours of Sleep a Night";
+TITLE="Hours of Sleep a Night - Sex, Country of Birth and Year 2024";
+CONTENTS="Hours of Sleep a Night";
+UNITS="%";
+STUB="Statistic";
+HEADING="Year","Sex","Country of Birth";
+CONTVARIABLE="Statistic";
+VALUES("Statistic")="Persons who sleep 6 or less hours a night","Persons who sleep more than 6 and up to 7 hours a night",
+"Persons who sleep more than 7 and up to 8 hours a night","Persons who sleep more than 8 hours a night";
+VALUES("Year")="2024";
+VALUES("Sex")="Both sexes","Male","Female";
+VALUES("Country of Birth")="All countries","Ireland","UK","EU15","Rest of EU","Rest of World";
+TIMEVAL("Year")=TLIST(A1),"2024";
+CODES("Statistic")="HIS66C01","HIS66C02","HIS66C03","HIS66C04";
+CODES("Sex")="-","1","2";
+CODES("Country of Birth")="-","IE","UK","ZZEUAB","ZZROEU","ZZROW";
+DOMAIN("Sex")="C02199V02655";
+DOMAIN("Country of Birth")="C04143V04909";
+UNITS("Persons who sleep 6 or less hours a night")="%";
+UNITS("Persons who sleep more than 6 and up to 7 hours a night")="%";
+UNITS("Persons who sleep more than 7 and up to 8 hours a night")="%";
+UNITS("Persons who sleep more than 8 hours a night")="%";
+REFPERIOD("Persons who sleep 6 or less hours a night")=" ";
+REFPERIOD("Persons who sleep more than 6 and up to 7 hours a night")=" ";
+REFPERIOD("Persons who sleep more than 7 and up to 8 hours a night")=" ";
+REFPERIOD("Persons who sleep more than 8 hours a night")=" ";
+BASEPERIOD("Persons who sleep 6 or less hours a night")=" ";
+BASEPERIOD("Persons who sleep more than 6 and up to 7 hours a night")=" ";
+BASEPERIOD("Persons who sleep more than 7 and up to 8 hours a night")=" ";
+BASEPERIOD("Persons who sleep more than 8 hours a night")=" ";
+SOURCE="Department of Health";
+NOTE="";
+DATA=
+32.9 33.9 32.6 29.8 34.7 25.8 33 34.4 29.2 36.5 29 24.6 32.8 33.3 35.6 23.6 38.8 26.8 
+31.2 30.6 32.1 29.9 32.7 35.4 31.9 30.8 34 35.1 37.8 37.7 30.6 30.4 30.5 25.2 28.7 33.4 
+28.8 28.3 25.5 36.2 28.4 33.4 28.2 27.9 25.1 24.5 30.4 32.2 29.3 28.6 25.7 47 26.9 34.4 
+7.1 7.3 9.8 4 4.3 5.4 6.9 7 11.7 3.8 2.8 5.5 7.3 7.7 8.2 4.2 5.5 5.4;

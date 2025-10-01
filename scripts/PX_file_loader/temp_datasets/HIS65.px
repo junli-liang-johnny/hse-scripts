@@ -1,0 +1,47 @@
+CHARSET="UTF-16";
+AXIS-VERSION="2013";
+LANGUAGE="en";
+LAST-UPDATED="20241203 11:00";
+OFFICIAL-STATISTICS="YES";
+DECIMALS=1;
+MATRIX="HIS65";
+SUBJECT-AREA="Healthy Ireland Survey";
+SUBJECT-CODE="HSI";
+DESCRIPTION="Hours of Sleep a Night";
+TITLE="Hours of Sleep a Night - Sex, Age Group and Year 2024";
+CONTENTS="Hours of Sleep a Night";
+UNITS="%";
+STUB="Statistic";
+HEADING="Year","Sex","Age Group";
+CONTVARIABLE="Statistic";
+VALUES("Statistic")="Persons who sleep 6 or less hours a night","Persons who sleep more than 6 and up to 7 hours a night",
+"Persons who sleep more than 7 and up to 8 hours a night","Persons who sleep more than 8 hours a night";
+VALUES("Year")="2024";
+VALUES("Sex")="Both sexes","Male","Female";
+VALUES("Age Group")="All ages","15 - 19 years","20 - 24 years","25 - 29 years","30 - 34 years","35 - 39 years","40 - 44 years",
+"45 - 49 years","50 - 54 years","55 - 59 years","60 - 64 years","65 - 69 years","70 - 74 years","75 years and over";
+TIMEVAL("Year")=TLIST(A1),"2024";
+CODES("Statistic")="HIS65C01","HIS65C02","HIS65C03","HIS65C04";
+CODES("Sex")="-","1","2";
+CODES("Age Group")="-","300","365","410","440","460","475","495","515","530","550","565","580","605";
+DOMAIN("Sex")="C02199V02655";
+DOMAIN("Age Group")="C02076V03371";
+UNITS("Persons who sleep 6 or less hours a night")="%";
+UNITS("Persons who sleep more than 6 and up to 7 hours a night")="%";
+UNITS("Persons who sleep more than 7 and up to 8 hours a night")="%";
+UNITS("Persons who sleep more than 8 hours a night")="%";
+REFPERIOD("Persons who sleep 6 or less hours a night")=" ";
+REFPERIOD("Persons who sleep more than 6 and up to 7 hours a night")=" ";
+REFPERIOD("Persons who sleep more than 7 and up to 8 hours a night")=" ";
+REFPERIOD("Persons who sleep more than 8 hours a night")=" ";
+BASEPERIOD("Persons who sleep 6 or less hours a night")=" ";
+BASEPERIOD("Persons who sleep more than 6 and up to 7 hours a night")=" ";
+BASEPERIOD("Persons who sleep more than 7 and up to 8 hours a night")=" ";
+BASEPERIOD("Persons who sleep more than 8 hours a night")=" ";
+SOURCE="Department of Health";
+NOTE="";
+DATA=
+32.9 27.4 24.7 24.3 33.1 36 35.9 34 32.2 42.7 34.5 35.2 33.9 34.8 33 20.6 25.7 26.7 33.6 38 37.9 33.5 33.2 39.5 34.8 36.7 33.3 33.9 32.8 35.9 23.8 21.7 32.2 34.2 34.1 34.6 31.2 45.7 34.2 33.9 34.5 35.6 
+31.2 29.7 35.5 40.9 32.7 35 31.8 34.5 35.6 27.5 28.7 24.1 20.7 21 31.9 32.3 35.3 41 33 34.2 34.5 36.8 35.5 30.8 28.7 23.3 21.8 18.8 30.6 26.5 35.7 40.9 32.6 35.9 29.3 32.3 35.7 24.3 28.7 24.8 19.5 22.9 
+28.8 33.4 31.7 29.7 29.1 25.4 28 23.8 26.5 24.6 29.3 30.5 34.7 31 28.2 35.8 35.4 27.5 26.3 23.4 23.4 22.1 25.1 26.1 27.2 31.8 34.4 33.9 29.3 30.4 28.2 32.1 32 27.3 32.1 25.5 28 23.2 31.3 29.3 35 28.4 
+7.1 9.5 8.1 5.1 5.2 3.5 4.3 7.7 5.7 5.3 7.5 10.2 10.8 13.2 6.9 11.3 3.7 4.8 7.2 4.5 4.2 7.7 6.3 3.6 9.3 8.2 10.4 13.4 7.3 7.2 12.3 5.4 3.3 2.6 4.5 7.6 5.1 6.9 5.8 11.9 11 13.1;

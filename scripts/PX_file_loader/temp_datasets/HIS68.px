@@ -1,0 +1,35 @@
+CHARSET="UTF-16";
+AXIS-VERSION="2013";
+LANGUAGE="en";
+LAST-UPDATED="20241203 11:00";
+OFFICIAL-STATISTICS="YES";
+DECIMALS=1;
+MATRIX="HIS68";
+SUBJECT-AREA="Healthy Ireland Survey";
+SUBJECT-CODE="HSI";
+DESCRIPTION="Persons achieving National Physical Activity Guidelines";
+TITLE="Persons achieving National Physical Activity Guidelines - Sex, Country of Birth and Year 2024";
+CONTENTS="Persons achieving National Physical Activity Guidelines";
+UNITS="%";
+STUB="Statistic";
+HEADING="Year","Sex","Country of Birth";
+CONTVARIABLE="Statistic";
+VALUES("Statistic")="Persons achieving national physical activity guidelines";
+VALUES("Year")="2024";
+VALUES("Sex")="Both sexes","Male","Female";
+VALUES("Country of Birth")="All countries","Ireland","UK","EU15","Rest of EU","Rest of World";
+TIMEVAL("Year")=TLIST(A1),"2024";
+CODES("Statistic")="HIS68C01";
+CODES("Sex")="-","1","2";
+CODES("Country of Birth")="-","IE","UK","ZZEUAB","ZZROEU","ZZROW";
+DOMAIN("Sex")="C02199V02655";
+DOMAIN("Country of Birth")="C04143V04909";
+UNITS("Persons achieving national physical activity guidelines")="%";
+REFPERIOD("Persons achieving national physical activity guidelines")=" ";
+BASEPERIOD("Persons achieving national physical activity guidelines")=" ";
+SOURCE="Department of Health";
+NOTE="Survey responses were used to assess whether respondents met the National Physical Activity Guidelines (NPAG). At the time of the survey, the guidelines recommended that adults should undertake at least 30 minutes a day of moderate to vigorous activity on 5 days a week or a total of 150 minutes a week. These figures do not include walking (neither for recreation nor travel) but does include activity related to housework, gardening, and other forms of travel such as cycling. 
+
+New physical activity guidelines were introduced by the HSE in March 2024 and these guidelines will be used to assess physical activity levels in future Healthy Ireland Surveys. ([url=https://www.hse.ie/eng/about/who/healthwellbeing/our-priority-programmes/heal/physical-activity-guidelines/]https://www.hse.ie/eng/about/who/healthwellbeing/our-priority-programmes/heal/physical-activity-guidelines/[/url]).";
+DATA=
+41.4 41.8 37.6 38.3 44.7 39.9 50.1 50.3 41.2 48 58.2 50.3 33.2 33.5 34.5 29.3 33.6 30.2;
