@@ -1,0 +1,39 @@
+CHARSET="UTF-16";
+AXIS-VERSION="2013";
+LANGUAGE="en";
+LAST-UPDATED="20241203 11:00";
+OFFICIAL-STATISTICS="YES";
+DECIMALS=1;
+MATRIX="HIS56";
+SUBJECT-AREA="Healthy Ireland Survey";
+SUBJECT-CODE="HSI";
+DESCRIPTION="Mental Wellbeing";
+TITLE="Mental Wellbeing - Sex, Country of Birth and Year 2015 - 2024";
+CONTENTS="Mental Wellbeing";
+UNITS="%";
+STUB="Statistic";
+HEADING="Year","Sex","Country of Birth";
+CONTVARIABLE="Statistic";
+VALUES("Statistic")="Persons in the High Energy and Vitality group","Persons with a probable mental health problem";
+VALUES("Year")="2015","2021","2023","2024";
+VALUES("Sex")="Both sexes","Male","Female";
+VALUES("Country of Birth")="All countries","Ireland","UK","EU15","Rest of EU","Rest of World";
+TIMEVAL("Year")=TLIST(A1),"2015","2021","2023","2024";
+CODES("Statistic")="HIS56C01","HIS56C02";
+CODES("Sex")="-","1","2";
+CODES("Country of Birth")="-","IE","UK","ZZEUAB","ZZROEU","ZZROW";
+DOMAIN("Sex")="C02199V02655";
+DOMAIN("Country of Birth")="C04143V04909";
+UNITS("Persons in the High Energy and Vitality group")="%";
+UNITS("Persons with a probable mental health problem")="%";
+REFPERIOD("Persons in the High Energy and Vitality group")=" ";
+REFPERIOD("Persons with a probable mental health problem")=" ";
+BASEPERIOD("Persons in the High Energy and Vitality group")=" ";
+BASEPERIOD("Persons with a probable mental health problem")=" ";
+SOURCE="Department of Health";
+NOTE="The ‘Energy and Vitality Index’ (EVI) was used to measure Positive Mental Health in the survey. Respondents were asked four questions relating to their positive mental health over the past four weeks. The questions included the extent to which they had felt “full of life”, “calm and peaceful”, had “a lot of energy” and had “been a happy person”. Responses were recorded on a six-point scale from “all of the time” to “none of the time”. The scores were then aggregated to calculate an EVI score for each respondent, which is a measure of positive mental health ranging from 0-100. Higher scores are indicative of greater positive mental health. An EVI score equal to or over one standard deviation from the mean score for the population, places respondents in ‘High Vitality and Energy group’.
+
+The Mental Health Index (MHI-5) was used to measure Negative Mental Health. Respondents were asked five questions relating to their negative mental health over the past four weeks. The questions included the extent to which they felt “downhearted and blue”, “worn-out”, “tired”, “so down in the dumps that nothing could cheer you up” and been a “very nervous person”. The scores were used to calculate an MHI-5 score for each respondent; scores can range from 0-100. Lower scores indicate greater levels of psychological distress. A MHI-5 score of 56 or lower indicates a 'probable mental health problem'.";
+DATA=
+15.6 15.7 12.8 11 12.8 22.4 19.5 19.9 15.7 15.1 12.2 28.4 11.9 11.6 9.5 6.6 13.4 17.6 12.1 11.6 10.6 21.5 15.5 15 15.1 14.8 13.3 19.9 19.9 16.3 9.2 8.6 8.1 23.1 12 13.9 9 9.2 5 9.5 9.8 9 10.4 10.6 5.6 10.4 11.8 10.8 7.6 7.9 4.3 9 8 7.2 12.4 12.8 9 13 11.2 11.9 14.1 14.5 12.3 13.1 14.9 11.5 10.9 11.1 6.2 12.8 8.1 12.3 
+9.3 9.2 10.2 17.4 8.1 10 6 5.9 6.8 13.9 5.5 4.7 12.6 12.4 14 21.2 10.8 14.3 15.3 15.3 18.5 12.9 12.7 15 12.4 12 16.1 5.7 14.2 14.3 18.1 18.5 20.7 19.7 11.5 15.7 12.5 12.5 14.2 13.3 11.8 12.1 10.2 10.1 13.8 0 11 9.7 14.7 14.7 14.6 20.6 12.6 14.6 12.1 11.8 11.1 14.9 16.8 13 9.7 9.7 6.7 17.1 11 9.6 14.4 13.8 14.9 12.7 21.9 16.1;

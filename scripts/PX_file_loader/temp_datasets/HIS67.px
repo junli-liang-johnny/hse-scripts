@@ -1,0 +1,36 @@
+CHARSET="UTF-16";
+AXIS-VERSION="2013";
+LANGUAGE="en";
+LAST-UPDATED="20241203 11:00";
+OFFICIAL-STATISTICS="YES";
+DECIMALS=1;
+MATRIX="HIS67";
+SUBJECT-AREA="Healthy Ireland Survey";
+SUBJECT-CODE="HSI";
+DESCRIPTION="Persons achieving National Physical Activity Guidelines";
+TITLE="Persons achieving National Physical Activity Guidelines - Sex, Age Group and Year 2024";
+CONTENTS="Persons achieving National Physical Activity Guidelines";
+UNITS="%";
+STUB="Statistic";
+HEADING="Year","Sex","Age Group";
+CONTVARIABLE="Statistic";
+VALUES("Statistic")="Persons achieving national physical activity guidelines";
+VALUES("Year")="2024";
+VALUES("Sex")="Both sexes","Male","Female";
+VALUES("Age Group")="All ages","15 - 19 years","20 - 24 years","25 - 29 years","30 - 34 years","35 - 39 years","40 - 44 years",
+"45 - 49 years","50 - 54 years","55 - 59 years","60 - 64 years","65 - 69 years","70 - 74 years","75 years and over";
+TIMEVAL("Year")=TLIST(A1),"2024";
+CODES("Statistic")="HIS67C01";
+CODES("Sex")="-","1","2";
+CODES("Age Group")="-","300","365","410","440","460","475","495","515","530","550","565","580","605";
+DOMAIN("Sex")="C02199V02655";
+DOMAIN("Age Group")="C02076V03371";
+UNITS("Persons achieving national physical activity guidelines")="%";
+REFPERIOD("Persons achieving national physical activity guidelines")=" ";
+BASEPERIOD("Persons achieving national physical activity guidelines")=" ";
+SOURCE="Department of Health";
+NOTE="Survey responses were used to assess whether respondents met the National Physical Activity Guidelines (NPAG). At the time of the survey, the guidelines recommended that adults should undertake at least 30 minutes a day of moderate to vigorous activity on 5 days a week or a total of 150 minutes a week. These figures do not include walking (neither for recreation nor travel) but does include activity related to housework, gardening, and other forms of travel such as cycling. 
+
+New physical activity guidelines were introduced by the HSE in March 2024 and these guidelines will be used to assess physical activity levels in future Healthy Ireland Surveys. ([url=https://www.hse.ie/eng/about/who/healthwellbeing/our-priority-programmes/heal/physical-activity-guidelines/]https://www.hse.ie/eng/about/who/healthwellbeing/our-priority-programmes/heal/physical-activity-guidelines/[/url]).";
+DATA=
+41.4 61.9 62.1 56.7 47.4 41.7 41.5 39.2 36.1 35.5 32.2 30.3 26.7 19.1 50.1 75.1 67.5 69.5 57.5 47.5 51.8 49.7 42.7 41.5 38.3 41.5 37.4 22.3 33.2 45.7 57 45 37 36.4 32.1 28.9 29.5 29.8 26.1 20.7 16.3 16.4;
