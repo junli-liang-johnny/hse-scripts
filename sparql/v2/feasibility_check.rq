@@ -27,12 +27,16 @@ SELECT
 ?valid_dataset
 ?1_7_pass
 ?1_7_note
+?1_7_warning 
 ?2_1_pass
 ?2_1_note
+?2_1_warning 
 ?2_2_pass
 ?2_2_note
+?2_2_warning 
 ?3_1_pass
 ?3_1_note
+?3_1_warning 
 ?4_1_warn
 ?4_1_note
 ?4_2_warn
@@ -46,7 +50,7 @@ WHERE {
   a dcat:Dataset .
   ?indicator dcterms:title ?indicatorTitle .
 
-  OPTIONAL { ?indicator dcterms:accrualPeriodicity ?indicatorAccrualPeriodicity . }
+  OPTIONAL { ?indicator dcterms:accrualPeriodicity/phd:frequencyValue ?indicatorAccrualPeriodicity . }
   OPTIONAL { ?indicator phi:disaggregation ?disaggregation . }
   OPTIONAL { ?indicator phi:reportStyle ?reportStyle .}
 
@@ -56,7 +60,7 @@ WHERE {
     OPTIONAL { ?numeratorSource dcat:temporalResolution ?temporalResolution . }
     OPTIONAL { ?numeratorSource phd:spatialAggregation ?spatialAggregation . }
     OPTIONAL { ?numeratorSource dcat:spatialResolutionInMeters ?spatialResolutionInMeters . }
-    OPTIONAL { ?numeratorSource dcterms:accrualPeriodicity ?datasetAccrualPeriodicity . }
+    OPTIONAL { ?numeratorSource dcterms:accrualPeriodicity/phd:frequencyValue ?datasetAccrualPeriodicity . }
 
     OPTIONAL { ?numeratorSource dpv:hasPersonalData ?hasPersonalData . }
     OPTIONAL { ?numeratorSource dcterms:accessRights ?accessRight . }
@@ -103,37 +107,42 @@ WHERE {
 
   # 1.7 - disaggregation
   BIND(IF(!BOUND(?disaggregation), "unknown", IF(CONTAINS(LCASE(STR(?disaggregation)), "65"), "true", "false")) AS ?disaggregation_pass)
-  BIND(IF(!BOUND(?disaggregation), "Q1.7: Disaggregation not present", IF(CONTAINS(LCASE(STR(?disaggregation)), "65"), "", "Q1.7: don't have indicators w/ dataset for people aged over 65 ")) AS ?disaggregation_note)
+  BIND(IF(!BOUND(?disaggregation), "Q1.7: Disaggregation not present", "") AS ?disaggregation_warning)
+  BIND(IF(CONTAINS(LCASE(STR(?disaggregation)), "65"), "", "Q1.7: don't have indicators w/ dataset for people aged over 65 ") AS ?disaggregation_note)
 
   # 1.7 - max typical age
   BIND(IF(!BOUND(?maxTypicalAge), "unknown", IF(xsd:integer(?maxTypicalAge) >= 65, "true", "false")) AS ?maxAge_pass)
-  BIND(IF(!BOUND(?maxTypicalAge), "Maximum Typical Age not present", IF(xsd:integer(?maxTypicalAge) >= 65, "Maximum Typical Age >= 65", "Maximum Typical Age < 65")) AS ?maxAge_note)
+  BIND(IF(!BOUND(?maxTypicalAge), "Q1.7: Maximum Typical Age not present", "") AS ?maxAge_warning)
+  BIND(IF(xsd:integer(?maxTypicalAge) >= 65, "", "Q1.7: Maximum Typical Age < 65") AS ?maxAge_note)
 
-  # 1.7 check disaggregation and max tpyical age
+  # 1.7 check disaggregation and max typical age
   BIND(IF(?disaggregation_pass = "true" || ?maxAge_pass = "true", "true", 
       IF(?disaggregation_pass = "unknown" || ?maxAge_pass = "unknown", "unknown", "false")
     ) AS ?1_7_pass)
+  BIND(CONCAT(?disaggregation_warning, ?maxAge_warning) AS ?1_7_warning)
   BIND(CONCAT(?disaggregation_note, ?maxAge_note) AS ?1_7_note)
 
   # 2.1
   BIND(IF(BOUND(?temporalResolution), "true", "unknown") AS ?2_1_pass)
-  BIND(IF(BOUND(?temporalResolution), "", "2.1: Minimal Temporal resolution not present") AS ?2_1_note)
+  BIND(IF(BOUND(?temporalResolution), "", "2.1: Minimal Temporal resolution not present") AS ?2_1_warning)
+  BIND("" AS ?2_1_note)
+
   # 2.2
   BIND(IF(!BOUND(?spatialAggregation), "unknown", 
       IF(?spatialAggregation = phpt:National || ?spatialAggregation = phpt:IHA || ?spatialAggregation = phpt:NUTS1, "true", "false")) 
     AS ?2_2_pass)
-  BIND(IF(!BOUND(?spatialAggregation), "Q2.2: Spatial Resolution Code not present", 
-      IF(?spatialAggregation = phpt:National || ?spatialAggregation = phpt:IHA || ?spatialAggregation = phpt:NUTS1, "", "Q2.2: indicators w/ dataset don't have spatial resolution of National, IHA or NUTS1")) 
-    AS ?2_2_note)
-  # 3.1
+  BIND(IF(!BOUND(?spatialAggregation), "Q2.2: Spatial Resolution Code not present", "") AS ?2_2_warning)
+  BIND( IF(?spatialAggregation = phpt:National || ?spatialAggregation = phpt:IHA || ?spatialAggregation = phpt:NUTS1, "", "Q2.2: indicators w/ dataset don't have spatial resolution of National, IHA or NUTS1") AS ?2_2_note)
+
+  # 3.1 values for accrual periodicity: EVERY_5_YEARS, EVERY_4_YEARS, EVERY_3_YEARS, EVERY_2_YEARS, ANNUAL, DAILY, MONTHLY, QUARTERLY, WEEKLY, NEVER, AS_NEEDED
   BIND(IF(!BOUND(?indicatorAccrualPeriodicity), "unknown", 
       IF(!BOUND(?datasetAccrualPeriodicity), "unknown", 
-        IF(?indicatorAccrualPeriodicity = ?datasetAccrualPeriodicity, "true", "false")))
+        IF(?indicatorAccrualPeriodicity >= ?datasetAccrualPeriodicity, "true", "false")))
     AS ?3_1_pass)
-  BIND(IF(!BOUND(?indicatorAccrualPeriodicity), "Q3.1: Indicator Report Frequency not present", 
-      IF(!BOUND(?datasetAccrualPeriodicity), "Q3.1: Dataset Update Frequency not present", 
-        IF(?indicatorAccrualPeriodicity = ?datasetAccrualPeriodicity, "", "Q3.1: numerator dataset update frequency does not match indicator report frequency"))) 
-    AS ?3_1_note)
+  BIND(IF(!BOUND(?indicatorAccrualPeriodicity), "Q3.1: Indicator Report Frequency not present", "") AS ?3_1_indicator_warning)
+  BIND(IF(!BOUND(?datasetAccrualPeriodicity), "Q3.1: Dataset Update Frequency not present", "") AS ?3_1_dataset_warning)
+  BIND(CONCAT(?3_1_indicator_warning, ?3_1_dataset_warning) AS ?3_1_warning)
+  BIND(IF(?indicatorAccrualPeriodicity >= ?datasetAccrualPeriodicity, "", "Q3.1: Numerator dataset does not have update frequency required by indicator") AS ?3_1_note)
 
   # overall pass
   BIND(IF((?1_7_pass = "true" && ?2_1_pass = "true" && ?2_2_pass = "true" && ?3_1_pass = "true"), true, 

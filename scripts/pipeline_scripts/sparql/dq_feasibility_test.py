@@ -20,6 +20,9 @@ def feasibility_check(sparql, test_indicators: list[str]) -> list[str]:
     sparql.setQuery(query)
     sparql.setReturnFormat(JSON)
     results = sparql.query().convert()
+
+    print(f"Headers: {results['head']['vars']}")
+    print(f"First result: {results['results']['bindings'][0] if results['results']['bindings'] else 'No results'}")
     return [
       {
         "indicator": result["indicator"]["value"],
@@ -28,13 +31,17 @@ def feasibility_check(sparql, test_indicators: list[str]) -> list[str]:
         "dq_score": result["dq_score"]["value"],
         "valid_dataset": result["valid_dataset"]["value"],
         "1_7_pass": result["1_7_pass"]["value"],
-        "1_7_note": result["1_7_note"]["value"],
+        "1_7_note": result.get("1_7_note", {"value": ""})["value"],
+        "1_7_warning": result.get("1_7_warning", {"value": ""})["value"],
         "2_1_pass": result["2_1_pass"]["value"],
-        "2_1_note": result["2_1_note"]["value"],
+        "2_1_note": result.get("2_1_note", {"value": ""})["value"],
+        "2_1_warning": result.get("2_1_warning", {"value": ""})["value"],
         "2_2_pass": result["2_2_pass"]["value"],
-        "2_2_note": result["2_2_note"]["value"],
+        "2_2_note": result.get("2_2_note", {"value": ""})["value"],
+        "2_2_warning": result.get("2_2_warning", {"value": ""})["value"],
         "3_1_pass": result["3_1_pass"]["value"],
-        "3_1_note": result["3_1_note"]["value"],
+        "3_1_note": result.get("3_1_note", {"value": ""})["value"],
+        "3_1_warning": result.get("3_1_warning", {"value": ""})["value"],
         "4_1_warn": result.get("4_1_warn", {"value": "false"})["value"],
         "4_1_note": result.get("4_1_note", {"value": ""})["value"],
         "4_2_warn": result.get("4_2_warn", {"value": "false"})["value"],
@@ -56,7 +63,20 @@ def convert2_dq_table(df: pd.DataFrame) -> pd.DataFrame:
     dq_table['DQ Score'] = dq_table['dq_score']
 
     # data protection column mapping
-    dq_table['Data Protection Warning'] = dq_table['data_protection_warning_check']
+    dq_table['Warning'] = dq_table['data_protection_warning_check']
+    # append warning notes from '1_7_warning', '2_1_warning', '2_2_warning', '3_1_warning' if they are not empty
+    def combine_warnings(row):
+        warnings = []
+        if row.get('1_7_warning'):
+            warnings.append(row['1_7_warning'])
+        if row.get('2_1_warning'):
+            warnings.append(row['2_1_warning'])
+        if row.get('2_2_warning'):
+            warnings.append(row['2_2_warning'])
+        if row.get('3_1_warning'):
+            warnings.append(row['3_1_warning'])
+        return '; '.join(warnings)
+    dq_table['Warning'] = dq_table.apply(combine_warnings, axis=1)
 
     def tests_not_passed_row(row):
         failed = []
@@ -75,20 +95,23 @@ def convert2_dq_table(df: pd.DataFrame) -> pd.DataFrame:
         return failed
 
     dq_table['Tests Not Passed'] = dq_table.apply(lambda row: ', '.join(tests_not_passed_row(row)), axis=1)
-    # Failure Reasons: combine all *_note columns if not empty, prefix with test id
+    # not passed Reasons: combine all *_note columns if not empty, prefix with test id
     note_cols = [
-        ('1_7_note', 'Q1.7'),
-        ('2_1_note', 'Q2.1'),
-        ('2_2_note', 'Q2.2'),
-        ('3_1_note', 'Q3.1'),
-        ('4_1_note', 'Q4.1'),
-        ('4_2_note', 'Q4.2'),
-        ('4_3_note', 'Q4.3'),
+        '1_7_note',
+        '2_1_note',
+        '2_2_note',
+        '3_1_note'
     ]
+
+    # combine reasons from note columns '1_7_note', '2_1_note', '2_2_note', '3_1_note'
+    # skip empty notes
     def failure_reasons_row(row):
-        reasons = [f"{row[col]}" for col, test_id in note_cols if col in row and pd.notna(row[col]) and str(row[col]).strip()]
+        reasons = []
+        for col in note_cols:
+            if row.get(col) and row[col].strip():
+                reasons.append(f"{row[col]}")
         return '; '.join(reasons)
-    dq_table['Failure Reasons'] = dq_table.apply(failure_reasons_row, axis=1)
+    dq_table['Reasons'] = dq_table.apply(failure_reasons_row, axis=1)
 
     # Drop intermediate columns
     columns_to_drop = [
@@ -97,12 +120,16 @@ def convert2_dq_table(df: pd.DataFrame) -> pd.DataFrame:
        'dq_score',
        '1_7_pass', 
        '1_7_note', 
+       '1_7_warning',
        '2_1_pass', 
        '2_1_note', 
+       '2_1_warning',
        '2_2_pass', 
        '2_2_note', 
+       '2_2_warning',
        '3_1_pass', 
        '3_1_note', 
+       '3_1_warning',
        'valid_dataset', 
        'pass', 
        '4_1_warn',

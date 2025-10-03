@@ -2,6 +2,7 @@ PREFIX : <https://hse.ie/>
 PREFIX hseOntology: <https://hse.ie/ontology/>
 PREFIX phi: <https://hse.ie/ontology/phi#>
 PREFIX phd: <https://hse.ie/ontology/phd#>
+PREFIX phpt: <https://hse.ie/terminology/phpt#>
 PREFIX dcterms: <http://purl.org/dc/terms/>
 PREFIX dcat: <http://www.w3.org/ns/dcat#>
 
@@ -61,4 +62,28 @@ DELETE {
 
   ?distribution a dcat:Distribution ;
            dcterms:format ?distributionStr .
+};
+
+# transform dcterms:accrualPeriodicity
+DELETE {
+  ?s dcterms:accrualPeriodicity ?accrualPeriodicityStr .
+} INSERT {
+  ?s dcterms:accrualPeriodicity ?accrualPeriodicity .
+} WHERE {
+  ?s a dcat:Dataset ;
+     dcterms:accrualPeriodicity ?accrualPeriodicityStr .
+
+  BIND(
+    IF(?accrualPeriodicityStr = "EVERY_2_YEARS", phpt:EVERY_2_YEARS, 
+      IF(?accrualPeriodicityStr = "EVERY_3_YEARS", phpt:EVERY_3_YEARS,
+        IF(?accrualPeriodicityStr = "EVERY_4_YEARS", phpt:EVERY_4_YEARS,
+          IF(?accrualPeriodicityStr = "EVERY_5_YEARS", phpt:EVERY_5_YEARS,
+            IF(?accrualPeriodicityStr = "ANNUAL", phpt:ANNUAL, 
+              IF(?accrualPeriodicityStr = "MONTHLY", phpt:MONTHLY,
+                IF(?accrualPeriodicityStr = "QUARTERLY", phpt:QUARTERLY,
+                  IF(?accrualPeriodicityStr = "WEEKLY", phpt:WEEKLY,
+                    IF(?accrualPeriodicityStr = "DAILY", phpt:DAILY,
+                      IF(?accrualPeriodicityStr = "AS NEEDED", phpt:AS_NEEDED,
+                        IF(?accrualPeriodicityStr = "NEVER", phpt:NEVER, phpt:ANNUAL))))))))))
+    ) AS ?accrualPeriodicity)
 };
