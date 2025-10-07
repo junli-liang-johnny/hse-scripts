@@ -42,14 +42,14 @@ def feasibility_check(sparql, test_indicators: list[str]) -> list[str]:
         "3_1_pass": result["3_1_pass"]["value"],
         "3_1_note": result.get("3_1_note", {"value": ""})["value"],
         "3_1_warning": result.get("3_1_warning", {"value": ""})["value"],
-        "4_1_warn": result.get("4_1_warn", {"value": "false"})["value"],
-        "4_1_note": result.get("4_1_note", {"value": ""})["value"],
-        "4_2_warn": result.get("4_2_warn", {"value": "false"})["value"],
-        "4_2_note": result.get("4_2_note", {"value": ""})["value"],
-        "4_3_warn": result.get("4_3_warn", {"value": "false"})["value"],
-        "4_3_note": result.get("4_3_note", {"value": ""})["value"],
-        "data_protection_warning_check": result.get("data_protection_warning_check", {"value": "false"})["value"],
-        "data_protection_warning_note": result.get("data_protection_warning_note", {"value": "No personal data"})["value"],
+        "4_1_warning": result.get("4_1_warning", {"value": "false"})["value"],
+        "4_1_pass": result.get("4_1_pass", {"value": ""})["value"],
+        "4_2_warning": result.get("4_2_warning", {"value": "false"})["value"],
+        "4_2_pass": result.get("4_2_pass", {"value": ""})["value"],
+        "4_3_warning": result.get("4_3_warning", {"value": "false"})["value"],
+        "4_3_pass": result.get("4_3_pass", {"value": ""})["value"],
+        "data_protection_warning": result.get("data_protection_warning", {"value": ""})["value"],
+        "data_protection_pass": result.get("data_protection_pass", {"value": "false"})["value"],
       }
       for result in results["results"]["bindings"]
     ]
@@ -62,8 +62,6 @@ def convert2_dq_table(df: pd.DataFrame) -> pd.DataFrame:
     dq_table['DQ Pass'] = dq_table['pass']
     dq_table['DQ Score'] = dq_table['dq_score']
 
-    # data protection column mapping
-    dq_table['Warning'] = dq_table['data_protection_warning_check']
     # append warning notes from '1_7_warning', '2_1_warning', '2_2_warning', '3_1_warning' if they are not empty
     def combine_warnings(row):
         warnings = []
@@ -75,6 +73,8 @@ def convert2_dq_table(df: pd.DataFrame) -> pd.DataFrame:
             warnings.append(row['2_2_warning'])
         if row.get('3_1_warning'):
             warnings.append(row['3_1_warning'])
+        if row.get('data_protection_warning'):
+            warnings.append(row['data_protection_warning'])
         return '; '.join(warnings)
     dq_table['Warning'] = dq_table.apply(combine_warnings, axis=1)
 
@@ -132,14 +132,14 @@ def convert2_dq_table(df: pd.DataFrame) -> pd.DataFrame:
        '3_1_warning',
        'valid_dataset', 
        'pass', 
-       '4_1_warn',
-       '4_1_note',
-       '4_2_warn',
-       '4_2_note',
-       '4_3_warn',
-       '4_3_note',
-       'data_protection_warning_check',
-       'data_protection_warning_note',
+       '4_1_pass',
+       '4_1_warning',
+       '4_2_pass',
+       '4_2_warning',
+       '4_3_pass',
+       '4_3_warning',
+       'data_protection_pass',
+       'data_protection_warning',
       ]
     dq_table = dq_table.drop(columns=columns_to_drop)
 

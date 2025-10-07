@@ -27,24 +27,24 @@ SELECT
 ?valid_dataset
 ?1_7_pass
 ?1_7_note
-?1_7_warning 
+?1_7_warning
 ?2_1_pass
 ?2_1_note
-?2_1_warning 
+?2_1_warning
 ?2_2_pass
 ?2_2_note
-?2_2_warning 
+?2_2_warning
 ?3_1_pass
 ?3_1_note
-?3_1_warning 
-?4_1_warn
-?4_1_note
-?4_2_warn
-?4_2_note
-?4_3_warn
-?4_3_note
-?data_protection_warning_check
-?data_protection_warning_note
+?3_1_warning
+?4_1_pass
+?4_1_warning
+?4_2_pass
+?4_2_warning
+?4_3_pass
+?4_3_warning
+?data_protection_pass
+?data_protection_warning
 WHERE {
   ?indicator a phi:Indicator ;
   a dcat:Dataset .
@@ -70,36 +70,37 @@ WHERE {
 
   # Q 4.1
   BIND(IF(!BOUND(?hasPersonalData), 'unknown',
-      IF(?hasPersonalData = dpv:NonPersonalData, "false", "true")
-    ) AS ?4_1_warn)
-  BIND(IF(?4_1_warn = 'unknown', "Q4.1: Personal Data field not present", 
-      IF(?4_1_warn = 'true', "Q4.1: Indicator w/ Dataset contains personal/sensitive data", "")
-    ) AS ?4_1_note)
+      IF(?hasPersonalData = dpv:NonPersonalData, "true", "false")
+    ) AS ?4_1_pass)
+  BIND(IF(?4_1_pass = 'unknown', "Q4.1: Personal Data field not present", 
+      IF(?4_1_pass = 'true', "", "Q4.1: Indicator w/ Dataset contains personal/sensitive data")
+    ) AS ?4_1_warning)
 
   # Q 4.2
-  BIND(IF(!BOUND(?hasPersonalData), 'unknown', IF(?hasPersonalData = dpv:NonPersonalData, "false", "true")) AS ?4_2_warn)
-  BIND(IF(?4_2_warn = 'unknown', "Q4.2: Personal Data field not present",
-      IF(?4_2_warn = 'true', "Q4.2: Indicator w/ Dataset contains personal/sensitive data", "")
-    ) AS ?4_2_note)
+  BIND(IF(!BOUND(?hasPersonalData), 'unknown', IF(?hasPersonalData = dpv:NonPersonalData, "true", "false")) AS ?4_2_pass)
+  BIND(IF(?4_2_pass = 'unknown', "Q4.2: Personal Data field not present",
+      IF(?4_2_pass = 'true', "", "Q4.2: Indicator w/ Dataset contains personal/sensitive data")
+    ) AS ?4_2_warning)
 
   # Q 4.3
   BIND(IF(!BOUND(?hasDataController), 'unknown', 
-      IF(?hasDataController != "HSE", "true", "false")
-    ) AS ?4_3_warn)
-  BIND(IF(?4_3_warn = 'unknown', "Q4.3: Data Controller field not present",
-      IF(?4_3_warn = 'true', "Q4.3: Indicator w/ Dataset contains personal/sensitive data that is not controlled by HSE", "")
-    ) AS ?4_3_note)
+      IF(?hasDataController = "HSE", "true", "false")
+    ) AS ?4_3_pass)
+  BIND(IF(?4_3_pass = 'unknown', "Q4.3: Data Controller field not present",
+      IF(?4_3_pass = 'true', "", "Q4.3: Indicator w/ Dataset contains personal/sensitive data that is not controlled by HSE")
+    ) AS ?4_3_warning)
 
-  # overall data protection warning
-  BIND(IF((?4_1_warn = 'true' || ?4_2_warn = 'true' || ?4_3_warn = 'true'), "true", 
-      IF((?4_1_warn = 'unknown' || ?4_2_warn = 'unknown' || ?4_3_warn = 'unknown'), "unknown", "false")
-    ) AS ?data_protection_warning_check)
-  # concat all data protection notes
+  # overall data protection pass
+  BIND(IF((?4_1_pass = 'true' && ?4_2_pass = 'true' && ?4_3_pass = 'true'), "true", 
+      IF((?4_1_pass = 'unknown' || ?4_2_pass = 'unknown' || ?4_3_pass = 'unknown'), "unknown", "false")
+    ) AS ?data_protection_pass)
+
+  # concat all data protection warnings
   BIND(CONCAT(
-      IF(?4_1_note != "", CONCAT(?4_1_note, '; '), ""),
-      IF(?4_2_note != "", CONCAT(?4_2_note, '; ' ), ""),
-      IF(?4_3_note != "", ?4_3_note, "")
-    ) AS ?data_protection_warning_note)
+      IF(?4_1_warning != "", CONCAT(?4_1_warning, '; '), ""),
+      IF(?4_2_warning != "", CONCAT(?4_2_warning, '; '), ""),
+      IF(?4_3_warning != "", ?4_3_warning, "")
+    ) AS ?data_protection_warning)
 
   # with dataset?
   BIND(BOUND(?numeratorSource) && isURI(?numeratorSource) AS ?valid_dataset)
@@ -145,8 +146,8 @@ WHERE {
   BIND(IF(?indicatorAccrualPeriodicity >= ?datasetAccrualPeriodicity, "", "Q3.1: Numerator dataset does not have update frequency required by indicator") AS ?3_1_note)
 
   # overall pass
-  BIND(IF((?1_7_pass = "true" && ?2_1_pass = "true" && ?2_2_pass = "true" && ?3_1_pass = "true"), true, 
-      IF((?1_7_pass = "false" && ?2_1_pass = "false" && ?2_2_pass = "false" && ?3_1_pass = "false"), false, "unknown")
+  BIND(IF((?1_7_pass = "true" && ?2_1_pass = "true" && ?2_2_pass = "true" && ?3_1_pass = "true"), "true", 
+      IF((?1_7_pass = "false" && ?2_1_pass = "false" && ?2_2_pass = "false" && ?3_1_pass = "false"), "false", "unknown")
     ) AS ?pass)
 
   # DQ score
