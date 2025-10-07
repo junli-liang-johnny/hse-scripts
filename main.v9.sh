@@ -181,6 +181,9 @@ for file in ../hse-data/mapping/v9/*_final.ttl; do
 	s-post http://localhost:3030/v5/data default "$file"
 done
 
+echo "Loading phpt.ttl into the triple store..."
+s-post http://localhost:3030/v5/data default ../hse-data/mapping/phpt.ttl
+
 echo "number of triples in the store:"
 s-query --service http://localhost:3030/v5 "SELECT (COUNT(*) AS ?count) WHERE { ?s ?p ?o }"
 
