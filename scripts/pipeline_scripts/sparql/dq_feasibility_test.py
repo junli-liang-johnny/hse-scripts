@@ -30,6 +30,8 @@ def feasibility_check(sparql, test_indicators: list[str]) -> list[str]:
         "pass": result["pass"]["value"],
         "dq_score": result["dq_score"]["value"],
         "valid_dataset": result["valid_dataset"]["value"],
+        "1_1_pass": result["1_1_pass"]["value"],
+        "1_1_note": result.get("1_1_note", {"value": ""})["value"],
         "1_7_pass": result["1_7_pass"]["value"],
         "1_7_note": result.get("1_7_note", {"value": ""})["value"],
         "1_7_warning": result.get("1_7_warning", {"value": ""})["value"],
@@ -67,12 +69,18 @@ def convert2_dq_table(df: pd.DataFrame) -> pd.DataFrame:
         warnings = []
         if row.get('1_7_warning'):
             warnings.append(row['1_7_warning'])
+        if row.get('1_7_note'):
+            warnings.append(row['1_7_note'])
         if row.get('2_1_warning'):
             warnings.append(row['2_1_warning'])
+        if row.get('2_1_note'):
+            warnings.append(row['2_1_note'])
         if row.get('2_2_warning'):
             warnings.append(row['2_2_warning'])
         if row.get('3_1_warning'):
             warnings.append(row['3_1_warning'])
+        if row.get('3_1_note'):
+            warnings.append(row['3_1_note'])
         if row.get('data_protection_warning'):
             warnings.append(row['data_protection_warning'])
         return '; '.join(warnings)
@@ -80,6 +88,9 @@ def convert2_dq_table(df: pd.DataFrame) -> pd.DataFrame:
 
     def tests_not_passed_row(row):
         failed = []
+        # 1.1
+        if row.get('1_1_pass') == 'false' or row.get('1_1_pass') == 'unknown':
+            failed.append('Q1.1')
         # 1.7
         if row.get('1_7_pass') == 'false' or row.get('1_7_pass') == 'unknown':
             failed.append('Q1.7')
@@ -92,18 +103,21 @@ def convert2_dq_table(df: pd.DataFrame) -> pd.DataFrame:
         # 3.1
         if row.get('3_1_pass') == 'false' or row.get('3_1_pass') == 'unknown':
             failed.append('Q3.1')
+        if row.get('4_1_pass') == 'false' or row.get('4_1_pass') == 'unknown':
+            failed.append('Q4.1')
+        if row.get('4_2_pass') == 'false' or row.get('4_2_pass') == 'unknown':
+            failed.append('Q4.2')
+        if row.get('4_3_pass') == 'false' or row.get('4_3_pass') == 'unknown':
+            failed.append('Q4.3')
+
         return failed
 
     dq_table['Tests Not Passed'] = dq_table.apply(lambda row: ', '.join(tests_not_passed_row(row)), axis=1)
     # not passed Reasons: combine all *_note columns if not empty, prefix with test id
     note_cols = [
-        '1_7_note',
-        '2_1_note',
+        '1_1_note',
         '2_2_note',
-        '3_1_note'
     ]
-
-    # combine reasons from note columns '1_7_note', '2_1_note', '2_2_note', '3_1_note'
     # skip empty notes
     def failure_reasons_row(row):
         reasons = []
@@ -118,6 +132,8 @@ def convert2_dq_table(df: pd.DataFrame) -> pd.DataFrame:
       'indicator',
        'indicatorTitle', 
        'dq_score',
+       '1_1_pass',
+       '1_1_note',
        '1_7_pass', 
        '1_7_note', 
        '1_7_warning',

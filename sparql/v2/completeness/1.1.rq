@@ -1,6 +1,3 @@
-PREFIX sd: <http://www.w3.org/ns/sparql-service-description#>
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX ddc: <http://purl.org/NET/decimalised#>
 PREFIX dpv: <https://w3id.org/dpv#>
 PREFIX dcterm: <http://purl.org/dc/terms/>
@@ -18,5 +15,75 @@ PREFIX : <https://hse.ie/>
 PREFIX phi: <https://hse.ie/ontology/phi#>
 PREFIX phd: <https://hse.ie/ontology/phd#>
 PREFIX healthdcatap: <http://healthdata.dublinked.ie/def/healthdcatap#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
 
-# Are all fields necessary to generate this report present?
+SELECT DISTINCT
+?indicator
+?titlePresent
+?identifierPresent
+?accrualPeriodicityPresent
+?numeratorSourcePresent
+?disaggregationPresent
+?denominatorSourcePresent
+?temporalResolutionPresent
+?spatialAggregationPresent
+?spatialResolutionInMetersPresent
+?datasetAccrualPeriodicityPresent
+?hasPersonalDataPresent
+?hasDataControllerPresent
+?maxTypicalAgePresent
+WHERE {
+  ?indicator a dcat:Dataset ;
+  a phi:Indicator .
+
+  OPTIONAL { ?indicator dcterms:title ?title . } # required
+  OPTIONAL { ?indicator dct:identifier ?identifier } # required
+  OPTIONAL { ?indicator dcterms:accrualPeriodicity ?accrualPeriodicity . } # required
+  OPTIONAL { ?indicator phi:numeratorSource ?numeratorSource . } # required
+  OPTIONAL { ?indicator phi:disaggregation ?disaggregation . } # required
+  OPTIONAL { ?indicator phi:denominatorSource ?denominatorSource . } # required
+
+  OPTIONAL { 
+    ?indicator  phi:numeratorSource ?numeratorSource .
+
+    OPTIONAL { ?numeratorSource dcat:temporalResolution ?temporalResolution . }
+    OPTIONAL { ?numeratorSource phd:spatialAggregation ?spatialAggregation . }
+    OPTIONAL { ?numeratorSource dcat:spatialResolutionInMeters ?spatialResolutionInMeters . }
+    OPTIONAL { ?numeratorSource dcterms:accrualPeriodicity/phd:frequencyValue ?datasetAccrualPeriodicity . }
+
+    OPTIONAL { ?numeratorSource dpv:hasPersonalData ?hasPersonalData . }
+    OPTIONAL { ?numeratorSource dpv:hasDataController ?hasDataController . }
+    OPTIONAL { ?numeratorSource healthdcatap:maxTypicalAge ?maxTypicalAge . }
+  }
+
+  BIND(BOUND(?title) AS ?titlePresent)
+  BIND(BOUND(?identifier) AS ?identifierPresent)
+  BIND(BOUND(?accrualPeriodicity) AS ?accrualPeriodicityPresent)
+  BIND(BOUND(?numeratorSource) AS ?numeratorSourcePresent)
+  BIND(BOUND(?disaggregation) AS ?disaggregationPresent)
+  BIND(BOUND(?denominatorSource) AS ?denominatorSourcePresent)
+
+  BIND(BOUND(?temporalResolution) AS ?temporalResolutionPresent)
+  BIND(BOUND(?spatialAggregation) AS ?spatialAggregationPresent)
+  BIND(BOUND(?spatialResolutionInMeters) AS ?spatialResolutionInMetersPresent)
+  BIND(BOUND(?datasetAccrualPeriodicity) AS ?datasetAccrualPeriodicityPresent)
+  BIND(BOUND(?hasPersonalData) AS ?hasPersonalDataPresent)
+  BIND(BOUND(?hasDataController) AS ?hasDataControllerPresent)
+  BIND(BOUND(?maxTypicalAge) AS ?maxTypicalAgePresent)
+
+  BIND(IF(
+      ?titlePresent && 
+      ?identifierPresent && 
+      ?accrualPeriodicityPresent && 
+      ?numeratorSourcePresent && 
+      ?disaggregationPresent && 
+      ?denominatorSourcePresent && 
+      ?temporalResolutionPresent && 
+      ?spatialAggregationPresent &&
+      ?spatialResolutionInMetersPresent && 
+      ?datasetAccrualPeriodicityPresent && 
+      ?hasPersonalDataPresent && 
+      ?hasDataControllerPresent && 
+      ?maxTypicalAgePresent, true, false) AS ?pass)
+}
+ORDER BY ?indicator
