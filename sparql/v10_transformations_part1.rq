@@ -1,0 +1,130 @@
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX dcat: <http://www.w3.org/ns/dcat#>
+PREFIX dcterms: <http://purl.org/dc/terms/>
+PREFIX phi: <https://hse.ie/ontology/phi#>
+PREFIX phd: <https://hse.ie/ontology/phd#>
+PREFIX healthdcatap: <https://www.w3id.org/hdc/healthDCAT-AP#>
+PREFIX dpv: <https://w3id.org/dpv#>
+PREFIX prov: <http://www.w3.org/ns/prov#>
+PREFIX nace: <http://publications.europa.eu/resource/authority/nace/>
+PREFIX phpt: <https://hse.ie/terminology/phpt#>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+
+# 1. Convert phi:numeratorSource from string literal to IRI
+DELETE {
+  ?indicator phi:numeratorSource ?sourceStr .
+} INSERT {
+  ?indicator phi:numeratorSource ?sourceIRI .
+} WHERE {
+  ?indicator a phi:Indicator ;
+     phi:numeratorSource ?sourceStr .
+  FILTER(isLiteral(?sourceStr))
+  BIND(IRI(?sourceStr) AS ?sourceIRI)
+};
+
+# 2. Convert phi:denominatorSource from string literal to IRI
+DELETE {
+  ?indicator phi:denominatorSource ?sourceStr .
+} INSERT {
+  ?indicator phi:denominatorSource ?sourceIRI .
+} WHERE {
+  ?indicator a phi:Indicator ;
+     phi:denominatorSource ?sourceStr .
+  FILTER(isLiteral(?sourceStr))
+  BIND(IRI(?sourceStr) AS ?sourceIRI)
+};
+
+# 3. Link Indicator provenance labels to ProvenanceStatement resources
+DELETE {
+  ?indicator dcterms:provenance ?provenanceLabel .
+} INSERT {
+  ?indicator dcterms:provenance ?provenanceStatement .
+} WHERE {
+  ?indicator a phi:Indicator ;
+     dcterms:provenance ?provenanceLabel .
+  FILTER(isLiteral(?provenanceLabel))
+  ?provenanceStatement a dcterms:ProvenanceStatement ;
+     rdfs:label ?provenanceLabel .
+};
+
+# 4. Link IndicatorGroup provenance labels to ProvenanceStatement resources
+DELETE {
+  ?indicatorGroup dcterms:provenance ?provenanceLabel .
+} INSERT {
+  ?indicatorGroup dcterms:provenance ?provenanceStatement .
+} WHERE {
+  ?indicatorGroup a phi:IndicatorGroup ;
+     dcterms:provenance ?provenanceLabel .
+  FILTER(isLiteral(?provenanceLabel))
+  ?provenanceStatement a dcterms:ProvenanceStatement ;
+     rdfs:label ?provenanceLabel .
+};
+
+# 5. Link publisher labels to Publisher resources
+DELETE {
+  ?dataset dcterms:publisher ?publisherLabel .
+} INSERT {
+  ?dataset dcterms:publisher ?publisher .
+} WHERE {
+  ?dataset dcterms:publisher ?publisherLabel .
+  FILTER(isLiteral(?publisherLabel))
+  ?publisher a dcterms:Publisher ;
+     foaf:name ?name .
+  FILTER(STR(?publisherLabel) = STR(?name))
+};
+
+# 6. Link distribution labels to Distribution resources
+DELETE {
+  ?dataset dcat:distribution ?distributionLabel .
+} INSERT {
+  ?dataset dcat:distribution ?distribution .
+} WHERE {
+  ?dataset dcat:distribution ?distributionLabel .
+  FILTER(isLiteral(?distributionLabel))
+  ?distribution a dcat:Distribution ;
+     dcterms:title ?title .
+  FILTER(STR(?distributionLabel) = STR(?title))
+};
+
+# 7. Link contactPoint labels to vcard:Organization resources
+DELETE {
+  ?dataset dcat:contactPoint ?contactLabel .
+} INSERT {
+  ?dataset dcat:contactPoint ?contact .
+} WHERE {
+  ?dataset dcat:contactPoint ?contactLabel .
+  FILTER(isLiteral(?contactLabel))
+  ?contact foaf:name ?name .
+  FILTER(STR(?contactLabel) = STR(?name))
+};
+
+# 8. Link healthdcatap:hdab labels to Agent resources
+DELETE {
+  ?dataset healthdcatap:hdab ?hdabLabel .
+} INSERT {
+  ?dataset healthdcatap:hdab ?hdabAgent .
+} WHERE {
+  ?dataset healthdcatap:hdab ?hdabLabel .
+  FILTER(isLiteral(?hdabLabel))
+  ?hdabAgent a foaf:Agent ;
+     foaf:name ?name .
+  FILTER(STR(?hdabLabel) = STR(?name))
+};
+
+# 9. Convert dpv:hasPersonalData from typed string (xsd:anyURI) to IRI
+DELETE {
+  ?dataset dpv:hasPersonalData ?personalDataStr .
+} INSERT {
+  ?dataset dpv:hasPersonalData ?personalDataIRI .
+} WHERE {
+  ?dataset dpv:hasPersonalData ?personalDataStr .
+  FILTER(datatype(?personalDataStr) = xsd:anyURI)
+  BIND(
+    IF(STRSTARTS(STR(?personalDataStr), "dpv:"),
+      IRI(CONCAT("https://w3id.org/dpv#", STRAFTER(STR(?personalDataStr), "dpv:"))),
+      IRI(STR(?personalDataStr))
+    ) AS ?personalDataIRI
+  )
+}

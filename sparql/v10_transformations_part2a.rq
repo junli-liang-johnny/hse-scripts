@@ -1,0 +1,37 @@
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX dcat: <http://www.w3.org/ns/dcat#>
+PREFIX dcterms: <http://purl.org/dc/terms/>
+PREFIX phi: <https://hse.ie/ontology/phi#>
+PREFIX phd: <https://hse.ie/ontology/phd#>
+PREFIX healthdcatap: <https://www.w3id.org/hdc/healthDCAT-AP#>
+PREFIX dpv: <https://w3id.org/dpv#>
+PREFIX prov: <http://www.w3.org/ns/prov#>
+PREFIX nace: <http://publications.europa.eu/resource/authority/nace/>
+PREFIX phpt: <https://hse.ie/terminology/phpt#>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+
+# Transform dcterms:accrualPeriodicity to terminology IRIs for Indicators
+DELETE {
+  ?s dcterms:accrualPeriodicity ?accrualPeriodicityStr .
+} INSERT {
+  ?s dcterms:accrualPeriodicity ?accrualPeriodicity .
+} WHERE {
+  ?s a phi:Indicator ;
+     dcterms:accrualPeriodicity ?accrualPeriodicityStr .
+
+  BIND(
+    IF(?accrualPeriodicityStr = "EVERY_2_YEARS", phpt:EVERY_2_YEARS, 
+      IF(?accrualPeriodicityStr = "EVERY_3_YEARS", phpt:EVERY_3_YEARS,
+        IF(?accrualPeriodicityStr = "EVERY_4_YEARS", phpt:EVERY_4_YEARS,
+          IF(?accrualPeriodicityStr = "EVERY_5_YEARS", phpt:EVERY_5_YEARS,
+            IF(?accrualPeriodicityStr = "ANNUAL", phpt:ANNUAL, 
+              IF(?accrualPeriodicityStr = "MONTHLY", phpt:MONTHLY,
+                IF(?accrualPeriodicityStr = "QUARTERLY", phpt:QUARTERLY,
+                  IF(?accrualPeriodicityStr = "WEEKLY", phpt:WEEKLY,
+                    IF(?accrualPeriodicityStr = "DAILY", phpt:DAILY,
+                      IF(?accrualPeriodicityStr = "AS NEEDED", phpt:AS_NEEDED,
+                        IF(?accrualPeriodicityStr = "NEVER", phpt:NEVER, phpt:ANNUAL))))))))))
+    ) AS ?accrualPeriodicity)
+}
