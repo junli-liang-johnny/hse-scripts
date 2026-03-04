@@ -13,10 +13,8 @@ Data protection column has three states:
 3. High risk personal data
 """
 import os
-import sys
 import argparse
 import pandas as pd
-from pathlib import Path
 from rdflib import Graph
 
 def load_rdf_data(rdf_files):
@@ -89,7 +87,6 @@ def feasibility_check(graph, query_file):
 
 def convert2_dq_table(df: pd.DataFrame) -> pd.DataFrame:
     """Convert the DataFrame to the desired DQ table format"""
-    # Convert the DataFrame to the desired DQ table format
     dq_table = df.copy()
     # Apply any necessary transformations to match the DQ table structure
     dq_table['Indicator ID'] = dq_table['indicator'].apply(lambda x: x.split('/')[-1] if isinstance(x, str) else '')

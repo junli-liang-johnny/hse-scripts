@@ -144,9 +144,15 @@ create-subject-csv \
  --id-template-column 'dct:identifier'
 
 # Indicator groups
+echo "Transforming Indicator Groups.csv (adding IDs and extracting membership relationships)..."
+python scripts/pipeline/transform_indicator_groups.py \
+ ../hse-data/mapping/v10/indicator_groups.csv \
+ ../hse-data/mapping/v10/indicator_groups_final.csv \
+ ../hse-data/mapping/v10/indicator_group_members.csv
+
 echo "Creating Provenance Statements from Indicator Groups.csv..."
 create-csv \
- --input ../hse-data/mapping/v10/indicator_groups.csv \
+ --input ../hse-data/mapping/v10/indicator_groups_final.csv \
  --output ../hse-data/mapping/v10/indicator_groups_provenance.csv \
  --column 'dct:provenance [a dct:ProvenanceStatement; rdfs:label ]' \
  --header 'id' 'rdf:type' 'rdfs:label' \
