@@ -27,8 +27,10 @@ def create_csv(config: dict) -> None:
         identifiers = _load_identifiers(identifier_csv, identifier_column) if identifier_csv and identifier_column else []
         print(f"Identifiers loaded: {identifiers}")
 
+        row_indexes_to_remove = config.get("row_indexes_to_remove", [])
+
         with open(input_file, mode='r', encoding='utf-8') as infile:
-            reader = filter_csv(list(csv.reader(infile)), input_file, [])
+            reader = filter_csv(list(csv.reader(infile)), input_file, row_indexes_to_remove)
             filtered_rows = _minimise_rows(reader, column_name)
             print(f"Filtered rows: {filtered_rows}")
 
@@ -176,6 +178,13 @@ def main():
                 default=None,
                 help="Column name to extract identifiers from in the additional CSV file"
         )
+        parser.add_argument(
+                "--row-index-remove",
+                type=int,
+                nargs='*',
+                default=[],
+                help="Row indexes to remove from the input CSV (0-based). E.g. --row-index-remove 0 2"
+        )
 
         args = parser.parse_args()
 
@@ -189,7 +198,8 @@ def main():
                 "extracted_value_insert_index": args.extracted_value_insert_index,
                 "optional_values_to_insert": args.optional_values_to_insert,
                 "identifier_csv": args.identifier_csv,
-                "identifier_column": args.identifier_column
+                "identifier_column": args.identifier_column,
+                "row_indexes_to_remove": args.row_index_remove
         }
 
         create_csv(config)

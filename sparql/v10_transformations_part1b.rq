@@ -3,7 +3,7 @@ PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 PREFIX dcat: <http://www.w3.org/ns/dcat#>
 PREFIX dcterms: <http://purl.org/dc/terms/>
-PREFIX phi: <https://hse.ie/ontology/phi#>
+PREFIX phi: <https://w3id.org/hse/ontology/phi#>
 
 # This transformation is no longer needed as phi:memberOfGroup relationships
 # are now properly created as IRIs from the indicator_group_members.csv file

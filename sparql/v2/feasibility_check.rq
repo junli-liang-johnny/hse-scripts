@@ -12,10 +12,10 @@ PREFIX adms: <http://www.w3.org/ns/adms#>
 PREFIX dcterms: <http://purl.org/dc/terms/>
 prefix dc: <http://purl.org/dc/elements/1.1/>
 PREFIX foaf: <http://xmlns.com/foaf/0.1/>
-PREFIX : <https://hse.ie/>
-PREFIX phi: <https://hse.ie/ontology/phi#>
-PREFIX phd: <https://hse.ie/ontology/phd#>
-PREFIX phpt: <https://hse.ie/terminology/phpt#>
+PREFIX : <https://w3id.org/hse/>
+PREFIX phi: <https://w3id.org/hse/ontology/phi#>
+PREFIX phd: <https://w3id.org/hse/ontology/phd#>
+PREFIX pht: <https://w3id.org/hse/terminology#>
 PREFIX healthdcatap: <http://healthdata.dublinked.ie/def/healthdcatap#>
 PREFIX owl: <http://www.w3.org/2002/07/owl#>
 
@@ -131,11 +131,11 @@ WHERE {
 
   # 2.2
   BIND(IF(!BOUND(?spatialAggregation), "unknown", 
-      IF(?spatialAggregation = phpt:National || ?spatialAggregation = phpt:IHA || ?spatialAggregation = phpt:NUTS1, "true", "false")) 
+      IF(?spatialAggregation = pht:National || ?spatialAggregation = pht:IHA || ?spatialAggregation = pht:NUTS1, "true", "false")) 
     AS ?2_2_pass)
   BIND(
     IF(!BOUND(?spatialAggregation), "Q2.2: Spatial Resolution Code not present", 
-    IF(?spatialAggregation = phpt:National || ?spatialAggregation = phpt:IHA || ?spatialAggregation = phpt:NUTS1, "", "Q2.2: indicators w/ dataset don't have spatial resolution of National, IHA or NUTS1")) 
+    IF(?spatialAggregation = pht:National || ?spatialAggregation = pht:IHA || ?spatialAggregation = pht:NUTS1, "", "Q2.2: indicators w/ dataset don't have spatial resolution of National, IHA or NUTS1")) 
     AS ?2_2_warning)
   BIND("" AS ?2_2_note)
 

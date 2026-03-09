@@ -13,9 +13,9 @@ PREFIX dcterms: <http://purl.org/dc/terms/>
 prefix dc: <http://purl.org/dc/elements/1.1/>
 PREFIX foaf: <http://xmlns.com/foaf/0.1/>
 PREFIX : <https://hse.ie/>
-PREFIX phi: <https://hse.ie/ontology/phi#>
-PREFIX phd: <https://hse.ie/ontology/phd#>
-PREFIX phpt: <https://hse.ie/ontology/phpt#>
+PREFIX phi: <https://w3id.org/hse/ontology/phi#>
+PREFIX phd: <https://w3id.org/hse/ontology/phd#>
+PREFIX pht: <https://w3id.org/hse/terminology#>
 PREFIX healthdcatap: <http://healthdata.dublinked.ie/def/healthdcatap#>
 """
 

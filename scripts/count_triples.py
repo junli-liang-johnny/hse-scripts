@@ -79,8 +79,8 @@ def main():
     )
     parser.add_argument(
         '--terminology',
-        default='../hse-data/mapping/phpt.ttl',
-        help='Path to phpt.ttl terminology file'
+        default='../hse-data/mapping/pht.ttl',
+        help='Path to pht.ttl terminology file'
     )
     parser.add_argument(
         '--show-predicates',

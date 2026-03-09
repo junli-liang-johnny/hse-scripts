@@ -47,8 +47,8 @@ def fields_completeness(graph, query_file):
         'prov': Namespace('http://www.w3.org/ns/prov#'),
         'adms': Namespace('http://www.w3.org/ns/adms#'),
         'foaf': Namespace('http://xmlns.com/foaf/0.1/'),
-        'phi': Namespace('https://hse.ie/ontology/phi#'),
-        'phd': Namespace('https://hse.ie/ontology/phd#'),
+        'phi': Namespace('https://w3id.org/hse/ontology/phi#'),
+        'phd': Namespace('https://w3id.org/hse/ontology/phd#'),
         'healthdcatap': Namespace('http://healthdata.dublinked.ie/def/healthdcatap#'),
         'owl': Namespace('http://www.w3.org/2002/07/owl#'),
     }
