@@ -62,11 +62,26 @@ def main():
 		default=None,
 		help="Index to split the identifier template (optional)."
 	)
+	parser.add_argument(
+		"--row-index-remove",
+		type=int,
+		nargs='*',
+		default=[],
+		help="Row indexes to remove from the input CSV (0-based). E.g. --row-index-remove 0 2"
+	)
 	args = parser.parse_args()
 
-	# Read the input CSV
+	# Read the input CSV, optionally stripping extra header rows first
 	with open(args.input, mode='r', encoding='utf-8') as infile:
-		csv_reader = list(csv.DictReader(infile))
+		raw_rows = list(csv.reader(infile))
+	row_indexes_to_remove = args.row_index_remove if args.row_index_remove else []
+	if row_indexes_to_remove:
+		from scripts.rdf_mapping.csv_rdf_convert import filter_csv
+		filtered_rows = filter_csv(raw_rows, args.input, row_indexes_to_remove)
+		header = filtered_rows[0]
+		csv_reader = [dict(zip(header, row)) for row in filtered_rows[1:]]
+	else:
+		csv_reader = [dict(zip(raw_rows[0], row)) for row in raw_rows[1:]]
 	# Create the subject CSV
 	params = {
 		'csv_reader': csv_reader,

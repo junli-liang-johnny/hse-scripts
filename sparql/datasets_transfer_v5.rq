@@ -1,7 +1,7 @@
 PREFIX dcat: <http://www.w2.org/ns/dcat#>
 PREFIX dcterms: <http://purl.org/dc/terms/>
 PREFIX dpv: <https://w3id.org/dpv#>
-PREFIX phpt: <https://hse.ie/terminology/phpt#>
+PREFIX pht: <https://w3id.org/hse/terminology#>
 
 DELETE {
   ?s ?p "dpv:NonPersonalData" .
@@ -76,17 +76,17 @@ DELETE {
      dcterms:accrualPeriodicity ?accrualPeriodicityStr .
 
   BIND(
-    IF(?accrualPeriodicityStr = "EVERY_2_YEARS", phpt:EVERY_2_YEARS, 
-      IF(?accrualPeriodicityStr = "EVERY_3_YEARS", phpt:EVERY_3_YEARS,
-        IF(?accrualPeriodicityStr = "EVERY_4_YEARS", phpt:EVERY_4_YEARS,
-          IF(?accrualPeriodicityStr = "EVERY_5_YEARS", phpt:EVERY_5_YEARS,
-            IF(?accrualPeriodicityStr = "ANNUAL", phpt:ANNUAL, 
-              IF(?accrualPeriodicityStr = "MONTHLY", phpt:MONTHLY,
-                IF(?accrualPeriodicityStr = "QUARTERLY", phpt:QUARTERLY,
-                  IF(?accrualPeriodicityStr = "WEEKLY", phpt:WEEKLY,
-                    IF(?accrualPeriodicityStr = "DAILY", phpt:DAILY,
-                      IF(?accrualPeriodicityStr = "AS NEEDED", phpt:AS_NEEDED,
-                        IF(?accrualPeriodicityStr = "NEVER", phpt:NEVER, phpt:ANNUAL))))))))))
+    IF(?accrualPeriodicityStr = "EVERY_2_YEARS", pht:EVERY_2_YEARS, 
+      IF(?accrualPeriodicityStr = "EVERY_3_YEARS", pht:EVERY_3_YEARS,
+        IF(?accrualPeriodicityStr = "EVERY_4_YEARS", pht:EVERY_4_YEARS,
+          IF(?accrualPeriodicityStr = "EVERY_5_YEARS", pht:EVERY_5_YEARS,
+            IF(?accrualPeriodicityStr = "ANNUAL", pht:ANNUAL, 
+              IF(?accrualPeriodicityStr = "MONTHLY", pht:MONTHLY,
+                IF(?accrualPeriodicityStr = "QUARTERLY", pht:QUARTERLY,
+                  IF(?accrualPeriodicityStr = "WEEKLY", pht:WEEKLY,
+                    IF(?accrualPeriodicityStr = "DAILY", pht:DAILY,
+                      IF(?accrualPeriodicityStr = "AS NEEDED", pht:AS_NEEDED,
+                        IF(?accrualPeriodicityStr = "NEVER", pht:NEVER, pht:ANNUAL))))))))))
     ) AS ?accrualPeriodicity)
 };
 
@@ -99,14 +99,14 @@ DELETE {
   ?s a dcat:Dataset ;
      phd:spatialAggregation ?spatialAggregationStr .
 
-  BIND(IF(?spatialAggregationStr = "National", phpt:National, 
-      IF(?spatialAggregationStr = "County", phpt:County,
-        IF(?spatialAggregationStr = "IHA", phpt:IHA,
-          IF(?spatialAggregationStr = "LAU", phpt:LAU,
-            IF(?spatialAggregationStr = "LHO", phpt:LHO,
-              IF(?spatialAggregationStr = "NUTS1", phpt:NUTS1,
-                IF(?spatialAggregationStr = "NUTS2", phpt:NUTS2,
-                  IF(?spatialAggregationStr = "NUTS3", phpt:NUTS3, phpt:National)))))))
+  BIND(IF(?spatialAggregationStr = "National", pht:National, 
+      IF(?spatialAggregationStr = "County", pht:County,
+        IF(?spatialAggregationStr = "IHA", pht:IHA,
+          IF(?spatialAggregationStr = "LAU", pht:LAU,
+            IF(?spatialAggregationStr = "LHO", pht:LHO,
+              IF(?spatialAggregationStr = "NUTS1", pht:NUTS1,
+                IF(?spatialAggregationStr = "NUTS2", pht:NUTS2,
+                  IF(?spatialAggregationStr = "NUTS3", pht:NUTS3, pht:National)))))))
     ) AS ?spatialAggregation)
 };
 
@@ -119,9 +119,9 @@ DELETE {
   ?s a dcat:Dataset ;
      dc:spatial ?spatialStr .
 
-  BIND(IF(?spatialStr = "Country", phpt:Country, 
-      IF(?spatialStr = "County", phpt:County,
-        IF(?spatialStr = "IHA", phpt:IHA,
-          IF(?spatialStr = "Health region", phpt:HealthRegion, phpt:Country)))
+  BIND(IF(?spatialStr = "Country", pht:Country, 
+      IF(?spatialStr = "County", pht:County,
+        IF(?spatialStr = "IHA", pht:IHA,
+          IF(?spatialStr = "Health region", pht:HealthRegion, pht:Country)))
     ) AS ?spatial)
 };

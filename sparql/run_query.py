@@ -1,11 +1,10 @@
 from rdflib import Graph, Namespace, DCTERMS, DCAT
-from SPARQLWrapper import SPARQLWrapper, JSON
 
-HSE = Namespace("https://hse.ie/")
-HSE_ONTOLOGY = Namespace("https://hse.ie/ontology/")
-PHI = Namespace("https://hse.ie/ontology/phi#")
-PHD = Namespace("https://hse.ie/ontology/phd#")
+HSE = Namespace("https://w3id.org/hse/")
+PHI = Namespace("https://w3id.org/hse/ontology/phi#")
+PHD = Namespace("https://w3id.org/hse/ontology/phd#")
 DPV = Namespace("https://w3id.org/dpv#")
+PHT = Namespace("https://w3id.org/hse/terminology#")
 
 def create_graph() -> Graph:
 	g = Graph()
@@ -13,10 +12,10 @@ def create_graph() -> Graph:
 	g.bind("dct", DCTERMS)
 	g.bind("dcat", DCAT)
 	g.bind("hse", HSE)
-	g.bind("hseOntology", HSE_ONTOLOGY)
 	g.bind("phi", PHI)
 	g.bind("phd", PHD)
 	g.bind("dpv", DPV)
+	g.bind("pht", PHT)
 	return g
 
 def run_update_file(ttl_file: str, query_file: str, output: str) -> None:
@@ -29,6 +28,11 @@ def run_update_file(ttl_file: str, query_file: str, output: str) -> None:
 		# Load the Turtle file into a graph
 		g = create_graph()
 		g.parse(ttl_file, format='turtle')
+
+		# Re-bind prefixes after parsing to avoid rdflib creating phi1/phd1 duplicates
+		g.bind("phi", PHI)
+		g.bind("phd", PHD)
+		g.bind("pht", PHT)
 
 		# Read the SPARQL query from the file
 		with open(query_file, 'r') as f:

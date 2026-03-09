@@ -12,10 +12,10 @@ PREFIX adms: <http://www.w3.org/ns/adms#>
 PREFIX dcterms: <http://purl.org/dc/terms/>
 prefix dc: <http://purl.org/dc/elements/1.1/>
 PREFIX foaf: <http://xmlns.com/foaf/0.1/>
-PREFIX : <https://hse.ie/>
-PREFIX phi: <https://hse.ie/ontology/phi#>
-PREFIX phd: <https://hse.ie/ontology/phd#>
-PREFIX phpt: <https://hse.ie/terminology/phpt#>
+PREFIX : <https://w3id.org/hse/>
+PREFIX phi: <https://w3id.org/hse/ontology/phi#>
+PREFIX phd: <https://w3id.org/hse/ontology/phd#>
+PREFIX pht: <https://w3id.org/hse/terminology#>
 PREFIX healthdcatap: <http://healthdata.dublinked.ie/def/healthdcatap#>
 PREFIX owl: <http://www.w3.org/2002/07/owl#>
 
@@ -25,6 +25,8 @@ SELECT
 ?pass
 ?dq_score
 ?valid_dataset
+?1_1_pass
+?1_1_note
 ?1_7_pass
 ?1_7_note
 ?1_7_warning
@@ -52,14 +54,13 @@ WHERE {
 
   OPTIONAL { ?indicator dcterms:accrualPeriodicity/phd:frequencyValue ?indicatorAccrualPeriodicity . }
   OPTIONAL { ?indicator phi:disaggregation ?disaggregation . }
-  OPTIONAL { ?indicator phi:reportStyle ?reportStyle .}
+  OPTIONAL { ?indicator dcterms:identifier ?identifier . }
 
   OPTIONAL { 
     ?indicator  phi:numeratorSource ?numeratorSource .
 
     OPTIONAL { ?numeratorSource dcat:temporalResolution ?temporalResolution . }
     OPTIONAL { ?numeratorSource phd:spatialAggregation ?spatialAggregation . }
-    OPTIONAL { ?numeratorSource dcat:spatialResolutionInMeters ?spatialResolutionInMeters . }
     OPTIONAL { ?numeratorSource dcterms:accrualPeriodicity/phd:frequencyValue ?datasetAccrualPeriodicity . }
 
     OPTIONAL { ?numeratorSource dpv:hasPersonalData ?hasPersonalData . }
@@ -109,7 +110,7 @@ WHERE {
   # 1.7 - disaggregation
   BIND(IF(!BOUND(?disaggregation), "unknown", IF(CONTAINS(LCASE(STR(?disaggregation)), "65"), "true", "false")) AS ?disaggregation_pass)
   BIND(IF(!BOUND(?disaggregation), "Q1.7: Disaggregation not present", "") AS ?disaggregation_warning)
-  BIND(IF(CONTAINS(LCASE(STR(?disaggregation)), "65"), "", "Q1.7: don't have indicators w/ dataset for people aged over 65 ") AS ?disaggregation_note)
+  BIND(IF(CONTAINS(LCASE(STR(?disaggregation)), "65"), "", "Q1.7: disaggregation field don't have data for people aged over 65 ") AS ?disaggregation_note)
 
   # 1.7 - max typical age
   BIND(IF(!BOUND(?maxTypicalAge), "unknown", IF(xsd:integer(?maxTypicalAge) >= 65, "true", "false")) AS ?maxAge_pass)
@@ -125,15 +126,18 @@ WHERE {
 
   # 2.1
   BIND(IF(BOUND(?temporalResolution), "true", "unknown") AS ?2_1_pass)
-  BIND(IF(BOUND(?temporalResolution), "", "2.1: Minimal Temporal resolution not present") AS ?2_1_warning)
+  BIND(IF(BOUND(?temporalResolution), "", "Q2.1: Minimal Temporal resolution not present") AS ?2_1_warning)
   BIND("" AS ?2_1_note)
 
   # 2.2
   BIND(IF(!BOUND(?spatialAggregation), "unknown", 
-      IF(?spatialAggregation = phpt:National || ?spatialAggregation = phpt:IHA || ?spatialAggregation = phpt:NUTS1, "true", "false")) 
+      IF(?spatialAggregation = pht:National || ?spatialAggregation = pht:IHA || ?spatialAggregation = pht:NUTS1, "true", "false")) 
     AS ?2_2_pass)
-  BIND(IF(!BOUND(?spatialAggregation), "Q2.2: Spatial Resolution Code not present", "") AS ?2_2_warning)
-  BIND( IF(?spatialAggregation = phpt:National || ?spatialAggregation = phpt:IHA || ?spatialAggregation = phpt:NUTS1, "", "Q2.2: indicators w/ dataset don't have spatial resolution of National, IHA or NUTS1") AS ?2_2_note)
+  BIND(
+    IF(!BOUND(?spatialAggregation), "Q2.2: Spatial Resolution Code not present", 
+    IF(?spatialAggregation = pht:National || ?spatialAggregation = pht:IHA || ?spatialAggregation = pht:NUTS1, "", "Q2.2: indicators w/ dataset don't have spatial resolution of National, IHA or NUTS1")) 
+    AS ?2_2_warning)
+  BIND("" AS ?2_2_note)
 
   # 3.1 values for accrual periodicity: EVERY_5_YEARS, EVERY_4_YEARS, EVERY_3_YEARS, EVERY_2_YEARS, ANNUAL, DAILY, MONTHLY, QUARTERLY, WEEKLY, NEVER, AS_NEEDED
   BIND(IF(!BOUND(?indicatorAccrualPeriodicity), "unknown", 
@@ -145,13 +149,41 @@ WHERE {
   BIND(CONCAT(?3_1_indicator_warning, ?3_1_dataset_warning) AS ?3_1_warning)
   BIND(IF(?indicatorAccrualPeriodicity >= ?datasetAccrualPeriodicity, "", "Q3.1: Numerator dataset does not have update frequency required by indicator") AS ?3_1_note)
 
+  # 1.1 required fields
+  BIND(BOUND(?indicatorTitle) AS ?titlePresent)
+  BIND(BOUND(?identifier) AS ?identifierPresent)
+  BIND(BOUND(?indicatorAccrualPeriodicity) AS ?accrualPeriodicityPresent)
+  BIND(BOUND(?numeratorSource) AS ?numeratorSourcePresent)
+  BIND(BOUND(?disaggregation) AS ?disaggregationPresent)
+
+  BIND(BOUND(?temporalResolution) AS ?temporalResolutionPresent)
+  BIND(BOUND(?spatialAggregation) AS ?spatialAggregationPresent)
+  BIND(BOUND(?datasetAccrualPeriodicity) AS ?datasetAccrualPeriodicityPresent)
+  BIND(BOUND(?hasPersonalData) AS ?hasPersonalDataPresent)
+  BIND(BOUND(?hasDataController) AS ?hasDataControllerPresent)
+  BIND(BOUND(?maxTypicalAge) AS ?maxTypicalAgePresent)
+
+  BIND(IF(
+      ?titlePresent && 
+      ?identifierPresent && 
+      ?accrualPeriodicityPresent && 
+      ?numeratorSourcePresent && 
+      ?disaggregationPresent && 
+      ?temporalResolutionPresent && 
+      ?spatialAggregationPresent &&
+      ?datasetAccrualPeriodicityPresent && 
+      ?hasPersonalDataPresent && 
+      ?hasDataControllerPresent && 
+      ?maxTypicalAgePresent, true, false) AS ?1_1_pass)
+  BIND(IF(?1_1_pass, "", "Q1.1: Indicator w/ Dataset missing one or more required fields") AS ?1_1_note)
+
   # overall pass
-  BIND(IF((?1_7_pass = "true" && ?2_1_pass = "true" && ?2_2_pass = "true" && ?3_1_pass = "true"), "true", 
-      IF((?1_7_pass = "false" && ?2_1_pass = "false" && ?2_2_pass = "false" && ?3_1_pass = "false"), "false", "unknown")
+  BIND(IF((?1_1_pass && ?2_1_pass = "true"), "true", 
+      IF((!?1_1_pass && ?2_1_pass = "false"), "false", "unknown")
     ) AS ?pass)
 
   # DQ score
-  BIND(IF(?1_7_pass = "true", 1, 0) + IF(?2_1_pass = "true", 1, 0) + IF(?2_2_pass = "true", 1, 0) + IF(?3_1_pass = "true", 1, 0) AS ?num_pass)
-  BIND(?num_pass/4 AS ?dq_score)
+  BIND(IF(?1_1_pass, 1, 0) + IF(?2_1_pass = "true", 1, 0) AS ?num_pass)
+  BIND(?num_pass/2 AS ?dq_score)
 }
 ORDER BY ASC(?indicator)

@@ -1,8 +1,8 @@
 PREFIX : <https://hse.ie/>
 PREFIX hseOntology: <https://hse.ie/ontology/>
-PREFIX phi: <https://hse.ie/ontology/phi#>
-PREFIX phd: <https://hse.ie/ontology/phd#>
-PREFIX phpt: <https://hse.ie/terminology/phpt#>
+PREFIX phi: <https://w3id.org/hse/ontology/phi#>
+PREFIX phd: <https://w3id.org/hse/ontology/phd#>
+PREFIX pht: <https://w3id.org/hse/terminology#>
 PREFIX dcterms: <http://purl.org/dc/terms/>
 PREFIX dcat: <http://www.w3.org/ns/dcat#>
 
@@ -74,16 +74,16 @@ DELETE {
      dcterms:accrualPeriodicity ?accrualPeriodicityStr .
 
   BIND(
-    IF(?accrualPeriodicityStr = "EVERY_2_YEARS", phpt:EVERY_2_YEARS, 
-      IF(?accrualPeriodicityStr = "EVERY_3_YEARS", phpt:EVERY_3_YEARS,
-        IF(?accrualPeriodicityStr = "EVERY_4_YEARS", phpt:EVERY_4_YEARS,
-          IF(?accrualPeriodicityStr = "EVERY_5_YEARS", phpt:EVERY_5_YEARS,
-            IF(?accrualPeriodicityStr = "ANNUAL", phpt:ANNUAL, 
-              IF(?accrualPeriodicityStr = "MONTHLY", phpt:MONTHLY,
-                IF(?accrualPeriodicityStr = "QUARTERLY", phpt:QUARTERLY,
-                  IF(?accrualPeriodicityStr = "WEEKLY", phpt:WEEKLY,
-                    IF(?accrualPeriodicityStr = "DAILY", phpt:DAILY,
-                      IF(?accrualPeriodicityStr = "AS NEEDED", phpt:AS_NEEDED,
-                        IF(?accrualPeriodicityStr = "NEVER", phpt:NEVER, phpt:ANNUAL))))))))))
+    IF(?accrualPeriodicityStr = "EVERY_2_YEARS", pht:EVERY_2_YEARS, 
+      IF(?accrualPeriodicityStr = "EVERY_3_YEARS", pht:EVERY_3_YEARS,
+        IF(?accrualPeriodicityStr = "EVERY_4_YEARS", pht:EVERY_4_YEARS,
+          IF(?accrualPeriodicityStr = "EVERY_5_YEARS", pht:EVERY_5_YEARS,
+            IF(?accrualPeriodicityStr = "ANNUAL", pht:ANNUAL, 
+              IF(?accrualPeriodicityStr = "MONTHLY", pht:MONTHLY,
+                IF(?accrualPeriodicityStr = "QUARTERLY", pht:QUARTERLY,
+                  IF(?accrualPeriodicityStr = "WEEKLY", pht:WEEKLY,
+                    IF(?accrualPeriodicityStr = "DAILY", pht:DAILY,
+                      IF(?accrualPeriodicityStr = "AS NEEDED", pht:AS_NEEDED,
+                        IF(?accrualPeriodicityStr = "NEVER", pht:NEVER, pht:ANNUAL))))))))))
     ) AS ?accrualPeriodicity)
 };

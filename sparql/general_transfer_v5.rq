@@ -1,7 +1,7 @@
 PREFIX : <https://hse.ie/>
 PREFIX hseOntology: <https://hse.ie/ontology/>
-PREFIX phi: <https://hse.ie/ontology/phi#>
-PREFIX phd: <https://hse.ie/ontology/phd#>
+PREFIX phi: <https://w3id.org/hse/ontology/phi#>
+PREFIX phd: <https://w3id.org/hse/ontology/phd#>
 PREFIX dcterms: <http://purl.org/dc/terms/>
 PREFIX dcat: <http://www.w3.org/ns/dcat#>
 

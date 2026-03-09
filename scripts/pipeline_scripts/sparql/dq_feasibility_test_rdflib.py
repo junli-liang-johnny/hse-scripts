@@ -1,8 +1,7 @@
-import argparse
-from SPARQLWrapper import SPARQLWrapper, JSON
-import pandas as pd
-
+#!/usr/bin/env python3
 """
+DQ feasibility test using RDFlib (no triplestore required)
+
 need to change this column into Data feasibility for OAHWP result:  
 Pass = DQ tests 1.7, 2,3  pass, metadata is not present
 Fail = DQ tests 1.7, 2,3 fail AND metadata is present in the critical fields 
@@ -13,54 +12,84 @@ Data protection column has three states:
 2. Some personal data
 3. High risk personal data
 """
+import os
+import argparse
+import pandas as pd
+from rdflib import Graph
 
-def feasibility_check(sparql, test_indicators: list[str]) -> list[str]:
-  with open("./sparql/v2/feasibility_check.rq", "r", encoding="utf-8") as f:
-    query = f.read()
-    sparql.setQuery(query)
-    sparql.setReturnFormat(JSON)
-    results = sparql.query().convert()
+def load_rdf_data(rdf_files):
+    """Load RDF files into a single graph"""
+    g = Graph()
+    for rdf_file in rdf_files:
+        if not os.path.exists(rdf_file):
+            print(f"Warning: RDF file not found: {rdf_file}")
+            continue
+        print(f"Loading {rdf_file}...")
+        g.parse(rdf_file, format='turtle')
+    print(f"Loaded {len(g)} triples")
+    return g
 
-    print(f"Headers: {results['head']['vars']}")
-    print(f"First result: {results['results']['bindings'][0] if results['results']['bindings'] else 'No results'}")
-    return [
-      {
-        "indicator": result["indicator"]["value"],
-        "indicatorTitle": result["indicatorTitle"]["value"],
-        "pass": result["pass"]["value"],
-        "dq_score": result["dq_score"]["value"],
-        "valid_dataset": result["valid_dataset"]["value"],
-        "1_1_pass": result["1_1_pass"]["value"],
-        "1_1_note": result.get("1_1_note", {"value": ""})["value"],
-        "1_7_pass": result["1_7_pass"]["value"],
-        "1_7_note": result.get("1_7_note", {"value": ""})["value"],
-        "1_7_warning": result.get("1_7_warning", {"value": ""})["value"],
-        "2_1_pass": result["2_1_pass"]["value"],
-        "2_1_note": result.get("2_1_note", {"value": ""})["value"],
-        "2_1_warning": result.get("2_1_warning", {"value": ""})["value"],
-        "2_2_pass": result["2_2_pass"]["value"],
-        "2_2_note": result.get("2_2_note", {"value": ""})["value"],
-        "2_2_warning": result.get("2_2_warning", {"value": ""})["value"],
-        "3_1_pass": result["3_1_pass"]["value"],
-        "3_1_note": result.get("3_1_note", {"value": ""})["value"],
-        "3_1_warning": result.get("3_1_warning", {"value": ""})["value"],
-        "4_1_warning": result.get("4_1_warning", {"value": "false"})["value"],
-        "4_1_pass": result.get("4_1_pass", {"value": ""})["value"],
-        "4_2_warning": result.get("4_2_warning", {"value": "false"})["value"],
-        "4_2_pass": result.get("4_2_pass", {"value": ""})["value"],
-        "4_3_warning": result.get("4_3_warning", {"value": "false"})["value"],
-        "4_3_pass": result.get("4_3_pass", {"value": ""})["value"],
-        "data_protection_warning": result.get("data_protection_warning", {"value": ""})["value"],
-        "data_protection_pass": result.get("data_protection_pass", {"value": "false"})["value"],
-      }
-      for result in results["results"]["bindings"]
-    ]
+def feasibility_check(graph, query_file):
+    """Execute the feasibility_check.rq query against the RDFlib graph"""
+    from rdflib.namespace import Namespace
+    
+    # Read the SPARQL query
+    with open(query_file, 'r', encoding='utf-8') as f:
+        query = f.read()
+    
+    # Define namespaces explicitly for RDFlib
+    initNs = {
+        'xsd': Namespace('http://www.w3.org/2001/XMLSchema#'),
+        'ddc': Namespace('http://purl.org/NET/decimalised#'),
+        'dpv': Namespace('https://w3id.org/dpv#'),
+        'dcterm': Namespace('http://purl.org/dc/terms/'),
+        'dct': Namespace('http://purl.org/dc/terms/'),
+        'dcterms': Namespace('http://purl.org/dc/terms/'),
+        'dc': Namespace('http://purl.org/dc/elements/1.1/'),
+        'dcat': Namespace('http://www.w3.org/ns/dcat#'),
+        'skos': Namespace('http://www.w3.org/2004/02/skos/core#'),
+        'prov': Namespace('http://www.w3.org/ns/prov#'),
+        'adms': Namespace('http://www.w3.org/ns/adms#'),
+        'foaf': Namespace('http://xmlns.com/foaf/0.1/'),
+        'phi': Namespace('https://w3id.org/hse/ontology/phi#'),
+        'phd': Namespace('https://w3id.org/hse/ontology/phd#'),
+        'pht': Namespace('https://w3id.org/hse/terminology#'),
+        'healthdcatap': Namespace('http://healthdata.dublinked.ie/def/healthdcatap#'),
+        'owl': Namespace('http://www.w3.org/2002/07/owl#'),
+    }
+    
+    # Execute query with namespace bindings
+    results = graph.query(query, initNs=initNs)
+    
+    # Get variable names
+    var_names = [str(var) for var in results.vars]
+    print(f"Headers: {var_names}")
+    
+    # Convert results to list of dicts
+    data = []
+    for row in results:
+        result_dict = {}
+        for var in results.vars:
+            var_name = str(var)
+            value = row[var]
+            if value is not None:
+                result_dict[var_name] = str(value)
+            else:
+                result_dict[var_name] = ""
+        data.append(result_dict)
+    
+    if data:
+        print(f"First result: {data[0]}")
+    else:
+        print("No results")
+    
+    return data
 
 def convert2_dq_table(df: pd.DataFrame) -> pd.DataFrame:
-    # Convert the DataFrame to the desired DQ table format
+    """Convert the DataFrame to the desired DQ table format"""
     dq_table = df.copy()
     # Apply any necessary transformations to match the DQ table structure
-    dq_table['Indicator ID'] = dq_table['indicator'].apply(lambda x: x.split('/')[-1])
+    dq_table['Indicator ID'] = dq_table['indicator'].apply(lambda x: x.split('/')[-1] if isinstance(x, str) else '')
     dq_table['DQ Pass'] = dq_table['pass']
     dq_table['DQ Score'] = dq_table['dq_score']
 
@@ -162,28 +191,29 @@ def convert2_dq_table(df: pd.DataFrame) -> pd.DataFrame:
     return dq_table
 
 def main():
-  parser = argparse.ArgumentParser(description="DQ feasibility test")
-  parser.add_argument("--sparql-endpoint", "-e", default="http://localhost:3030/v5", help="SPARQL endpoint URL")
-  parser.add_argument("-o", "--output-csv", default="output.csv", help="Output file")
-  args = parser.parse_args()
+    parser = argparse.ArgumentParser(description="DQ feasibility test using RDFlib")
+    parser.add_argument("--rdf-files", "-r", nargs='+', required=True, help="RDF files to load (TTL format)")
+    parser.add_argument("--query-file", "-q", default="sparql/v2/feasibility_check.rq", help="SPARQL query file")
+    parser.add_argument("-o", "--output-csv", default="output.csv", help="Output CSV file")
+    args = parser.parse_args()
 
-  sparql_endpoint = args.sparql_endpoint
-  # input_ttl = args.input_ttl
-  output_csv = args.output_csv
+    # Load RDF data
+    graph = load_rdf_data(args.rdf_files)
+    
+    # Execute query
+    print(f"Executing query from {args.query_file}...")
+    feasibility_check_results = feasibility_check(graph, args.query_file)
+    
+    # Convert to DataFrame
+    feasibility_results_df = pd.DataFrame(feasibility_check_results)
+    feasibility_results_df.to_csv(args.output_csv, index=False)
+    print(f"Results written to {args.output_csv}")
 
-  sparql = SPARQLWrapper(sparql_endpoint)
-  sparql.setReturnFormat(JSON)
-
-  feasibility_check_results = feasibility_check(sparql, [])
-  feasibility_results_df = pd.DataFrame(feasibility_check_results)
-  feasibility_results_df.to_csv(output_csv, index=False)
-  print(f"Results written to {output_csv}")
-
-  print("Converting to DQ table format...")
-  dq_table_df = convert2_dq_table(feasibility_results_df)
-  dq_table_output_path = output_csv.replace(".csv", "_dq_table.csv")
-  dq_table_df.to_csv(dq_table_output_path, index=False)
-  print(f"DQ table results written to {dq_table_output_path}")
+    print("Converting to DQ table format...")
+    dq_table_df = convert2_dq_table(feasibility_results_df)
+    dq_table_output_path = args.output_csv.replace(".csv", "_dq_table.csv")
+    dq_table_df.to_csv(dq_table_output_path, index=False)
+    print(f"DQ table results written to {dq_table_output_path}")
 
 if __name__ == "__main__":
-  main()
+    main()

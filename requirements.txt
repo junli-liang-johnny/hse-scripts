@@ -15,5 +15,4 @@ rdflib==7.1.4
 rml-py @ git+https://github.com/junli-liang-johnny/rml-py.git
 seaborn==0.13.2
 six==1.17.0
-SPARQLWrapper==2.0.0
 tzdata==2025.2
