@@ -43,6 +43,33 @@ The pipeline generates RDF data in Turtle (TTL) format that includes:
 - Metadata enrichment using standard vocabularies
 - SPARQL-queryable data for advanced analytics and reporting
 
+## Terminology Tools
+
+Scripts for generating and maintaining the HSE Terminology documentation are located in `scripts/terminology/`.
+
+### `scripts/terminology/inject_skos_metadata.py`
+
+Reads a SKOS `ConceptScheme` from a Turtle (`.ttl`) file and injects a rendered metadata section (abstract, version, dates, creator, contributors, licence, etc.) into a SKOS-Play generated `index.html`. Replaces any existing abstract and metadata blocks so the HTML stays in sync with the TTL source of truth.
+
+**Usage:**
+
+```bash
+# In-place (overwrites index.html)
+python scripts/terminology/inject_skos_metadata.py \
+  ../hse-data/mapping/terminology/terms-1.0.1.ttl \
+  ../hse-terminology/1.0.1/index.html
+
+# Write to a separate output file
+python scripts/terminology/inject_skos_metadata.py \
+  ../hse-data/mapping/terminology/terms-1.0.1.ttl \
+  ../hse-terminology/1.0.1/index.html \
+  --output ../hse-terminology/1.0.1/index_updated.html
+```
+
+**Dependencies:** `rdflib` (already in `requirements.txt`)
+
+---
+
 ## Dependencies
 
 The pipeline requires several Python packages (see `requirements.txt`) and follows modular design principles for maintainability and extensibility.
