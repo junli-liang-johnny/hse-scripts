@@ -2,6 +2,7 @@
 """
 Transform indicator_groups.csv to add IDs and extract memberOfGroup relationships.
 """
+import argparse
 import csv
 import sys
 
@@ -14,14 +15,26 @@ def normalize_whitespace(text: str) -> str:
     return ' '.join(text.split())
 
 
-def transform_indicator_groups(input_path: str, output_path: str, relationships_path: str):
+def transform_indicator_groups(
+    input_path: str,
+    output_path: str,
+    relationships_path: str,
+    namespace: str = 'https://w3id.org/hse/indicator-group/',
+    member_namespace: str | None = None,
+):
     """
     Transform indicator_groups.csv:
     1. Add an 'id' column with full IRIs based on dct:identifier
     2. Remove phi:memberOfGroup column (relationships extracted to separate file)
     3. Create a separate relationships CSV with group-member mappings
     4. Normalize whitespace in provenance fields to match ProvenanceStatement labels
+
+    Args:
+        namespace:        Base IRI for indicator group subjects (trailing slash optional).
+        member_namespace: Base IRI for member indicator subjects. Defaults to namespace.
     """
+    ns = namespace.rstrip('/') + '/'
+    member_ns = (member_namespace.rstrip('/') + '/') if member_namespace else ns
     relationships = []
     provenance_column = 'dct:provenance [a dct:ProvenanceStatement; rdfs:label ]'
     
@@ -38,7 +51,7 @@ def transform_indicator_groups(input_path: str, output_path: str, relationships_
             if not identifier:
                 continue
             
-            group_iri = f'https://hse.ie/data/id/{identifier}'
+            group_iri = f'{ns}{identifier}'
             row['id'] = group_iri
             
             # Normalize whitespace in provenance field to ensure SPARQL matching works
@@ -53,7 +66,7 @@ def transform_indicator_groups(input_path: str, output_path: str, relationships_
                     if member_id:
                         relationships.append({
                             'group_id': group_iri,
-                            'member_id': f'https://hse.ie/data/id/{member_id}'
+                            'member_id': f'{member_ns}{member_id}'
                         })
             
             # Remove memberOfGroup from row
@@ -77,12 +90,28 @@ def transform_indicator_groups(input_path: str, output_path: str, relationships_
 
 
 if __name__ == '__main__':
-    if len(sys.argv) != 4:
-        print("Usage: transform_indicator_groups.py <input_csv> <output_csv> <relationships_csv>")
-        sys.exit(1)
-    
-    input_file = sys.argv[1]
-    output_file = sys.argv[2]
-    relationships_file = sys.argv[3]
-    
-    transform_indicator_groups(input_file, output_file, relationships_file)
+    parser = argparse.ArgumentParser(
+        description='Transform indicator_groups.csv: add IDs and extract memberOfGroup relationships'
+    )
+    parser.add_argument('input', help='Input CSV file (indicator_groups.csv)')
+    parser.add_argument('output', help='Output CSV file (indicator_groups_final.csv)')
+    parser.add_argument('relationships', help='Output relationships CSV (indicator_group_members.csv)')
+    parser.add_argument(
+        '--namespace',
+        default='https://w3id.org/hse/indicator-group/',
+        help='Base IRI for indicator group subjects (default: https://w3id.org/hse/indicator-group/)',
+    )
+    parser.add_argument(
+        '--member-namespace',
+        default=None,
+        help='Base IRI for member indicator subjects (default: same as --namespace)',
+    )
+    args = parser.parse_args()
+
+    transform_indicator_groups(
+        args.input,
+        args.output,
+        args.relationships,
+        namespace=args.namespace,
+        member_namespace=args.member_namespace,
+    )
