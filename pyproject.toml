@@ -46,6 +46,7 @@ delphi-populate = "scripts.delphi.populate_metadata:main"
 run-query = "sparql.run_query:main"
 dq-sparql = "scripts.pipeline_scripts.sparql.dq_sparql:main"
 hse-pipeline = "scripts.pipeline_cli:main"
+hse-validate = "scripts.validate.dq_validator:main"
 
 [tool.setuptools.dynamic]
 dependencies = {file = ["requirements.txt"]}
