@@ -1,0 +1,310 @@
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX dc: <http://purl.org/dc/elements/1.1/>
+PREFIX dcat: <http://www.w3.org/ns/dcat#>
+PREFIX dcterms: <http://purl.org/dc/terms/>
+PREFIX phi: <https://w3id.org/hse/ontology/phi#>
+PREFIX phd: <https://w3id.org/hse/ontology/phd#>
+PREFIX healthdcatap: <https://www.w3id.org/hdc/healthDCAT-AP#>
+PREFIX pht: <https://w3id.org/hse/terminology#>
+
+# ============================================================
+# Part 3: Link controlled-vocabulary string literals to pht: SKOS concepts
+# ============================================================
+
+# 1. phi:status → pht:StatusCode concept
+DELETE {
+  ?s phi:status ?str .
+} INSERT {
+  ?s phi:status ?term .
+} WHERE {
+  ?s phi:status ?str .
+  FILTER(isLiteral(?str))
+  BIND(
+    IF(STR(?str) = "Include in Profile",    pht:IncludeinProfile,
+    IF(STR(?str) = "Exclude from Profile",  pht:ExcludefromProfile,
+    IF(STR(?str) = "Exclude from Catalogue",pht:ExcludefromCatalogue,
+    IF(STR(?str) = "Include in Catalogue",  pht:IncludeinCatalogue,
+    IF(STR(?str) = "Under Consideration",   pht:UnderConsideration,
+       ?str))))) AS ?term)
+  FILTER(isIRI(?term))
+};
+
+# 2. dcterms:accessRights → pht:AccessRightsCode concept
+DELETE {
+  ?s dcterms:accessRights ?str .
+} INSERT {
+  ?s dcterms:accessRights ?term .
+} WHERE {
+  ?s dcterms:accessRights ?str .
+  FILTER(isLiteral(?str))
+  BIND(
+    IF(STR(?str) = "Public",     pht:Public,
+    IF(STR(?str) = "Non-public", pht:NonPublic,
+    IF(STR(?str) = "Restricted", pht:Restricted,
+       ?str))) AS ?term)
+  FILTER(isIRI(?term))
+};
+
+# 3. dcterms:type → pht:DataTypeCode concept
+DELETE {
+  ?s dcterms:type ?str .
+} INSERT {
+  ?s dcterms:type ?term .
+} WHERE {
+  ?s dcterms:type ?str .
+  FILTER(isLiteral(?str))
+  BIND(
+    IF(STR(?str) = "Statistical",   pht:STATISTICAL,
+    IF(STR(?str) = "Personal Data", pht:PersonalData,
+    IF(STR(?str) = "Survey",        pht:SURVEY,
+       ?str))) AS ?term)
+  FILTER(isIRI(?term))
+};
+
+# 4. dcat:temporalResolution → pht:DurationCode concept
+DELETE {
+  ?s dcat:temporalResolution ?str .
+} INSERT {
+  ?s dcat:temporalResolution ?term .
+} WHERE {
+  ?s dcat:temporalResolution ?str .
+  FILTER(isLiteral(?str))
+  BIND(
+    IF(STR(?str) = "P1Y", pht:P1Y,
+    IF(STR(?str) = "P3M", pht:P3M,
+    IF(STR(?str) = "P1M", pht:P1M,
+    IF(STR(?str) = "P1D", pht:P1D,
+    IF(STR(?str) = "P1W", pht:P1W,
+       ?str))))) AS ?term)
+  FILTER(isIRI(?term))
+};
+
+# 5. phd:spatialAggregation → pht:SpatialGranularityCode concept
+#    Note: "Hospital" has no matching pht: concept and is retained as a literal.
+DELETE {
+  ?s phd:spatialAggregation ?str .
+} INSERT {
+  ?s phd:spatialAggregation ?term .
+} WHERE {
+  ?s phd:spatialAggregation ?str .
+  FILTER(isLiteral(?str))
+  BIND(
+    IF(STR(?str) = "National", pht:National,
+    IF(STR(?str) = "County",   pht:County,
+    IF(STR(?str) = "LHO",      pht:LHO,
+       ?str))) AS ?term)
+  FILTER(isIRI(?term))
+};
+
+# 6. dc:spatial → pht:LocationCode concept
+#    "Country" is mapped to pht:Ireland (national scope); "County" to pht:County.
+DELETE {
+  ?s dc:spatial ?str .
+} INSERT {
+  ?s dc:spatial ?term .
+} WHERE {
+  ?s dc:spatial ?str .
+  FILTER(isLiteral(?str))
+  BIND(
+    IF(STR(?str) = "Country", pht:Ireland,
+    IF(STR(?str) = "County",  pht:County,
+       ?str)) AS ?term)
+  FILTER(isIRI(?term))
+};
+
+# ============================================================
+# 7. phi:indicatorType — semicolon-delimited multi-value field
+#    Step 7a) INSERT one pht: triple per recognised token.
+#    Step 7b) DELETE all remaining string literals.
+#    Unrecognised values ("Mean", "Median") are dropped with a note below.
+# ============================================================
+
+INSERT {
+  ?s phi:indicatorType pht:Count .
+} WHERE {
+  ?s phi:indicatorType ?str .
+  FILTER(isLiteral(?str) && REGEX(STR(?str), "(^|;\\s*)Count(\\s*;|$)"))
+};
+
+INSERT {
+  ?s phi:indicatorType pht:Proportion .
+} WHERE {
+  ?s phi:indicatorType ?str .
+  FILTER(isLiteral(?str) && REGEX(STR(?str), "(^|;\\s*)Proportion(\\s*;|$)"))
+};
+
+INSERT {
+  ?s phi:indicatorType pht:Rate .
+} WHERE {
+  ?s phi:indicatorType ?str .
+  FILTER(isLiteral(?str) && REGEX(STR(?str), "(^|;\\s*)Rate(\\s*;|$)"))
+};
+
+INSERT {
+  ?s phi:indicatorType pht:Ratio .
+} WHERE {
+  ?s phi:indicatorType ?str .
+  FILTER(isLiteral(?str) && REGEX(STR(?str), "(^|;\\s*)Ratio(\\s*;|$)"))
+};
+
+INSERT {
+  ?s phi:indicatorType pht:Projection .
+} WHERE {
+  ?s phi:indicatorType ?str .
+  FILTER(isLiteral(?str) && REGEX(STR(?str), "(^|;\\s*)Projection(\\s*;|$)"))
+};
+
+# Note: "Mean" and "Median" have no matching pht: concept yet.
+# They are dropped here; add pht:Mean and pht:Median to the terminology
+# (pht:IndicatorTypeCode scheme) to preserve them.
+DELETE {
+  ?s phi:indicatorType ?str .
+} WHERE {
+  ?s phi:indicatorType ?str .
+  FILTER(isLiteral(?str))
+};
+
+# ============================================================
+# 8. healthdcatap:healthTheme — semicolon-delimited multi-value field
+#    Step 8a) INSERT one pht: triple per recognised token (case-insensitive for
+#             inconsistently capitalised values).
+#    Step 8b) DELETE all remaining string literals.
+#    "SAFETY" has no matching pht: concept and will be dropped.
+# ============================================================
+
+INSERT {
+  ?s healthdcatap:healthTheme pht:HEALTHCARE_USE .
+} WHERE {
+  ?s healthdcatap:healthTheme ?str .
+  FILTER(isLiteral(?str) && REGEX(STR(?str), "(^|;\\s*)HEALTHCARE USE(\\s*;|$)", "i"))
+};
+
+INSERT {
+  ?s healthdcatap:healthTheme pht:HEALTH_STATUS .
+} WHERE {
+  ?s healthdcatap:healthTheme ?str .
+  FILTER(isLiteral(?str) && REGEX(STR(?str), "(^|;\\s*)HEALTH STATUS(\\s*;|$)", "i"))
+};
+
+INSERT {
+  ?s healthdcatap:healthTheme pht:HEALTH_BEHAVIOURS .
+} WHERE {
+  ?s healthdcatap:healthTheme ?str .
+  FILTER(isLiteral(?str) && REGEX(STR(?str), "(^|;\\s*)HEALTH BEHAVIO(U)?RS?(\\s*;|$)", "i"))
+};
+
+INSERT {
+  ?s healthdcatap:healthTheme pht:CHRONIC_DISEASES .
+} WHERE {
+  ?s healthdcatap:healthTheme ?str .
+  FILTER(isLiteral(?str) && REGEX(STR(?str), "(^|;\\s*)CHRONIC DISEASES?(\\s*;|$)", "i"))
+};
+
+INSERT {
+  ?s healthdcatap:healthTheme pht:ChronicConditions .
+} WHERE {
+  ?s healthdcatap:healthTheme ?str .
+  FILTER(isLiteral(?str) && REGEX(STR(?str), "(^|;\\s*)Chronic conditions(\\s*;|$)", "i"))
+};
+
+INSERT {
+  ?s healthdcatap:healthTheme pht:DEMOGRAPHICS .
+} WHERE {
+  ?s healthdcatap:healthTheme ?str .
+  FILTER(isLiteral(?str) && REGEX(STR(?str), "(^|;\\s*)DEMOGRAPHICS(\\s*;|$)", "i"))
+};
+
+INSERT {
+  ?s healthdcatap:healthTheme pht:OurPopulation .
+} WHERE {
+  ?s healthdcatap:healthTheme ?str .
+  FILTER(isLiteral(?str) && REGEX(STR(?str), "(^|;\\s*)Our population(\\s*;|$)", "i"))
+};
+
+INSERT {
+  ?s healthdcatap:healthTheme pht:CONNECTIONS_AND_PARTICIPATION .
+} WHERE {
+  ?s healthdcatap:healthTheme ?str .
+  FILTER(isLiteral(?str) && REGEX(STR(?str), "(^|;\\s*)CONNECTIONS AND PARTICIPATION(\\s*;|$)", "i"))
+};
+
+INSERT {
+  ?s healthdcatap:healthTheme pht:EDUCATION_AND_SKILLS .
+} WHERE {
+  ?s healthdcatap:healthTheme ?str .
+  FILTER(isLiteral(?str) && REGEX(STR(?str), "(^|;\\s*)EDUCATION( AND SKILLS)?(\\s*;|$)", "i"))
+};
+
+INSERT {
+  ?s healthdcatap:healthTheme pht:FINANCES .
+} WHERE {
+  ?s healthdcatap:healthTheme ?str .
+  FILTER(isLiteral(?str) && REGEX(STR(?str), "(^|;\\s*)FINANCES(\\s*;|$)", "i"))
+};
+
+INSERT {
+  ?s healthdcatap:healthTheme pht:HOUSING_AND_ENVIRONMENT .
+} WHERE {
+  ?s healthdcatap:healthTheme ?str .
+  FILTER(isLiteral(?str) && REGEX(STR(?str), "(^|;\\s*)HOUSING AND ENVIRONMENT(\\s*;|$)", "i"))
+};
+
+INSERT {
+  ?s healthdcatap:healthTheme pht:VULNERABLE_GROUPS .
+} WHERE {
+  ?s healthdcatap:healthTheme ?str .
+  FILTER(isLiteral(?str) && REGEX(STR(?str), "(^|;\\s*)VULNERABLE GROUPS(\\s*;|$)", "i"))
+};
+
+INSERT {
+  ?s healthdcatap:healthTheme pht:PROVIDING_CARE .
+} WHERE {
+  ?s healthdcatap:healthTheme ?str .
+  FILTER(isLiteral(?str) && REGEX(STR(?str), "(^|;\\s*)PROVIDING CARE(\\s*;|$)", "i"))
+};
+
+INSERT {
+  ?s healthdcatap:healthTheme pht:DeterminantsOfHealthWellbeing .
+} WHERE {
+  ?s healthdcatap:healthTheme ?str .
+  FILTER(isLiteral(?str) && REGEX(STR(?str), "(^|;\\s*)Determinants of Health", "i"))
+};
+
+INSERT {
+  ?s healthdcatap:healthTheme pht:OptimisingHealthWellbeing .
+} WHERE {
+  ?s healthdcatap:healthTheme ?str .
+  FILTER(isLiteral(?str) && REGEX(STR(?str), "(^|;\\s*)Optimi(s|z)ing Health", "i"))
+};
+
+INSERT {
+  ?s healthdcatap:healthTheme pht:UseOfAcuteServices .
+} WHERE {
+  ?s healthdcatap:healthTheme ?str .
+  FILTER(isLiteral(?str) && REGEX(STR(?str), "(^|;\\s*)Use of acute services(\\s*;|$)", "i"))
+};
+
+INSERT {
+  ?s healthdcatap:healthTheme pht:UseOfCommunityServices .
+} WHERE {
+  ?s healthdcatap:healthTheme ?str .
+  FILTER(isLiteral(?str) && REGEX(STR(?str), "(^|;\\s*)Use of community services(\\s*;|$)", "i"))
+};
+
+INSERT {
+  ?s healthdcatap:healthTheme pht:HEALTHCARE_AVAILABILITY_AND_INTEGRATION .
+} WHERE {
+  ?s healthdcatap:healthTheme ?str .
+  FILTER(isLiteral(?str) && REGEX(STR(?str), "(^|;\\s*)HEALTHCARE AVAILABILITY AND INTEGRATION(\\s*;|$)", "i"))
+};
+
+# Note: "SAFETY" has no matching pht: concept. It is dropped here;
+# add pht:SAFETY to the terminology to preserve it.
+DELETE {
+  ?s healthdcatap:healthTheme ?str .
+} WHERE {
+  ?s healthdcatap:healthTheme ?str .
+  FILTER(isLiteral(?str))
+}
