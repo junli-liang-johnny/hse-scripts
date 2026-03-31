@@ -25,7 +25,9 @@ classifiers = [
     "Programming Language :: Python :: 3.13",
 ]
 dependencies = [
-    "rml-py @ git+https://github.com/junli-liang-johnny/rml-py.git"
+    "rml-py @ git+https://github.com/junli-liang-johnny/rml-py.git",
+    "matplotlib>=3.5.0",
+    "SPARQLWrapper>=2.0.0"
 ]
 
 [project.urls]
@@ -46,7 +48,12 @@ delphi-populate = "scripts.delphi.populate_metadata:main"
 run-query = "sparql.run_query:main"
 dq-sparql = "scripts.pipeline_scripts.sparql.dq_sparql:main"
 hse-pipeline = "scripts.pipeline_cli:main"
+generate-static-pages = "scripts.generate_static_pages:main"
 hse-validate = "scripts.validate.dq_validator:main"
+hse-completeness = "scripts.validate.completeness_summary:main"
+hse-completeness-viz = "scripts.validate.completeness_visualize:main"
+hse-field-viz = "scripts.validate.field_completeness_viz:main"
+hse-indicator-viz = "scripts.validate.indicator_category_viz:main"
 
 [tool.setuptools.dynamic]
 dependencies = {file = ["requirements.txt"]}

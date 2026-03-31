@@ -5,7 +5,7 @@ create-csv \
 	--column 'phi:numeratorSource [a dct:dataset [a dct:publisher [a dcterms:source]]' \
 	--header 'id' 'rdf:type' 'dcterms:publisher' \
 	--namespace 'https://w3id.org/hse/' \
-	--id-template '/indicator/{uuid}' \
+	--id-template 'indicator/{uuid}' \
 	--extracted-value-insert-index -1 \
 	--optional-values-to-insert 'dcat:Dataset' 'https://w3id.org/hse/indicator/{uuid}' \
 	--row-index-remove 0 2
@@ -17,7 +17,7 @@ create-csv \
 	--column 'phi:numeratorSource [a dct:dataset [a dct:publisher [a dcterms:source]]' \
 	--header 'id' 'rdf:type' 'dcterms:source' \
 	--namespace 'https://w3id.org/hse/' \
-	--id-template '/publisher/{uuid}' \
+	--id-template 'publisher/{uuid}' \
 	--extracted-value-insert-index 2 \
 	--optional-values-to-insert 'dct:Publisher' \
 	--identifier-csv ../hse-data/mapping/indicators_dcat-dataset.csv \
@@ -31,7 +31,7 @@ create-csv \
 	--column 'dct:provenance [a dct:ProvenanceStatement; rdfs:label ]' \
 	--header 'id' 'rdf:type' 'rdfs:label' \
 	--namespace 'https://w3id.org/hse/' \
-	--id-template '/prov/{uuid}' \
+	--id-template 'prov/{uuid}' \
 	--extracted-value-insert-index 2 \
 	--optional-values-to-insert 'dcterms:ProvenanceStatement' \
 	--row-index-remove 0 2
@@ -51,7 +51,7 @@ create-csv \
  --column 'dct:publisher [ a dct:Publisher; foaf:name ]' \
  --header 'id' 'rdf:type' 'foaf:name' \
  --namespace 'https://w3id.org/hse/' \
- --id-template '/dataset/{uuid}' \
+	--id-template 'dataset/{uuid}' \
  --extracted-value-insert-index 2 \
  --optional-values-to-insert 'dct:Publisher' \
  --identifier-csv ../hse-data/mapping/v10/datasets.csv \
@@ -65,7 +65,7 @@ create-csv \
  --column 'dct:Provenance [a dct:ProvenanceStatement; rdfs:label ]' \
  --header 'id' 'rdf:type' 'rdfs:label' \
  --namespace 'https://w3id.org/hse/' \
- --id-template '/prov/{uuid}' \
+	--id-template 'prov/{uuid}' \
  --extracted-value-insert-index 2 \
  --optional-values-to-insert 'dcterms:ProvenanceStatement' \
  --row-index-remove 0 2 3
@@ -77,7 +77,7 @@ create-csv \
  --column 'dcat:contactPoint [vcard:individual vcard:fn]' \
  --header 'id' 'rdf:type' 'vcard:fn' \
  --namespace 'https://w3id.org/hse/' \
- --id-template '/contact-point/{uuid}' \
+	--id-template 'contact-point/{uuid}' \
  --extracted-value-insert-index 2 \
  --optional-values-to-insert 'vcard:Individual' \
  --row-index-remove 0 2 3
@@ -89,7 +89,7 @@ create-csv \
  --column 'dcterms:temporal [a dct:PeriodOfTime; dcat:startDate ""^^xsd:dateTime; dcat:endDate ""^^xsd:dateTime.]' \
  --header 'id' 'rdf:type' 'dcat:startDate' \
  --namespace 'https://w3id.org/hse/' \
- --id-template '/date/{uuid}' \
+	--id-template 'date/{uuid}' \
  --extracted-value-insert-index 2 \
  --optional-values-to-insert 'dct:PeriodOfTime' \
  --row-index-remove 0 2 3
@@ -101,7 +101,7 @@ create-csv \
  --column 'dcterms:temporal [a dct:PeriodOfTime; dcat:endDate ""^^xsd:dateTime.]' \
  --header 'id' 'rdf:type' 'dcat:endDate' \
  --namespace 'https://w3id.org/hse/' \
- --id-template '/date/{uuid}' \
+	--id-template 'date/{uuid}' \
  --extracted-value-insert-index 2 \
  --optional-values-to-insert 'dct:PeriodOfTime' \
  --row-index-remove 0 2 3
@@ -113,7 +113,7 @@ create-csv \
  --column 'dcat:distribution [ a dcat:Distribution; dct:format]' \
  --header 'id' 'rdf:type' 'dcat:format' \
  --namespace 'https://w3id.org/hse/' \
- --id-template '/dist/{uuid}' \
+	--id-template 'dist/{uuid}' \
  --extracted-value-insert-index 2 \
  --optional-values-to-insert 'dcat:Distribution' \
  --row-index-remove 0 2 3
@@ -125,7 +125,7 @@ create-csv \
  --column 'adms:sample[ a dcat:Distribution; dcat:accessURL]' \
  --header 'id' 'rdf:type' 'dcat:accessURL' \
  --namespace 'https://w3id.org/hse/' \
- --id-template '/data/{uuid}' \
+	--id-template 'data/{uuid}' \
  --extracted-value-insert-index 2 \
  --optional-values-to-insert 'dcat:Distribution' \
  --row-index-remove 0 2 3
@@ -137,7 +137,7 @@ create-csv \
  --column 'healthdcatap:hdab [a foaf:Agent; foaf:name ]' \
  --header 'id' 'rdf:type' 'foaf:name' \
  --namespace 'https://w3id.org/hse/' \
- --id-template '/agent/{uuid}' \
+	--id-template 'agent/{uuid}' \
  --extracted-value-insert-index 2 \
  --optional-values-to-insert 'foaf:Agent' \
  --row-index-remove 0 2 3
@@ -166,7 +166,7 @@ create-csv \
  --column 'dct:provenance [a dct:ProvenanceStatement; rdfs:label ]' \
  --header 'id' 'rdf:type' 'rdfs:label' \
  --namespace 'https://w3id.org/hse/' \
- --id-template '/prov/{uuid}' \
+	--id-template 'prov/{uuid}' \
  --extracted-value-insert-index 2 \
  --optional-values-to-insert 'dcterms:ProvenanceStatement'
 

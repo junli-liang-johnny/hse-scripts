@@ -4,6 +4,29 @@
 
 This repository contains a comprehensive data pipeline for converting raw CSV files into RDF (Resource Description Framework) data in TTL (Turtle) format. The pipeline is specifically designed for processing HSE and CSO data, including indicators and datasets, with the goal of creating semantic web-ready data that follows established ontologies and vocabularies.
 
+## Installation
+
+To install the HSE scripts and CLI commands:
+
+```bash
+# Clone the repository
+git clone https://github.com/hse-ucd/hse-scripts.git
+cd hse-scripts
+
+# Install in development mode (recommended for local development)
+pip install -e .
+
+# Or install normally
+pip install .
+```
+
+After installation, you'll have access to CLI commands like:
+
+- `generate-static-pages` - Generate static HTML pages from RDF TTL files
+- `hse-pipeline` - Run the HSE data pipeline
+- `csv-rdf-convert` - Convert CSV to RDF
+- And more... (see `pyproject.toml` for full list)
+
 ## Pipeline Purpose
 
 The main objective of this pipeline is to:
@@ -67,6 +90,46 @@ python scripts/terminology/inject_skos_metadata.py \
 ```
 
 **Dependencies:** `rdflib` (already in `requirements.txt`)
+
+### `scripts/generate_static_pages.py`
+
+Generates static HTML pages for individual indicators, indicator groups, and datasets from an RDF Turtle (`.ttl`) file. Used by the [hse-data-portal](https://github.com/hse-ucd/hse-data-portal) to create semantic web-friendly URLs that can be referenced via w3id.org redirects.
+
+**CLI Usage (after installation):**
+
+```bash
+# Using the installed CLI command
+generate-static-pages \
+  --ttl-file /path/to/mappings_final.ttl \
+  --output-dir /path/to/output
+```
+
+**Direct script usage:**
+
+```bash
+# Running the script directly
+python scripts/generate_static_pages.py \
+  --ttl-file /path/to/mappings_final.ttl \
+  --output-dir /path/to/output
+```
+
+**What it generates:**
+
+- `/indicator/{id}/index.html` - Individual page for each indicator
+- `/indicator-group/{id}/index.html` - Individual page for each indicator group
+- `/dataset/{id}/index.html` - Individual page for each dataset
+
+**Features:**
+
+- Password-protected pages (uses `auth.js` from hse-data-portal)
+- Clean, semantic URLs for linked data
+- Renders all RDF properties in a user-friendly format
+- Internal links between related resources
+- Responsive Bootstrap-based design
+
+**Dependencies:** `rdflib` (already in `requirements.txt`)
+
+**Used by:** GitHub Actions workflow in `hse-data-portal` for automatic deployment
 
 ---
 
